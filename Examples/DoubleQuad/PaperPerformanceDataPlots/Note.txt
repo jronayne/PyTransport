@@ -1,0 +1,5 @@
+The plots in this folder follow from the setup and initial conditions for the 4 cases of the double-quadratic example detailed the paper which are used to test the performance with sub-horizon e-folds and convergence.
+
+The data and plots were generated using the timing.py script adjusting the horizon crossing time and alpha beta configuration.
+
+The associated raw data is in the data subfolder of this folder.

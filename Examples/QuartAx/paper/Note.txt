@@ -1,0 +1,5 @@
+The plots in this folder follow from the setup and initial conditions for the axion-quartic example in the paper.
+
+The data and plots were generated using the scripts in the folder above.
+
+The associated raw data is in the data subfolder of this folder.

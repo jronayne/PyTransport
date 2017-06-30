@@ -1,0 +1,5 @@
+The plots in this folder follow from the setup and initial conditions for the double quadratic model which are described in the user guide.
+
+The data and plots were generated using the scripts in the parent folder.
+
+The associated raw data is in the data subfolder of this folder.
