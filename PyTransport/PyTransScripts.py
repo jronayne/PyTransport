@@ -121,11 +121,11 @@ def ICs(NB, k, back, params, MTE):
 
 
 # calculates the power spectrum at each element in kA at the end of the background evolution (back)
-def pSpectra(kA, back, params, NB, MTE):
+def pSpectra(kA, back, params, NB, tols, MTE):
     zzOut=np.array([])
     times = np.array([])
     num = np.size(kA)
-    tols=np.array([10**-10,10**-10])
+    
     for ii in range(0,num):
         print ("\n \n \n performing " + str(ii+1) + " of " + str(num)+"\n \n \n")
         k=kA[ii]
@@ -145,7 +145,7 @@ def pSpectra(kA, back, params, NB, MTE):
     return zzOut, times
 
 # calculates the power spectrum at each element in kA at the end of the background evolution (back) in a manner suitable to be called over many processes
-def pSpecMpi(kA, back, params, NB, MTE):
+def pSpecMpi(kA, back, params, NB, tols, MTE):
     from mpi4py import MPI
     comm = MPI.COMM_WORLD
 
@@ -161,7 +161,7 @@ def pSpecMpi(kA, back, params, NB, MTE):
 
     kOutL = kA[rank*num:rank*num+num]
     
-    zzL, timesL = pSpectra(kOutL, back, params, 5.0, MTE)
+    zzL, timesL = pSpectra(kOutL, back, params, NB, tols, MTE)
 
     if rank != 0:
         comm.Send(zzL,dest=0)
@@ -185,12 +185,12 @@ def pSpecMpi(kA, back, params, NB, MTE):
         return (np.empty, np.empty)
 
 # calculates the power spectrum and bisecpturm in equilateral configuration at each element in kA at the end of the background evolution (back)
-def eqSpectra(kA, back, params, NB, MTE):
+def eqSpectra(kA, back, params, NB, tols, MTE):
     zzzOut=np.array([])
     zzOut=np.array([])
     times = np.array([])
     num = np.size(kA)
-    tols=np.array([10**-8,10**-8])
+    
     for ii in range(0,num):
         print ("\n \n \n performing " + str(ii+1) + " of " + str(num) + "\n \n \n")
         k=kA[ii]
@@ -211,7 +211,7 @@ def eqSpectra(kA, back, params, NB, MTE):
     return zzOut, zzzOut, times
 
 # calculates the power spectrum and bisecpturm in equilateral configuration at each element in kA at the end of the background evolution (back) in a manner suitable to be run accoss many processes
-def eqSpecMpi(kA, back, params, NB, MTE):
+def eqSpecMpi(kA, back, params, NB,tols, MTE):
     from mpi4py import MPI
     comm = MPI.COMM_WORLD
 
@@ -227,7 +227,7 @@ def eqSpecMpi(kA, back, params, NB, MTE):
 
     kOutL = kA[rank*num:rank*num+num]
 
-    zzL, zzzL, timesL = eqSpectra(kOutL, back, params, NB, MTE)
+    zzL, zzzL, timesL = eqSpectra(kOutL, back, params, NB, tols, MTE)
   
     if rank !=0:
         comm.Send(zzzL,dest=0)
@@ -256,7 +256,7 @@ def eqSpecMpi(kA, back, params, NB, MTE):
         return (np.empty, np.empty, np.empty)
 
 # calcualtes the bispectrum in the alpha beta notation for a given kt at every value of the alphaIn and betIn arrays. The bispectrum is given an nsnaps times always incuding the final time of the evolution (back)
-def alpBetSpectra(kt,alphaIn, betaIn, back, params, NB, nsnaps, MTE):
+def alpBetSpectra(kt,alphaIn, betaIn, back, params, NB, nsnaps, tols, MTE):
 
     Hin = np.zeros(np.size(back[:,0]))
     for jj in range(0,np.size(back[:,0])):
@@ -275,7 +275,7 @@ def alpBetSpectra(kt,alphaIn, betaIn, back, params, NB, nsnaps, MTE):
     zz2 = np.zeros([np.size(alphaIn),np.size(betaIn),np.size(snaps)])
     zz3 = np.zeros([np.size(alphaIn),np.size(betaIn),np.size(snaps)])
     times = np.zeros([np.size(alphaIn),np.size(betaIn)])
-    tols=np.array([10**-10,10**-10])
+    
     for l in range(0,np.size(alphaIn)):
       alpha =  alphaIn[l]          
       for j in range(0,np.size(betaIn)):
@@ -313,7 +313,7 @@ def alpBetSpectra(kt,alphaIn, betaIn, back, params, NB, nsnaps, MTE):
     return (biAOut, zz1, zz2, zz3, times, snaps)
 
 # performs the same task as alpBetSpectra but in a manner suitable to be spread across many processes
-def alpBetSpecMpi(kt, alpha, beta, back, params, NB, nsnaps, MTE):
+def alpBetSpecMpi(kt, alpha, beta, back, params, NB, nsnaps,tols, MTE):
     from mpi4py import MPI
     comm = MPI.COMM_WORLD
     side = np.size(alpha)
@@ -330,7 +330,7 @@ def alpBetSpecMpi(kt, alpha, beta, back, params, NB, nsnaps, MTE):
 
         alphaL=alpha[rank*num:rank*num+num]
     
-        BzL, Pz1L, Pz2L, Pz3L,  timesL, snaps = alpBetSpectra(kt,alphaL, beta, back, params, Nbefore, nsnaps, MTE)
+        BzL, Pz1L, Pz2L, Pz3L,  timesL, snaps = alpBetSpectra(kt,alphaL, beta, back, params, Nbefore, nsnaps,tols, MTE)
 
         if rank != 0:
             comm.send(Pz1L,dest=0)

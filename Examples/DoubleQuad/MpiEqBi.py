@@ -53,7 +53,7 @@ k1 = PyS.kexitN(NExit1, back, pvalue, PyT)
 k2 = PyS.kexitN(NExit2, back, pvalue, PyT)
 kOut= np.logspace(log10(k1), log10(k2), points)
 
-Pztot, Bztot, times = PyS.eqSpecMpi(kOut, back, pvalue, 4.5, PyT)
+Pztot, Bztot, times = PyS.eqSpecMpi(kOut, back, pvalue, 4.5, tols,PyT)
 
 print ("\n\n process " + str(rank) + " done \n\n")
 

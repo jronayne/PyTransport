@@ -13,7 +13,7 @@ import sys  # imports sys package for sue below
 #It assumes the DQuadSetup file has been run to install a double quadratic version of PyTrans
 #It is recommended you restart the kernel before running this file to insure any updates to PyTransDQuad are imported
 
-location = "/Users/David/Dropbox/PyTransportDist/PyTransport/" # this should be the location of the PyTrans folder 
+location = "/home/jwr/Code/June/PyTransport2Dist//PyTransport/" # this should be the location of the PyTrans folder 
 sys.path.append(location) # sets up python path to give access to PyTransSetup
 
 import PyTransSetup
@@ -60,7 +60,7 @@ for ii in range(0,500):
     NExit = 10.0 + ii*0.08
     k = PyS.kexitN(NExit, back, pvalue, PyT)  
     kOut = np.append(kOut,k) # this builds an array of ks associated with different NExit times from 10 to 50
-Pz, times = PyS.pSpectra(kOut,back,pvalue,4.0,PyT) # this cacalcute P_z for this range of ks, using 5.0 e-folds of subhorizon evolution
+Pz, times = PyS.pSpectra(kOut,back,pvalue,4.0,tols,PyT) # this cacalcute P_z for this range of ks, using 5.0 e-folds of subhorizon evolution
 #==============================================================================
 # zz, zzz, timesB = PyS.eqSpectra(kOut, back, pvalue, 4.0, PyT)
 #==============================================================================
@@ -90,3 +90,4 @@ fig2=plt.figure(2)
 plt.plot(np.log(kOut/kOut[0]), ns , linewidth = 2)
 title('Spectral index',fontsize=15); grid(True); plt.legend(fontsize=15); ylabel(r'$n_s$', fontsize=20); 
 xlabel(r'$\log(k/k_{\rm pivot})$', fontsize=15); plt.xlim(min(np.log(kOut/kOut[0])),max(np.log(kOut/kOut[0]))); plt.savefig("ns.png")
+plt.show()

@@ -28,6 +28,7 @@ nF=PyT.nF() # gets number of fields (useful check)
 nP=PyT.nP() # gets number of parameters needed (useful check)
 
 fields = np.array([17.0])
+tols = np.array([10**-8,10**-8])
 
 params = np.zeros(nP)
 params[0]=pow(10.,-5); params[1]=0.0018; params[2]=14.84; params[3]=0.022;
@@ -78,7 +79,7 @@ for ii in range(rank*num,rank*num+num):
 
 
 
-zzL, zzzL, timesL = PyS.eqSpectra(kOutL, back, params, 5.0, PyT)
+zzL, zzzL, timesL = PyS.eqSpectra(kOutL, back, params, 5.0, tols, PyT)
 
 
 

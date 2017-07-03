@@ -79,7 +79,7 @@ for ii in range(0,100):
     k = MTS.kexitPhi(PhiExit, 1, back, params, MTSE)
     kOut= np.append(kOut, k)
 
-zzOut , zzzOut, times = MTS.eqSpectra(kOut, back, params, 5.0, MTSE)
+zzOut , zzzOut, times = MTS.eqSpectra(kOut, back, params, 5.0,tols, MTSE)
 
 fnlOut = 5./6*zzzOut/(3.0*zzOut**2)
 ############################################################################################################################################

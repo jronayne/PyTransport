@@ -55,7 +55,7 @@ kt =3.*kt
 alpha =  np.linspace(-1,1,side)
 beta=np.linspace(0,1,side/2)
 
-Bztot, Pz1tot, Pz2tot, Pz3tot,  times, snaps = PyS.alpBetSpecMpi(kt,alpha, beta, back, params, Nbefore, nsnaps, PyT)
+Bztot, Pz1tot, Pz2tot, Pz3tot,  times, snaps = PyS.alpBetSpecMpi(kt,alpha, beta, back, params, Nbefore, nsnaps,tols, PyT)
 
 if rank == 0:
     bet, alp = np.meshgrid(beta, alpha)

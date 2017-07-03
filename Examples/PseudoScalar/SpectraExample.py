@@ -162,7 +162,7 @@ for ii in range(0,points):
     kOut= np.append(kOut,k)
     NOut = np.append(NOut,Nexit)
 print kOut
-Pztot, Bztot, times = PyS.eqSpectra(kOut, back, pvalue, 5.0, PyT)
+Pztot, Bztot, times = PyS.eqSpectra(kOut, back, pvalue, 5.0,tols, PyT)
 
 
 fnlOut = 5.0/6*Bztot/(3.0*Pztot**2.0)

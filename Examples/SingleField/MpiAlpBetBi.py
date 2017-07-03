@@ -52,7 +52,7 @@ kt = 3*k
 alpha =  np.linspace(-1,1,side)
 beta=np.linspace(0,1,side/2)
 
-Bztot, Pz1tot, Pz2tot, Pz3tot,  times = PyS.alpBetSpecMpi(kt,alpha, beta, back, pvalue, Nbefore, nsnaps, PyT)
+Bztot, Pz1tot, Pz2tot, Pz3tot,  times = PyS.alpBetSpecMpi(kt,alpha, beta, back, pvalue, Nbefore, nsnaps,tols, PyT)
 
 comm = MPI.COMM_WORLD
 rank =comm.Get_rank()

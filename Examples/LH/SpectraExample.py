@@ -67,7 +67,7 @@ for ii in range(0,50):
     k = PyS.kexitPhi(PhiExit, 1, back, params, PyT) 
     kOut= np.append(kOut, k)
 
-zzOut , zzzOut, times = PyS.eqSpectra(kOut, back, params, 4.0, PyT)
+zzOut , zzzOut, times = PyS.eqSpectra(kOut, back, params, 4.0,tols, PyT)
 
 fnlOut = 5./6*zzzOut/(3.0*zzOut**2)
 

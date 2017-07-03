@@ -54,7 +54,7 @@ for ii in range(0,points):
     kOut= np.append(kOut, k)
     PhiOut = np.append(PhiOut, PhiExit)
 
-zztot, zzztot, timestot = PyS.eqSpecMpi(kOut, back, pvalue, 5.0, PyT)
+zztot, zzztot, timestot = PyS.eqSpecMpi(kOut, back, pvalue, 5.0,tols, PyT)
 
 if rank ==0:
     fnlOut = 5.0/6*zzztot/(3.0*zztot**2)

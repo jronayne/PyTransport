@@ -136,7 +136,6 @@ plt.show()
 np.savetxt('zzz.out',zzz1)
 np.savetxt('alpha.out',alpha)
 
-print 'woop'
 fig4 = plt.figure(4)
 for ii in range(0,2):
     for jj in range(0,2):

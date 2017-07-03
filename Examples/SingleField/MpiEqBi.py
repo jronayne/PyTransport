@@ -65,7 +65,7 @@ for ii in range(0,points):
     kOut= np.append(kOut, k)
     PhiOut = np.append(PhiOut, PhiExit)
 
-zzOut, zzzOut, times = PyS.eqSpecMpi(kOut, back, params, 5.0, PyT)
+zzOut, zzzOut, times = PyS.eqSpecMpi(kOut, back, params, 5.0,tols, PyT)
 
 if rank==0:
     np.savetxt('data/eqDataT.dat', (kOut,PhiOut,zzOut,zzzOut,times))   # x,y,z equal sized 1D arrays

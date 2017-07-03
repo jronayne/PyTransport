@@ -63,7 +63,7 @@ for ii in range(0,points):
     kOut= np.append(kOut,k)
     NOut = np.append(NOut,Nexit)
 
-Pztot, Bztot, times = PyS.eqSpecMpi(kOut, back, pvalue, 5.0, PyT)
+Pztot, Bztot, times = PyS.eqSpecMpi(kOut, back, pvalue, 5.0, tols,PyT)
 
 print ("\n\n process " + str(rank) + " done \n\n")
 
