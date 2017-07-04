@@ -1,3 +1,5 @@
+#################### generate alpha beta  bispectrum using PyTransAxQrt ############################################################
+
 from matplotlib import pyplot as plt
 
 from pylab import *

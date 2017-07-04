@@ -1,4 +1,4 @@
-#################### generate equilateral bispectrum using PyTransDQuad and MPI ############################################################
+#################### generate equilateral bispectrum using the quasi-single field and MPI ############################################################
 from matplotlib import pyplot as plt   # import package for plotting
 from pylab import *  # contains some useful stuff for plotting
 import time  # imports a package that allows us to see how long processes take

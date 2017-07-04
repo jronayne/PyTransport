@@ -1,4 +1,4 @@
-####################################### Axion quadratic simple example of basic MTeasy functions ###########################################
+####################################### MTeasyPyStep simple example of basic functions ###########################################
 from matplotlib import pyplot as plt
 import time
 import imp  
@@ -14,7 +14,7 @@ import subprocess
 
 ############################################################################################################################################
 
-#This file contains simple examples of using the MTeasy package for the single field example of Chen et al.
+#This file contains simple examples of using the PyTrans package for the single field example of Chen et al.
 #It assumes the StepExampleSeptup file has been run to install a Step version of MTeasyPyStep
 #It is recommended you restart the kernel to insure any updates to MTeasyPyStep are imported 
 

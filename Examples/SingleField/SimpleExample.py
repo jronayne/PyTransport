@@ -1,3 +1,5 @@
+####################################### MTeasyPyStep simple example of basic functions ###########################################
+
 from matplotlib import pyplot as plt
 import time
 import math 
@@ -9,11 +11,11 @@ import sys
 
 ############################################################################################################################################
 
-#This file contains simple examples of using the MTeasy package for the single field Step example of Chen et al.
-#It assumes the StepPotSetup file has been run to install a Step version of MTeasyPy
+#This file contains simple examples of using the PyTrans package for the single field Step example of Chen et al.
+#It assumes the StepPotSetup file has been run to install a Step version of PyTrans
 #It is recommended you restart the kernel before running this file to insure any updates to MTeasyPyStep are imported
 
-location = "/Users/David/Dropbox/MTeasyDist/MTeasy/" # this should be the location of the MTeasy folder 
+location = "/Users/David/Dropbox/MTeasyDist/MTeasy/" # this should be the location of the PyTrans folder 
 sys.path.append(location) # sets up python path to give access to MTeasySetup
 
 import MTeasySetup

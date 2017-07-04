@@ -1,3 +1,4 @@
+#################### generate equilateral bispectrum using Langlois model and MPI ############################################################
 from matplotlib import pyplot as plt
 
 from pylab import *

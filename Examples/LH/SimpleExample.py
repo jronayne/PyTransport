@@ -1,3 +1,5 @@
+#################### Simple example of using PyTransLH installed using the setup file which accompanies this one #########################
+
 from matplotlib import pyplot as plt
 from pylab import *  # contains some useful stuff for plotting
 import time

@@ -10,7 +10,7 @@ from gravipy import *
 
 # if using an integrated environment we recommend restarting the python console after running this script to make sure updates are found 
 
-location = "/home/jwr/Code/June/PyTransport2Dist/PyTransport/" # this should be the location of the PyTrans folder 
+location = "/home/jwr/Code/PyTransport/" # this should be the location of the PyTrans folder 
 sys.path.append(location)  # we add this location to the python path
 
 import PyTransSetup  # the above commands allows python to find the PyTransSetup module and import it

@@ -1,5 +1,4 @@
-#Determine the end of inflation
-#################### generate power spectrum using PyTransSph installed using the setup file which accompanies this one ####################
+#################### generate power spectrum using PyTransQuartAxNC installed using the setup file which accompanies this one ####################
 from matplotlib import pyplot as plt   # import package for plotting
 from pylab import *  # contains some useful stuff for plotting
 import time  # imports a package that allows us to see how long processes take
@@ -9,7 +8,7 @@ import sys  # imports sys package for sue below
 import timeit
 
 
-location = "/home/jwr/Code/June/PyTransport2Dist/PyTransport/" # this should be the location of the PyTrans folder 
+location = "/home/jwr/Code//PyTransport/" # this should be the location of the PyTrans folder 
 sys.path.append(location) # sets up python path to give access to PyTransSetup
 tols = np.array([10**-10,10**-10])
 
@@ -21,7 +20,7 @@ import PyTransQuartAxNC as PyT  # import module as PyT (PyTransDQuad is quite lo
                              # etc are altered)
 import PyTransScripts as PyS  # import the scripts module as PyS for convenience
 ###########################################################################################################################################
-BB=1
+BB=10
 fields = np.array([2.0,0.5-0.001])
 nP=PyT.nP()   
 nF=PyT.nF()   
@@ -35,7 +34,7 @@ KO=np.empty([BB,100])
 def get_last_non_zero_index(d, default=None):
 		rev = (len(d) - idx for idx, item in enumerate(reversed(d), 1) if item)
 		return next(rev, default)
-
+#Sample over different values of the 2-sphere radius
 for bb in range(BB):
 
 	params[0]=1.*pow(10.,-10); params[1]=1.; params[2]=25.0**2.0*params[0]/4.0/math.pi**2;

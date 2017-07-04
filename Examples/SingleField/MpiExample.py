@@ -1,3 +1,5 @@
+#################### generate equilateral bispectrum using MTeasyPyStep setup ############################################################
+
 from matplotlib import pyplot as plt
 
 from pylab import *

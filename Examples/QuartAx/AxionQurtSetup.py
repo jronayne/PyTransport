@@ -1,4 +1,4 @@
-####################################### Setup file for the aion quartic example ##########################################################
+####################################### Setup file for the axion quartic example ##########################################################
 import sympy as sym
 import numpy as np
 import math

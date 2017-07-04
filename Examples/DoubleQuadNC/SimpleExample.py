@@ -1,4 +1,4 @@
-#################### Simple example of using PyTransDQuad installed using the setup file which accompanies this one #########################
+#################### Simple example of using PyTransDQuadNC installed using the setup file which accompanies this one #########################
 
 from matplotlib import pyplot as plt   # import package for plotting
 from pylab import *  # contains some useful stuff for plotting
@@ -9,8 +9,8 @@ import sys  # imports sys package for sue below
 ############################################################################################################################################
 
 #This file contains simple examples of using the PyTransDQuad 
-#It assumes the DQuadSetup file has been run to install a double quadratic version of PyTrans
-#It is recommended you restart the kernel before running this file to insure any updates to PyTransDQuad are imported
+#It assumes the DQuadSetupNC file has been run to install a double quadratic version of PyTrans
+#It is recommended you restart the kernel before running this file to insure any updates to PyTransDQuadNC are imported
 
 location = "/home/jwr/Code/PYT4/PyTransport/" # this should be the location of the PyTransport folder folder
 sys.path.append(location) # sets up python path to give access to PyTransSetup
@@ -18,7 +18,7 @@ sys.path.append(location) # sets up python path to give access to PyTransSetup
 import PyTransSetup
 PyTransSetup.pathSet()  # this adds the other paths that PyTrans uses to the python path
 
-import PyTransDQuadNC as PyT  # import module as PyT (PyTransDQuad is quite long to type each time and it saves time to use a shorter name
+import PyTransDQuadNC as PyT  # import module as PyT (PyTransDQuadNC is quite long to type each time and it saves time to use a shorter name
                              # using a generic name PyT means the file can be more easily reused for a different example (once field values 
                              # etc are altered)
 import PyTransScripts as PyS  # import the scripts module as PyS for convenience

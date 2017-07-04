@@ -13,7 +13,7 @@ tols = np.array([10**-10,10**-10])
 ############################################################################################################################################
 #This file contains simple examples of using the PyTransPseudo version of PyTransport
 
-location = "/home/jwr/Code/June/PyTransport2Dist/PyTransport/" # this should be the location of the PyTrans folder 
+location = "/home/jwr/Code/PyTransport/" # this should be the location of the PyTrans folder 
 sys.path.append(location) # sets up python path to give access to PyTransSetup
 
 import PyTransSetup

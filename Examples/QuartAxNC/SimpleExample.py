@@ -1,63 +1,52 @@
-#################### Simple example of using PyTransAxQrt installed using the setup file which accompanies this one #########################
-
-from matplotlib import pyplot as plt
+#Determine the end of inflation
+#################### generate power spectrum using PyTransQuartAxNC installed using the setup file which accompanies this one ####################
+from matplotlib import pyplot as plt   # import package for plotting
 from pylab import *  # contains some useful stuff for plotting
+import time  # imports a package that allows us to see how long processes take
+import math  # imports math package
+import numpy as np # imports numpu package as np for short
+import sys  # imports sys package for sue below
 import timeit
-import math 
-import numpy as np
-import sys 
-############################################################################################################################################
 
-#This file contains simple examples of using the PyTrans package for the heavy field example of Langlois.
-#It assumes the PyTransAxQrt file has been run to install a AxQrt version of PyTransPy
-#It is recommended you restart the kernel to insure any updates to PyTransAxQrt are imported 
 
-location = "/Users/david/Dropbox/PyTransportDist/PyTransport/" # this should be the location of the PyTrans folder
+location = "/home/jwr/Code/PyTransport/" # this should be the location of the PyTrans folder 
 sys.path.append(location) # sets up python path to give access to PyTransSetup
+tols = np.array([10**-10,10**-10])
 
 import PyTransSetup
-PyTransSetup.pathSet()  # his add sets the other paths that PyTrans uses
+PyTransSetup.pathSet()  # this sets the other paths that PyTrans uses
 
-import PyTransAxQrt as PyT;  # import module
-import PyTransScripts as PyS;
-
-# Example
-
-########################### set initial field values and parameters for a simple example run ###################################################
-nF=PyT.nF() # gets number of fields (useful check)
-nP=PyT.nP() # gets number of parameters needed (useful check)
-
-fields = np.array([23.5,.5-0.001])
-
+import PyTransQuartAxNC as PyT  # import module as PyT (PyTransQuartAxNC is quite long to type each time and it saves time to use a shorter name
+                             # using a generic name PyT means the file can be more easily reused for a different example (once field values 
+                             # etc are altered)
+import PyTransScripts as PyS  # import the scripts module as PyS for convenience
+###########################################################################################################################################
+fields = np.array([2.0,0.5-0.001])
+nP=PyT.nP()   
+nF=PyT.nF()   
 params = np.zeros(nP)
-params[0]=1.*pow(10.,-10); params[1]=1.; params[2]=25.0**2.0*params[0]/4.0/math.pi**2;
+
+params[0]=1.*pow(10.,-10); params[1]=1.; params[2]=25.0**2.0*params[0]/4.0/math.pi**2;params[3]=9.1
 
 V = PyT.V(fields,params) # calculate potential from some initial conditions
 dV=PyT.dV(fields,params) # calculate derivatives of potential (changes dV to derivatives)
 initial = np.concatenate((fields,np.array([0.,0.]))) # set initial conditions using slow roll expression
 ############################################################################################################################################
-tols = np.array([10**-8,10**-8])
+
 
 ################################## run the background fiducial run #########################################################################
 Nstart = 0.0
-Nend = 70.0
-t=np.linspace(Nstart, Nend, 1000) # array at which output is returned
-back = PyT.backEvolve(t, initial, params,tols,False) # The output is read into the back numpy array 
-# plot background
+Nend = 65.0
+t=np.linspace(Nstart, Nend, 10000) # array at which output is returned
+back = PyT.backEvolve(t, initial, params, tols,True ) # The output is read into the back numpy array 
+
+
 fig1 = plt.figure(1)
-plt.plot(back[:,0], back[:,2 ], 'r')
-plt.plot(back[:,0], back[:,1 ], 'g')
-############################################################################################################################################
+plt.plot(back[:,0],back[:,1 ], 'r',label=r'$\theta$',linewidth=1)
+plt.plot(back[:,0],back[:,2 ], 'g',label=r'$\psi$',linewidth=1)
+title(r'Background field evolution',fontsize=15); grid(True); plt.legend(fontsize=15); ylabel(r'Field value', fontsize=15); 
+xlabel(r'$N$', fontsize=15); grid(True);  plt.legend(fontsize=15);
 
-
-############################################################################################################################################
-# set a pivot scale which exits after certain time using the background run -- a spline
-# is used to find field and field velocity values after Nexit number of e-folds, this gives H, and 
-# then k=aH gives the k pivot scale
-# in this example we treat this scale as k_t
-#PhiExit = -100.*math.sqrt(6.) + shift + .85
-
-#k = PyS.kexitPhi(PhiExit, 1, back, params, MTLH) 
 k = PyS.kexitN(14.0, back, params, PyT)
 
 # other scales can then be defined wrt to k
@@ -75,12 +64,12 @@ tsig=np.linspace(Nstart,Nend, 1000)  # array at which output is returned -- init
 
 # run the sigma routine to calc and plot the evolution of power spectrum value for this k -- can be 
 # repeated to build up the spectrum, here we run twice to get an crude estimate for ns
-twoPt = PyT.sigEvolve(tsig, k, backExitMinus,params, tols,True) # puts information about the two point fuction in twoPt array
+twoPt = PyT.sigEvolve(tsig, k, backExitMinus,params,tols, True) # puts information about the two point fuction in twoPt array
 zz1=twoPt[:,1] # the second column is the 2pt of zeta
 sigma = twoPt[:,1+1+2*nF:] # the last 2nF* 2nF columns correspond to the evolution of the sigma matrix
 zz1a=zz1[-1] # the value fo the power spectrum for this k value at the end of the run
 
-twoPt=PyT.sigEvolve(tsig, k+.1*k, backExitMinus,params, tols,True)
+twoPt=PyT.sigEvolve(tsig, k+.1*k, backExitMinus,params,tols, True)
 zz2=twoPt[:,1]
 zz2a=zz2[-1]
 n_s = (np.log(zz2a)-np.log(zz1a))/(np.log(k+.1*k)-np.log(k))+4.0
@@ -119,7 +108,7 @@ Nstart, backExitMinus = PyS.ICsBE(NB, kM, back, params, PyT)
 # run the three point evolution for this triangle
 talp=np.linspace(Nstart,Nend, 1000)
 timebefore = timeit.default_timer()
-threePt = PyT.alphaEvolve(talp,k1,k2,k3, backExitMinus,params,1) # all data from three point run goes into threePt array
+threePt = PyT.alphaEvolve(talp,k1,k2,k3, backExitMinus,params,tols, True) # all data from three point run goes into threePt array
 time = timeit.default_timer()-timebefore
 print time
 alpha= threePt[:,1+4+2*nF+6*2*nF*2*nF:]        # this now contains the 3pt of the fields and field derivative pertruabtions

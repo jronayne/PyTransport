@@ -1,4 +1,4 @@
-####################################### Axion quadratic simple example of basic PyTrans functions ###########################################
+####################################### Langlois Spectra example of basic PyTrans functions ###########################################
 from matplotlib import pyplot as plt
 import time
 import imp  

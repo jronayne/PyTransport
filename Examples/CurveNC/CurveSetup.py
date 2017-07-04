@@ -1,4 +1,4 @@
-####################################### Setup file for the Non-Canonical Curve Model ######################################################
+####################################### Setup file for the Non-Canonical quasi-single field Model ######################################################
 
 import sympy as sym
 import numpy as np
@@ -10,7 +10,7 @@ from gravipy import *
 
 ############################################################################################################################################
 
-location = "/home/jwr/Code/PYT4/PyTransport/" # this should be the location of the PyTransport folder
+location = "/home/jwr/Code/PyTransport/" # this should be the location of the PyTransport folder
 sys.path.append(location)  # we add this location to the python path
 
 import PyTransSetup as PySet
