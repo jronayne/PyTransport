@@ -76,10 +76,10 @@ def pathSet():
 
     p = platform.system()
     if p is 'Windows':
-        site.addsitedir(os.path.join(dir, 'Python', 'site-packages'))
-        site.addsitedir(os.path.join(dir, 'Python', 'Lib', 'site-packages'))
-        site.addsitedir(os.path.join(dir, 'Python' + sys.version[:3].translate(None, '.'), 'site-packages'))
-        site.addsitedir(os.path.join(dir, 'Python' + sys.version[:3].translate(None, '.'), 'Lib', 'site-packages'))
+        site.addsitedir(os.path.join(dir, 'PyTrans', 'Python', 'site-packages'))
+        site.addsitedir(os.path.join(dir, 'PyTrans', 'Python', 'Lib', 'site-packages'))
+        site.addsitedir(os.path.join(dir, 'PyTrans', 'Python' + sys.version[:3].translate(None, '.'), 'site-packages'))
+        site.addsitedir(os.path.join(dir, 'PyTrans', 'Python' + sys.version[:3].translate(None, '.'), 'Lib', 'site-packages'))
     else:
         site.addsitedir(os.path.join(dir, 'PyTrans', 'lib', 'python', 'site-packages'))
         site.addsitedir(os.path.join(dir, 'PyTrans', 'lib', 'python' + sys.version[:3], 'site-packages'))
@@ -127,10 +127,10 @@ def compileName(name,NC=False):
 
     p = platform.system()
     if p is 'Windows':
-        site.addsitedir(os.path.join(dir, 'Python', 'site-packages'))
-        site.addsitedir(os.path.join(dir, 'Python', 'Lib', 'site-packages'))
-        site.addsitedir(os.path.join(dir, 'Python' + sys.version[:3].translate(None, '.'), 'site-packages'))
-        site.addsitedir(os.path.join(dir, 'Python' + sys.version[:3].translate(None, '.'), 'Lib', 'site-packages'))
+        site.addsitedir(os.path.join(dir, 'PyTrans', 'Python', 'site-packages'))
+        site.addsitedir(os.path.join(dir, 'PyTrans', 'Python', 'Lib', 'site-packages'))
+        site.addsitedir(os.path.join(dir, 'PyTrans', 'Python' + sys.version[:3].translate(None, '.'), 'site-packages'))
+        site.addsitedir(os.path.join(dir, 'PyTrans', 'Python' + sys.version[:3].translate(None, '.'), 'Lib', 'site-packages'))
     else:
         site.addsitedir(os.path.join(dir, 'PyTrans', 'lib', 'python', 'site-packages'))
         site.addsitedir(os.path.join(dir, 'PyTrans', 'lib', 'python' + sys.version[:3], 'site-packages'))
@@ -181,10 +181,10 @@ def compileName3(name,NC=False):
 
     p = platform.system()
     if p is 'Windows':
-        site.addsitedir(os.path.join(dir, 'Python', 'site-packages'))
-        site.addsitedir(os.path.join(dir, 'Python', 'Lib', 'site-packages'))
-        site.addsitedir(os.path.join(dir, 'Python' + sys.version[:3].translate(None, '.'), 'site-packages'))
-        site.addsitedir(os.path.join(dir, 'Python' + sys.version[:3].translate(None, '.'), 'Lib', 'site-packages'))
+        site.addsitedir(os.path.join(dir, 'PyTrans', 'Python', 'site-packages'))
+        site.addsitedir(os.path.join(dir, 'PyTrans', 'Python', 'Lib', 'site-packages'))
+        site.addsitedir(os.path.join(dir, 'PyTrans', 'Python' + sys.version[:3].translate(None, '.'), 'site-packages'))
+        site.addsitedir(os.path.join(dir, 'PyTrans', 'Python' + sys.version[:3].translate(None, '.'), 'Lib', 'site-packages'))
     else:
         site.addsitedir(os.path.join(dir, 'PyTrans', 'lib', 'python', 'site-packages'))
         site.addsitedir(os.path.join(dir, 'PyTrans', 'lib', 'python' + sys.version[:3], 'site-packages'))
