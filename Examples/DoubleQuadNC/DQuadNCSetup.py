@@ -27,7 +27,7 @@ G=Matrix( [[p[2]**2.0, 0], [0, p[2]**2.0*sym.sin(f[0])**2.0] ] ) # this is the f
                                #last time set)
 #The last argument is for whether the sympy's simplify is used to on derivatives of the potential and field geometric quantites.
 #Caution is recomended as sympy's simplify is known to have bugs. Simplification can increase the speed of numerically evolutions, but at the cost of compling more slowly.
-PyTransSetup.potential(V,nF,nP,G) # writes this potential and its derivatives into C++ file potential.h when run
+PyTransSetup.potential(V,nF,nP,False,G) # writes this potential and its derivatives into C++ file potential.h when run
 
 PyTransSetup.compileName("DQuadNC",True) # this compiles a python module using the C++ code, including the edited potential.h file, called PyTransDQuad
                                  # and places it in the location folder, ready for use
