@@ -277,7 +277,7 @@ public:
 		//  8oooo88                           888    888          888   888          888 888     888 888        
 		//o88o  o888o                        o888o     88oooo888 o888o o888o 88oooooo88    88ooo88  o888o       
 
-    //calculates A (the field field field term of action)
+    //calculates A (the field field field term of action) with indices A^{I}_{JK}
     vector<double> Acalc(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
 	{
 		double a = exp(N);
@@ -386,7 +386,7 @@ public:
 		//  8oooo88           888                   888    888          888   888          888 888     888 888        
 		//o88o  o888o o88oooo888                   o888o     88oooo888 o888o o888o 88oooooo88    88ooo88  o888o       
 
-    //calculates AS (the "slow" parts of the field field field term of action -- this is used only for initial conditions)
+    //calculates AS (the "slow" parts of the field field field term of action -- this is used only for initial conditions) with indices AS^{I}_{JK}
     vector<double> AScalc(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
 	{
 		double a = exp(N);
@@ -491,7 +491,7 @@ public:
 		// 888    888                         888    888          888   888          888 888     888 888        
 		//o888ooo888                         o888o     88oooo888 o888o o888o 88oooooo88    88ooo88  o888o       
 
-	//Calculates B term of action
+	//Calculates B term of action with indices B^{I}_{JK}
     vector<double> Bcalc(vector<double> f,vector<double> p, double k1, double k2, double k3,double N)
 	{
 		
@@ -566,7 +566,7 @@ public:
 		// 888oooo88                         o888o     88oooo888 o888o o888o 88oooooo88    88ooo88  o888o       
 	
 	
-	//Calculates C term of action
+	//Calculates C term of action with indices C^{I}_{JK}
     vector<double> Ccalc(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
 	{	
 		double Hi=H(f,p);
@@ -623,7 +623,7 @@ public:
 		//   8  88     888oooo88  888              ooooooooo       888oooo88 888oooooo8   888   888   888 888    888 888oooooo8    888o888   
 		//  8oooo88    888    888 888o     oo                      888  88o  888          888   888   888 888    888 888           o88 88o   
 		//o88o  o888o o888ooo888   888oooo88                      o888o  88o8  88oooo888 o888o o888o o888o  88ooo888o  88oooo888 o88o   o88o 
-	
+	// Rearanges the indices of the A tensor to A^{IJK}
 	vector<double> Acalcd(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
 	 {
 		vector<double> A;
@@ -645,7 +645,7 @@ public:
 		}}}
 		return Aout;
 	 }
-	 
+	 // Rearanges the indices of the AS tensor to AS^{IJK}
 	 vector<double> AScalcd(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
 	 {
 		vector<double> AS;
@@ -667,7 +667,7 @@ public:
 		}}}
 		return ASout;
 	 }
-	 
+	 // Rearanges the indices of the B tensor to B^{IJK}
 	 vector<double> Bcalcd(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
 	 {
 		vector<double> B;
@@ -689,7 +689,7 @@ public:
 		}}}
 		return Bout;
 	 }
-	 
+	 // Rearanges the indices of the A tensor to B_{IJ}^{K}
 	 vector<double> Bcalcddu(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
 	 {
 		vector<double> B;
@@ -711,7 +711,7 @@ public:
 		}}}
 		return Bout;
 	 }
-	
+	// Rearanges the indices of the C tensor to C^{IJK}
 	vector<double> Ccalcd(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
 	 {
 		vector<double> C;
@@ -735,7 +735,7 @@ public:
 		return Cout;
 	 }
 
-	 
+	 // Rearanges the indices of the C tensor to C_{IJ}^K
 	 vector<double> Ccalcddu(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
 	 {
 		vector<double> C;
@@ -812,7 +812,7 @@ public:
 		// 88   8888  888                          888    888          888   888          888 888     888 888        
 		//o88o    88 o888o                        o888o     88oooo888 o888o o888o 88oooooo88    88ooo88  o888o       
 
-	//calculates N1
+	//calculates N1_I
 	vector<double> N1(vector<double> f,vector<double> p, double N)
 	{
 		double Hd=Hdot(f,p);
@@ -837,69 +837,15 @@ public:
 			
 		return Ni;
 	}
-	//calculates N1
-	vector<double> N10(vector<double> f,vector<double> p, double N)
-	{
-		double Hd=Hdot(f,p);
-		double s = scale(f,p,N);
-		double Hi=H(f,p);
-		//double a = exp(N);
-		vector<double> dVi;
-		vector<double> Ni(2*nF);
-		double ep=Ep(f,p);
-		vector<double> FMi;
-		FMi = fmet.fmetric(f,p);
-		dVi=pot.dV(f,p);
-		double sum=0.0;
-		double sum2=0.0;
 
-		for(int i=0;i<nF;i++){
-			sum=0.0;
-			for(int l=0;l<nF;l++){
-			sum =  sum +  FMi[(2*nF)*(l+nF)+i+nF]*f[nF+l];
-			}
-			Ni[i]=1./2.0/Hi/Hi/ep/(3.0-ep) *dVi[i];
-			Ni[nF+i] = 1./2.0/Hi/Hi/ep/(3.0-ep) *sum/s ;
-			
-			}
-
-		return Ni;
-	}
 		//oooo   oooo  ooooooo                       ooooooooooo                                                           
 		// 8888o  88 o88     888                     88  888  88 ooooooooo8 oo oooooo    oooooooo8    ooooooo  oo oooooo   
 		// 88 888o88       o888       ooooooooo          888    888oooooo8   888   888  888ooooooo  888     888 888    888 
 		// 88   8888    o888   o                         888    888          888   888          888 888     888 888        
 		//o88o    88 o8888oooo88                        o888o     88oooo888 o888o o888o 88oooooo88    88ooo88  o888o       
 
-	vector<double> N2o(vector<double> f, vector<double> p, double k1, double k2, double k3, double N)
-{
-    double Hd=Hdot(f,p);
-    double Hin=H(f,p);
-    vector<double> dVi, dVVi;
-    vector<double> Nii(2*nF*2*nF);
-    double a = exp(N);
-    double s = scale(f,p,N);
-    dVi=pot.dV(f,p);
-    dVVi=pot.dVV(f,p);
-    
-    double sum3 = 0.0;
-    for(int i=0;i<nF;i++){sum3=sum3+dVi[i]*f[nF+i]/Hin/Hin/Hin;}
-     
-     
-    double ep = -Hd/Hin/Hin;
-    for(int i=0;i<nF;i++){for(int j=0; j<nF; j++){
-    Nii[i + (j) * 2*nF]= 2./ep/Hin/Hin/6. * (f[nF+i]*f[nF+j] *(-3./2. + 9./2./ep + 3./4.*sum3/ep/ep));
-    Nii[i + (j+nF) * 2*nF]=2./ep/Hin/Hin/6.*3./2.*f[i+nF]*f[j+nF]/Hin/ep  /s;// /a;
-    Nii[i+nF + (j) * 2*nF]=2./ep/Hin/Hin/6.*3./2.*f[i+nF]*f[j+nF]/Hin/ep  /s; // /a;
-    Nii[i+nF + (j+nF) * 2*nF]=0.;
-        if(i==j){Nii[i+nF+(j)*2*nF] = Nii[i+nF + (j) * 2*nF] - 2./ep/Hin/Hin/6. * 3./2.*Hin/k1/k1*((-k2*k2-k3*k3+k1*k1)/2. + k3*k3)  /s;// /a ;
-            Nii[i+(j+nF)*2*nF] = Nii[i + (j+nF) * 2*nF] - 2./ep/Hin/Hin/6. * 3./2.*Hin/k1/k1*((-k2*k2-k3*k3+k1*k1)/2. + k2*k2)  /s;}// /a;}
-    }}
 
-    return Nii;
-
-}
-	
+	// Calculates the N2_{IJ} tensor
 	vector<double> N2(vector<double> f, vector<double> p, double k1, double k2, double k3, double N)
 	{
 		double Hd=Hdot(f,p);
