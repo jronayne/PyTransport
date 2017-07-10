@@ -26,6 +26,6 @@ G=Matrix( [[p[3]**2.0, 0], [0, p[3]**2.0*sym.sin(f[0])**2.0] ] )
 V= 1./4. * p[0] * f[0]**4 + p[2] * (1-sym.cos(2*math.pi * f[1] / p[1]))
 PyTransSetup.tol(1e-12,1e-12)      
 PyTransSetup.tol(1e-8,1e-8)
-PyTransSetup.potential(V,nF,nP,G) # writes this potential into c file when run
+PyTransSetup.potential(V,nF,nP,False,G) # writes this potential into c file when run
 
 PyTransSetup.compileName("QuartAxNC",True) 

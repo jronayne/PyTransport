@@ -182,7 +182,7 @@ def tol(rtol, atol):
 
 
 
-def potential(V,nF,nP,G=0,simple=False):
+def potential(V,nF,nP,simple=False,G=0):
     f=sym.symarray('f',nF)
     p=sym.symarray('p',nP)
 

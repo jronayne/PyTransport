@@ -27,7 +27,7 @@ V = 1./2. * p[0]**2.0 *f [0]**2.0  +  1./2. * p[1]**2.0 * f[1]**2.0   # this is 
                                #last time set)
 #The last argument is for whether the sympy's simplify is used to on derivatives of the potential and field geometric quantites.
 #Caution is recomended as sympy's simplify is known to have bugs. Simplification can increase the speed of numerically evolutions, but at the cost of compling more slowly.
-PyTransSetup.potential(V,nF,nP,0,True) # writes this potential and its derivatives into C++ file potential.h when run
+PyTransSetup.potential(V,nF,nP,True) # writes this potential and its derivatives into C++ file potential.h when run
 
 PyTransSetup.compileName("DQuad") # this compiles a python module using the C++ code, including the edited potential.h file, called PyTransDQuad
                                  # and places it in the location folder, ready for use

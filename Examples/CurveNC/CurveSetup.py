@@ -29,7 +29,7 @@ V = 10.0**(-10.0) * (1.0 + 29.0/120. *math.pi * f[1] +  1./2. * p[1] * (f[0] - p
 PySet.tol(1e-8,1e-8)
 #The last argument is for whether the sympy's simplify is used to on derivatives of the potential and field geometric quantites.
 #Caution is recomended as sympy's simplify is known to have bugs. Simplification can increase the speed of numerically evolutions, but at the cost of compling more slowly.
-PySet.potential(V,nF,nP,G,False) # writes this potential into c file when run
+PySet.potential(V,nF,nP,False,G) # writes this potential into c file when run
 ##Set second argument to True to use the non-canonical set-up
 PySet.compileName("CurveNC",True) # this compiles the module with the new potential and places it in the location folder, and adds this folder to the path ready for use
 ############################################################################################################################################

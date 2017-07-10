@@ -27,7 +27,7 @@ G=Matrix([[1,R,0],[R,1,0],[0,0,1]]) # selecting the field space metric in this i
 PyTransSetup.tol(1e-12,1e-12)   # set tols for the numerical integration of the 3 point function (if not run this will remain as it the
                                #last time set)
 
-PyTransSetup.potential(V,nF,nP,G) # writes this potential and its derivatives into C++ file potential.h when run
+PyTransSetup.potential(V,nF,nP,False,G) # writes this potential and its derivatives into C++ file potential.h when run
 
 PyTransSetup.compileName("Pseudo",True) # this compiles a python module using the C++ code, including the edited potential.h file, called PyTransPseudo
                                  # and places it in the location folder, ready for use
