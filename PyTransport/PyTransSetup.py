@@ -19,8 +19,10 @@
 import sympy as sym
 import numpy as np
 import math
-import subprocess
 import sys
+import site
+import subprocess
+import platform
 import os
 import shutil
 import time
@@ -29,7 +31,7 @@ from gravipy import *
 
 def directory(NC):
     dir = os.path.dirname(__file__)
-    filename = os.path.join(dir, 'PyTrans/PyTrans.cpp')
+    filename = os.path.join(dir, 'PyTrans', 'PyTrans.cpp')
     f = open(filename,"r")
     lines = f.readlines()
     f.close()
@@ -39,49 +41,58 @@ def directory(NC):
             if not  line.endswith("//evolve\n") and not line.endswith("//moments\n") and not line.endswith("//model\n") and not line.endswith("//stepper\n"):
                 f.write(line)
             if line.endswith("//evolve\n"):
-                fileT = os.path.join(dir, 'CppTrans/evolve.h')
+                fileT = os.path.join(dir, 'CppTrans', 'evolve.h')
                 f.write('#include' + '"'+ fileT +'"' + '//evolve' +'\n')
             if line.endswith("//moments\n"):
-                fileT = os.path.join(dir, 'CppTrans/moments.h')
+                fileT = os.path.join(dir, 'CppTrans', 'moments.h')
                 f.write('#include' + '"'+ fileT +'"' + '//moments' +'\n')
             if line.endswith("//model\n"):
-                fileT = os.path.join(dir, 'CppTrans/model.h')
+                fileT = os.path.join(dir, 'CppTrans', 'model.h')
                 f.write('#include' + '"'+ fileT +'"' + '//model' +'\n')
             if line.endswith("//stepper\n"):
-                fileT = os.path.join(dir, 'CppTrans/stepper/rkf45.hpp')
+                fileT = os.path.join(dir, 'CppTrans', 'stepper', 'rkf45.hpp')
                 f.write('#include' + '"'+ fileT +'"' + '//stepper' +'\n')
     else:
         for line in lines:
             if not  line.endswith("//evolve\n") and not line.endswith("//moments\n") and not line.endswith("//model\n") and not line.endswith("//stepper\n"):
                 f.write(line)
             if line.endswith("//evolve\n"):
-                fileT = os.path.join(dir, 'CppTrans/NC/evolve.h')
+                fileT = os.path.join(dir, 'CppTrans', 'NC', 'evolve.h')
                 f.write('#include' + '"'+ fileT +'"' + '//evolve' +'\n')
             if line.endswith("//moments\n"):
-                fileT = os.path.join(dir, 'CppTrans/NC/moments.h')
+                fileT = os.path.join(dir, 'CppTrans', 'NC', 'moments.h')
                 f.write('#include' + '"'+ fileT +'"' + '//moments' +'\n')
             if line.endswith("//model\n"):
-                fileT = os.path.join(dir, 'CppTrans/NC/model.h')
+                fileT = os.path.join(dir, 'CppTrans', 'NC', 'model.h')
                 f.write('#include' + '"'+ fileT +'"' + '//model' +'\n')
             if line.endswith("//stepper\n"):
-                fileT = os.path.join(dir, 'CppTrans/stepper/rkf45.hpp')
+                fileT = os.path.join(dir, 'CppTrans', 'stepper', 'rkf45.hpp')
                 f.write('#include' + '"'+ fileT +'"' + '//stepper' +'\n')
     f.close()
 
 def pathSet():
     dir = os.path.dirname(__file__)
-    path1 = os.path.join(dir, 'PyTrans/lib/python/')
-    path2 = os.path.join(dir, 'PyTransScripts/')
-    sys.path.append(dir)
-    sys.path.append(path1)
-    sys.path.append(path2)
+    site.addsitedir(dir)
+
+    p = platform.system()
+    if p is 'Windows':
+        site.addsitedir(os.path.join(dir, 'Python', 'site-packages'))
+        site.addsitedir(os.path.join(dir, 'Python', 'Lib', 'site-packages'))
+        site.addsitedir(os.path.join(dir, 'Python' + sys.version[:3].translate(None, '.'), 'site-packages'))
+        site.addsitedir(os.path.join(dir, 'Python' + sys.version[:3].translate(None, '.'), 'Lib', 'site-packages'))
+    else:
+        site.addsitedir(os.path.join(dir, 'PyTrans', 'lib', 'python', 'site-packages'))
+        site.addsitedir(os.path.join(dir, 'PyTrans', 'lib', 'python' + sys.version[:3], 'site-packages'))
+        site.addsitedir(os.path.join(dir, 'PyTrans', 'lib', 'site-python'))
+
+    site.addsitedir(os.path.join(dir, 'PyTransScripts'))
 
 
 def compileName(name,NC=False):    
     directory(NC)
     dir = os.path.dirname(__file__)
-    location = os.path.join(dir, 'PyTrans/')
-    filename1 = os.path.join(dir, 'PyTrans/moduleSetup.py')
+    location = os.path.join(dir, 'PyTrans')
+    filename1 = os.path.join(dir, 'PyTrans', 'moduleSetup.py')
     f = open(filename1,"r")
     lines = f.readlines()
     f.close()
@@ -92,7 +103,7 @@ def compileName(name,NC=False):
         if line.endswith("#setup\n"):
             f.write('setup(name="PyTrans'+name+'", version="1.0", ext_modules=[Extension("PyTrans'+name+'", [filename, filename2 ])], include_dirs=[numpy.get_include(), dirs])#setup\n')
     f.close()
-    filename = os.path.join(dir, 'PyTrans/PyTrans.cpp')
+    filename = os.path.join(dir, 'PyTrans', 'PyTrans.cpp')
     f = open(filename,"r")
     lines = f.readlines()
     f.close()
@@ -109,16 +120,31 @@ def compileName(name,NC=False):
         
     f.close()
 
-    subprocess.call(["python", filename1, "install", "--home=" + location],cwd=location)
-    sys.path.append(location+"/lib/python/")
-    sys.path.append(location+"../PyTransScripts")
-    shutil.rmtree(location+"/build/")
+    my_env = os.environ.copy()
+    my_env["PYTHONUSERBASE"] = location
+    p = subprocess.Popen(["python", filename1, "install", "--user"], cwd=location, stdin=subprocess.PIPE, stderr=subprocess.PIPE, env=my_env)
+    stdout, stderr = p.communicate()
+
+    p = platform.system()
+    if p is 'Windows':
+        site.addsitedir(os.path.join(dir, 'Python', 'site-packages'))
+        site.addsitedir(os.path.join(dir, 'Python', 'Lib', 'site-packages'))
+        site.addsitedir(os.path.join(dir, 'Python' + sys.version[:3].translate(None, '.'), 'site-packages'))
+        site.addsitedir(os.path.join(dir, 'Python' + sys.version[:3].translate(None, '.'), 'Lib', 'site-packages'))
+    else:
+        site.addsitedir(os.path.join(dir, 'PyTrans', 'lib', 'python', 'site-packages'))
+        site.addsitedir(os.path.join(dir, 'PyTrans', 'lib', 'python' + sys.version[:3], 'site-packages'))
+        site.addsitedir(os.path.join(dir, 'PyTrans', 'lib', 'site-python'))
+
+    site.addsitedir(os.path.join(location, '..', 'PyTransScripts'))
+
+    shutil.rmtree(os.path.join(location, 'build'), ignore_errors=True)
 
 def compileName3(name,NC=False):
     directory(NC)
     dir = os.path.dirname(__file__)
-    location = os.path.join(dir, 'PyTrans/')
-    filename1 = os.path.join(dir, 'PyTrans/moduleSetup.py')
+    location = os.path.join(dir, 'PyTrans')
+    filename1 = os.path.join(dir, 'PyTrans', 'moduleSetup.py')
     f = open(filename1,"r")
     lines = f.readlines()
     f.close()
@@ -130,7 +156,7 @@ def compileName3(name,NC=False):
             f.write('setup(name="PyTrans'+name+'", version="1.0", ext_modules=[Extension("PyTrans'+name+'", [filename, filename2 ])], include_dirs=[numpy.get_include(), dirs])#setup\n')
     f.close()
 
-    filename = os.path.join(dir, 'PyTrans/PyTrans.cpp')
+    filename = os.path.join(dir, 'PyTrans', 'PyTrans.cpp')
     f = open(filename,"r")
     lines = f.readlines()
     f.close()
@@ -147,16 +173,31 @@ def compileName3(name,NC=False):
         if line.endswith("//initFunc\n"):
             f.write('PyMODINIT_FUNC PyInit_PyTrans'+name+'(void)    {    PyObject *m = PyModule_Create(&PyTransModule); import_array(); return m;} //initFunc\n')
     f.close()
-    
-    subprocess.call(["python", filename1, "install", "--home=" + location],cwd=location)
-    sys.path.append(location+"/lib/python/")
-    sys.path.append(location+"../PyTransScripts")
-    shutil.rmtree(location+"/build/")
+
+    my_env = os.environ.copy()
+    my_env["PYTHONUSERBASE"] = location
+    p = subprocess.Popen(["python", filename1, "install", "--user"], cwd=location, stdin=subprocess.PIPE, stderr=subprocess.PIPE, env=my_env)
+    stdout, stderr = p.communicate()
+
+    p = platform.system()
+    if p is 'Windows':
+        site.addsitedir(os.path.join(dir, 'Python', 'site-packages'))
+        site.addsitedir(os.path.join(dir, 'Python', 'Lib', 'site-packages'))
+        site.addsitedir(os.path.join(dir, 'Python' + sys.version[:3].translate(None, '.'), 'site-packages'))
+        site.addsitedir(os.path.join(dir, 'Python' + sys.version[:3].translate(None, '.'), 'Lib', 'site-packages'))
+    else:
+        site.addsitedir(os.path.join(dir, 'PyTrans', 'lib', 'python', 'site-packages'))
+        site.addsitedir(os.path.join(dir, 'PyTrans', 'lib', 'python' + sys.version[:3], 'site-packages'))
+        site.addsitedir(os.path.join(dir, 'PyTrans', 'lib', 'site-python'))
+
+    site.addsitedir(os.path.join(location, '..', 'PyTransScripts'))
+
+    shutil.rmtree(os.path.join(location, 'build'), ignore_errors=True)
 
 
 
 def deleteModule(name):
-    location = os.path.join(dir, 'PyTrans/')
+    location = os.path.join(dir, 'PyTrans')
     [os.remove(os.path.join(location,f)) for f in os.listdir(location) if f.startswith("PyTrans"+name)]
 
 #os.remove(location+"/lib/python/PyTrans"+name+".so")
@@ -166,7 +207,7 @@ def deleteModule(name):
     
 def tol(rtol, atol):
     dir = os.path.dirname(__file__)
-    filename = os.path.join(dir, 'PyTrans/PyTrans.cpp')
+    filename = os.path.join(dir, 'PyTrans', 'PyTrans.cpp')
     f = open(filename,"r")  
 
     lines = f.readlines()
@@ -237,8 +278,8 @@ def potential(V,nF,nP,G=0,simple=False):
             
     import os
     dir = os.path.dirname(__file__)
-    filename1 = os.path.join(dir, 'CppTrans/potentialProto.h')
-    filename2 = os.path.join(dir, 'CppTrans/potential.h')
+    filename1 = os.path.join(dir, 'CppTrans', 'potentialProto.h')
+    filename2 = os.path.join(dir, 'CppTrans', 'potential.h')
     f = open(filename1, 'r')
     g = open(filename2, 'w')
 
@@ -304,8 +345,8 @@ def fieldmetric(G,nF,nP,simple=False):
     Rm = Riemann('Rm',g)
     import os
     dir = os.path.dirname(__file__)
-    filename1 = os.path.join(dir, 'CppTrans/fieldmetricProto.h')
-    filename2 = os.path.join(dir, 'CppTrans/fieldmetric.h')
+    filename1 = os.path.join(dir, 'CppTrans', 'fieldmetricProto.h')
+    filename2 = os.path.join(dir, 'CppTrans', 'fieldmetric.h')
     e = open(filename1, 'r')
     h = open(filename2, 'w')
 
