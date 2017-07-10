@@ -125,18 +125,7 @@ def compileName(name,NC=False):
     p = subprocess.Popen(["python", filename1, "install", "--user"], cwd=location, stdin=subprocess.PIPE, stderr=subprocess.PIPE, env=my_env)
     stdout, stderr = p.communicate()
 
-    p = platform.system()
-    if p is 'Windows':
-        site.addsitedir(os.path.join(dir, 'PyTrans', 'Python', 'site-packages'))
-        site.addsitedir(os.path.join(dir, 'PyTrans', 'Python', 'Lib', 'site-packages'))
-        site.addsitedir(os.path.join(dir, 'PyTrans', 'Python' + sys.version[:3].translate(None, '.'), 'site-packages'))
-        site.addsitedir(os.path.join(dir, 'PyTrans', 'Python' + sys.version[:3].translate(None, '.'), 'Lib', 'site-packages'))
-    else:
-        site.addsitedir(os.path.join(dir, 'PyTrans', 'lib', 'python', 'site-packages'))
-        site.addsitedir(os.path.join(dir, 'PyTrans', 'lib', 'python' + sys.version[:3], 'site-packages'))
-        site.addsitedir(os.path.join(dir, 'PyTrans', 'lib', 'site-python'))
-
-    site.addsitedir(os.path.join(location, '..', 'PyTransScripts'))
+    pathSet()
 
     shutil.rmtree(os.path.join(location, 'build'), ignore_errors=True)
 
@@ -179,18 +168,7 @@ def compileName3(name,NC=False):
     p = subprocess.Popen(["python", filename1, "install", "--user"], cwd=location, stdin=subprocess.PIPE, stderr=subprocess.PIPE, env=my_env)
     stdout, stderr = p.communicate()
 
-    p = platform.system()
-    if p is 'Windows':
-        site.addsitedir(os.path.join(dir, 'PyTrans', 'Python', 'site-packages'))
-        site.addsitedir(os.path.join(dir, 'PyTrans', 'Python', 'Lib', 'site-packages'))
-        site.addsitedir(os.path.join(dir, 'PyTrans', 'Python' + sys.version[:3].translate(None, '.'), 'site-packages'))
-        site.addsitedir(os.path.join(dir, 'PyTrans', 'Python' + sys.version[:3].translate(None, '.'), 'Lib', 'site-packages'))
-    else:
-        site.addsitedir(os.path.join(dir, 'PyTrans', 'lib', 'python', 'site-packages'))
-        site.addsitedir(os.path.join(dir, 'PyTrans', 'lib', 'python' + sys.version[:3], 'site-packages'))
-        site.addsitedir(os.path.join(dir, 'PyTrans', 'lib', 'site-python'))
-
-    site.addsitedir(os.path.join(location, '..', 'PyTransScripts'))
+    pathSet()
 
     shutil.rmtree(os.path.join(location, 'build'), ignore_errors=True)
 
