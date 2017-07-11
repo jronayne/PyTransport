@@ -271,11 +271,10 @@ private:
 	    alpha(int nFi, double k1, double k2, double k3, double N0, vector<double> f,vector<double> p)
     {
         vector<double>  fff, pff, fpf, ffp, ppf, fpp,pfp,ppp;
-        double a, Hi;
+        double a;
         nF=nFi;
         model m;
         double s=m.scale(f,p,N0);
-        Hi = m.H(f,p);
         a = exp(N0);
 
         fff = fffCalc(f,p, k1, k2, k3,N0);
@@ -322,7 +321,7 @@ private:
     // functions that calculate the intial conditions
     vector<double> fffCalc(vector<double> f, vector<double> p, double k1, double k2, double k3, double N0)
     {
-        double  ks, k3s, K2;
+        double  ks, K2;
         vector<double> C123, C132, C231, B123, B132, B231, AS123, AS132, AS231;
 		fieldmetric fmet;
 
@@ -345,7 +344,6 @@ private:
         double Hi= m.H(f,p);
         
         double a =exp(N0);
-        k3s = k1*k1*k1 * k2*k2*k2 * k3*k3*k3;
         ks = k1 + k2 + k3;
         K2 = k1*k2 + k1*k3 + k2*k3;
         for(int i=0;i<nF;i++){for(int j=0;j<nF;j++){for(int k=0;k<nF;k++){
@@ -423,7 +421,7 @@ private:
 	
     vector<double> ppfCalc(vector<double> f,vector<double> p,  double k1, double k2, double k3,double N0)
     {
-        double a, H, ks, k3s, K2;
+        double a, H, ks, k3s;
         vector<double> ppf(nF*nF*nF);
         vector<double> C123, C132, C231, B123, B132, B231, AS123, AS132, AS231;
         model m;
@@ -450,7 +448,6 @@ private:
         a=exp(N0);
         k3s = k1*k1*k1 * k2*k2*k2 * k3*k3*k3;
         ks = k1 + k2 + k3;
-        K2 = k1*k2 + k1*k3 + k2*k3;
         
         
         for(int i=0;i<nF;i++){for(int j=0;j<nF;j++){for(int k=0;k<nF;k++){

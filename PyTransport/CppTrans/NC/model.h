@@ -34,7 +34,6 @@ public:
 	double H(vector<double> f, vector<double> p   )
 	{
 		double Hi2;
-		double Hi2x;
 		double Vi;
 		vector<double> FMi;
 		FMi = fmet.fmetric(f,p);
@@ -228,31 +227,28 @@ public:
 		double sum2 = 0.0;
 		double sum3 = 0.0;
 		double sum4 = 0.0;
-		double ssum = 0.0;
-		double sumdcov1 = 0.0;
-		double sumdcov2 = 0.0;
+
 		
 		for(int i = 0; i<nF; i++){for(int j = 0; j<nF; j++){
 			for(int l=0; l<nF; l++)
 			{for(int m=0; m<nF; m++)
 			{for(int xx=0; xx<nF; xx++){
 			sum1 = sum1 + 1./2.*FMi[(2*nF)*xx +i]*(RMi[(nF)*(nF)*(nF)*(xx)+(nF)*(nF)*(l)+(nF)*(m)+(j)]+RMi[(nF)*(nF)*(nF)*(j)+(nF)*(nF)*(l)+(nF)*(m)+(xx)])*f[nF+m]*f[nF+l];
-			//sum1 = sum1 + FMi[(2*nF)*xx +i]*(RMi[(2*nF)*(2*nF)*(2*nF)*(xx+nF)+(2*nF)*(2*nF)*(l+nF)+(2*nF)*(m+nF)+(j+nF)])*f[nF+m]*f[nF+l];
-			//sumdcov2= sumdcov2 - FMi[(2*nF)*(i)+(m)]*FMi[(2*nF)*(j+nF)+(xx+nF)]*CHR[(2*nF)*(2*nF)*(xx)+(2*nF)*(m+nF)+l+nF]*f[nF+l];
+
 			}
 			sum3= sum3 + (1./Hi)*FMi[(2*nF)*l +i]*(-dVi[l])*FMi[(2*nF)*(m+nF) +j+nF]*f[nF+m];
 			}
 			sum2 = sum2+ FMi[(2*nF)*l +i]*(1./2.*dVVi[l + nF*j] + 1./2.*dVVi[j + nF*l]) ;
 
 			sum4 = sum4 + (-3.+ep)*f[nF+i]*FMi[(2*nF)*(l+nF) +j+nF]*f[nF+l];
-			//sumdcov1= sumdcov1 + CHR[(2*nF)*(2*nF)*(i)+(2*nF)*(j+nF)+l+nF]*f[nF+l];
+			
 			
 			}
 			
-            u2out[i+ j*2*nF]=0.;// - 1./2.*sumdcov1/Hi - 1./2.*sumdcov2/Hi;
+            u2out[i+ j*2*nF]=0.;
             u2out[i+(j+nF)*2*nF]=0.;
 			u2out[i+nF+(j)*2*nF] = (sum4 -sum2 + sum3 + 1./Hi*f[i+nF]*(-dVi[j]) +sum1 )/Hi*s ;
-			u2out[i+nF+(j+nF)*2*nF]= 0.;// -1./2.*sumdcov1/Hi - 1./2.*sumdcov2/Hi;
+			u2out[i+nF+(j+nF)*2*nF]= 0.;
 			
             if(i==j){
                 u2out[i+nF+(j)*2*nF]=u2out[i+nF+(j)*2*nF]-1.0*(k1*k1)/(a*a)/Hi  * s ;// *a;
@@ -264,8 +260,6 @@ public:
 			sum2=0.0;
 			sum3=0.0;
 			sum4=0.0;
-			sumdcov1 = 0.0;
-			sumdcov2 = 0.0;
 
         }}
 
@@ -277,7 +271,7 @@ public:
 		//  8oooo88                           888    888          888   888          888 888     888 888        
 		//o88o  o888o                        o888o     88oooo888 o888o o888o 88oooooo88    88ooo88  o888o       
 
-    //calculates A (the field field field term of action) with indices A^{I}_{JK}
+    //calculates A (the field field field term of action)
     vector<double> Acalc(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
 	{
 		double a = exp(N);
@@ -310,7 +304,6 @@ public:
 		double sum4=0.0;
 		double sum5=0.0;
 		double sum6=0.0;
-		double sum1a=0.0;
 		double sumxx1=0.0;
 		double s1=0.0;
 		double s2=0.0;
@@ -389,7 +382,6 @@ public:
     //calculates AS (the "slow" parts of the field field field term of action -- this is used only for initial conditions) with indices AS^{I}_{JK}
     vector<double> AScalc(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
 	{
-		double a = exp(N);
         double Vi=pot.V(f,p);
 		double Hi=H(f,p);
      
@@ -587,7 +579,6 @@ public:
         double sum1=0;
 		double s1=0.0;
 		double s2=0.0;
-		double sum1b=0.0;
 		double sumxx1=0.0;
 	
 		for(int i=0;i<nF;i++){
@@ -645,6 +636,7 @@ public:
 		}}}
 		return Aout;
 	 }
+	 
 	 // Rearanges the indices of the AS tensor to AS^{IJK}
 	 vector<double> AScalcd(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
 	 {
@@ -667,6 +659,7 @@ public:
 		}}}
 		return ASout;
 	 }
+	 
 	 // Rearanges the indices of the B tensor to B^{IJK}
 	 vector<double> Bcalcd(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
 	 {
@@ -689,6 +682,7 @@ public:
 		}}}
 		return Bout;
 	 }
+	 
 	 // Rearanges the indices of the A tensor to B_{IJ}^{K}
 	 vector<double> Bcalcddu(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
 	 {
@@ -711,6 +705,7 @@ public:
 		}}}
 		return Bout;
 	 }
+	
 	// Rearanges the indices of the C tensor to C^{IJK}
 	vector<double> Ccalcd(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
 	 {
@@ -735,6 +730,7 @@ public:
 		return Cout;
 	 }
 
+	 
 	 // Rearanges the indices of the C tensor to C_{IJ}^K
 	 vector<double> Ccalcddu(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
 	 {
@@ -772,7 +768,6 @@ public:
         vector<double>  A, B,B2, B3, C, C2,C3;
         double Hi;
 		Hi=H(f,p);
-        double a =exp(N);
         double s=scale(f,p,N);
         
         A = Acalc(f,p, k1, k2, k3 ,N);
@@ -815,9 +810,7 @@ public:
 	//calculates N1_I
 	vector<double> N1(vector<double> f,vector<double> p, double N)
 	{
-		double Hd=Hdot(f,p);
 		double Hi=H(f,p);
-		//double a = exp(N);
 		vector<double> dVi;
 		vector<double> Ni(2*nF);
 		double ep=Ep(f,p);
@@ -830,7 +823,7 @@ public:
 			for(int l=0;l<nF;l++){
 			sum =  sum +  FMi[(2*nF)*(l+nF)+i+nF]*f[nF+l];
 			}
-			Ni[i]=-1./2.0/Hi/ep*sum;//1./2.*Hi/Hd *sum;
+			Ni[i]=-1./2.0/Hi/ep*sum;
 			Ni[nF+i] = 0. ;
 			
 			}
@@ -845,14 +838,13 @@ public:
 		//o88o    88 o8888oooo88                        o888o     88oooo888 o888o o888o 88oooooo88    88ooo88  o888o       
 
 
-	// Calculates the N2_{IJ} tensor
+	 // Calculates the N2_{IJ} tensor
 	vector<double> N2(vector<double> f, vector<double> p, double k1, double k2, double k3, double N)
 	{
 		double Hd=Hdot(f,p);
 		double Hin=H(f,p);
 		vector<double> dVi, dVVi;
 		vector<double> Nii(2*nF*2*nF);
-		double a = exp(N);
 		double s = scale(f,p,N);
 		dVi=pot.dV(f,p);
 		dVVi=pot.dVV(f,p);
@@ -865,22 +857,8 @@ public:
 		RMi = fmet.Riemn(f,p); 
 		vector<double> CHi;
 		CHi = fmet.Chroff(f,p);
-		//vector<double> CHdri;
-		//CHdri = fmet.Chroffdr(f);
-		
-		double sum1 = 0.0;
-		double sum2 = 0.0;
+
 		double sum3 = 0.0;
-
-		double sum6a = 0.0;
-		double sum6b = 0.0;
-		double sum6c = 0.0;
-
-		double sum8a = 0.0;
-		double sum8b = 0.0;
-		double sum8c = 0.0;
-		double sum9a = 0.0;
-		double sum9b = 0.0;
 
 
 		for(int i=0;i<nF;i++){sum3=sum3+dVi[i]*f[nF+i]/Hin/Hin/Hin;}
@@ -891,29 +869,15 @@ public:
 		// Might be able to speed up by ulilizing the completely covariant christoffell symbol
 		double ep = -Hd/Hin/Hin;
 		for(int i=0;i<nF;i++){for(int j=0; j<nF; j++){
-		Nii[i+(j)*2*nF]= 2./ep/Hin/Hin/6. * (fd[i]*fd[j] *(-3./2. + 9./2./ep + 3./4.*sum3/ep/ep));// + 1./4.* sum1 + 3./2./Hin/ep * (sum9a - sum9b) + 1./4. * sum6a - 3./2. *sum6b + 1./2.*sum6c);
-		Nii[i+(j+nF)*2*nF]=2./ep/Hin/Hin/6.*3./2.*fd[i]*fd[j]/Hin/ep /s;// + 2./ep/Hin/Hin/6.*(1./2.*sum8a - 1./2.*sum8b)/s;// /a;
-		Nii[i+nF+(j)*2*nF]=2./ep/Hin/Hin/6.*3./2.*fd[i]*fd[j]/Hin/ep /s;// + 2./ep/Hin/Hin/6.*(1./2.*sum8a - 1./2.*sum8c)/s; // /a;
+		Nii[i+(j)*2*nF]= 2./ep/Hin/Hin/6. * (fd[i]*fd[j] *(-3./2. + 9./2./ep + 3./4.*sum3/ep/ep));
+		Nii[i+(j+nF)*2*nF]=2./ep/Hin/Hin/6.*3./2.*fd[i]*fd[j]/Hin/ep /s;
+		Nii[i+nF+(j)*2*nF]=2./ep/Hin/Hin/6.*3./2.*fd[i]*fd[j]/Hin/ep /s;
 		Nii[i+nF+(j+nF)*2*nF]=0.;
 		Nii[i+nF+(j)*2*nF] = Nii[i+nF + (j) * 2*nF] - FMi[(2*nF)*(i+nF)+j+nF]*2./ep/Hin/Hin/6. * 3./2.*Hin/k1/k1*((-k2*k2-k3*k3+k1*k1)/2. + k3*k3)  /s;// /a ;
 		Nii[i+(j+nF)*2*nF] = Nii[i + (j+nF) * 2*nF] - FMi[(2*nF)*(i+nF)+j+nF]*2./ep/Hin/Hin/6. * 3./2.*Hin/k1/k1*((-k2*k2-k3*k3+k1*k1)/2. + k2*k2)  /s;// /a;}
 		
 		
-		sum1 = 0.0;
-		sum2 = 0.0;
-		
-		sum6a = 0.0;
-		sum6b = 0.0;
-		sum6c = 0.0;
-		
-		sum8a = 0.0;
-		sum8b = 0.0;
-		sum8c = 0.0;
-		sum9a = 0.0;
-		sum9b = 0.0;
-	
-		
-		
+
 		}}
 		
 		

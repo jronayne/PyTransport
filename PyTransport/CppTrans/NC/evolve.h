@@ -35,12 +35,9 @@ vector<double> Dcovsig(vector<double> f,vector<double> p, double N)
 	{
 		model m;
 		int nF = m.getnF();
-		int nP = m.getnP();
 		vector<double> covsigout(2*nF*2*nF);
 		fieldmetric fmet;
 		double Hi;
-		double s=m.scale(f,p,N);
-		double ds=m.dscale(f,p,N);
 		Hi=m.H(f,p);
 
 		vector<double> FMi;
@@ -48,12 +45,9 @@ vector<double> Dcovsig(vector<double> f,vector<double> p, double N)
 		vector<double> CHR;
 		CHR = fmet.Chroff(f,p);
 		double sum1=0.0;
-		double sum2=0.0;
-		double H=Hi;
 		for(int i=0;i<nF;i++){for(int j=0;j<nF;j++)
         {	
 			sum1=0.0;
-			sum2=0.0;
             for(int m=0;m<nF;m++){
             for(int l=0;l<nF;l++){
             for(int xx=0;xx<nF;xx++){
@@ -84,8 +78,7 @@ void evolveSig( double N, double yin[], double yp[], double paramsIn[])
     vector<double> fields(yin, yin+2*nF);
     vector<double> u1=m.u(fields,p);
     vector<double> u2=m.u(fields,p,k,N);
-	double Hi;
-	Hi=m.H(fields,p);
+
 
 	vector<double> dcov;
 	dcov=Dcovsig(fields,p,N);
@@ -129,8 +122,6 @@ void evolveAlp(double N,  double yin[], double yp[], double paramsIn[])
 	CHR = fmet.Chroff(fields,p);
     vector<double> dcov;
     dcov=Dcovsig(fields,p,N);
-	double Hi;
-	Hi=m.H(fields,p);
     u1=m.u(fields,p);
     u2a=m.u(fields,p,k1,N);
     u2b=m.u(fields,p,k2,N);
