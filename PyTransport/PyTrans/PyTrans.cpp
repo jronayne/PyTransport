@@ -225,7 +225,7 @@ static PyObject* MT_findEndOfInflation(PyObject* self, PyObject* args)
       }
 
     // allocate working space for the stepper
-    // TODO: consider protecting these allocations using a janitor object
+    // TODO: consider absorbing these allocations within a janitor object
     double* y = new double[2*nF];       // current values
     double* dy = new double[2*nF];      // derivatives
 
@@ -259,7 +259,13 @@ static PyObject* MT_findEndOfInflation(PyObject* self, PyObject* args)
         double eps = mm.Ep(vecy, vecParams);
 
         // break out of search if we have an unacceptable result, or if we are now past the end of inflation
-        if(eps < 0 || eps > 1) break;
+        if(eps < 0 || eps > 1)
+          {
+            // TODO: consider absorbing in a janitor
+            delete[] y;
+            delete[] dy;
+            return Py_BuildValue("d", N);
+          }
 
         flag = -2;      // '-2' means continue as normal in 'single-step' mode
       }
@@ -269,7 +275,7 @@ static PyObject* MT_findEndOfInflation(PyObject* self, PyObject* args)
     delete[] y;
     delete[] dy;
 
-    return Py_BuildValue("d", N);
+    Py_RETURN_NONE;
 }
 
 
