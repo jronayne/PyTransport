@@ -186,7 +186,7 @@ static PyObject* MT_findEndOfInflation(PyObject* self, PyObject* args)
     // parse arguments; final argument is optional
     if(!PyArg_ParseTuple(args, "O!O!O!d|d", &PyArray_Type, &initialCs, &PyArray_Type, &params, &PyArray_Type, &tols,
                          &Ninit, &DeltaN))
-      return nullptr;
+      return NULL;
 
     // convert requested tolerances to a C array and extract absolute & relative error targets
     double* tolsC = pyvector_to_Carray(tols);
