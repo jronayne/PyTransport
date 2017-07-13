@@ -180,12 +180,12 @@ static PyObject* MT_findEndOfInflation(PyObject* self, PyObject* args)
     PyArrayObject* initialCs;
     PyArrayObject* params;
     PyArrayObject* tols;
-    double Ninit = 0.0;     // value of N corresponding to initial conditions
-    double Nstop = 0.0;     // value of N at which to stop
+    double Ninit = 0.0;         // value of N corresponding to initial conditions
+    double DeltaN = 10000.0;    // number of e-folds to search through
 
-    // parse arguments
-    if(!PyArg_ParseTuple(args, "O!O!O!dd", &PyArray_Type, &initialCs, &PyArray_Type, &params, &PyArray_Type, &tols,
-                         &Ninit, &Nstop))
+    // parse arguments; final argument is optional
+    if(!PyArg_ParseTuple(args, "O!O!O!d|d", &PyArray_Type, &initialCs, &PyArray_Type, &params, &PyArray_Type, &tols,
+                         &Ninit, &DeltaN))
       return nullptr;
 
     // convert requested tolerances to a C array and extract absolute & relative error targets
@@ -237,6 +237,7 @@ static PyObject* MT_findEndOfInflation(PyObject* self, PyObject* args)
 
     // populate dy for initial step
     double N = Ninit;
+    const double Nstop = Ninit + DeltaN;
     evolveB(N, y, dy, Cparams);
 
     // integrated background until we encounter the end-of-inflation, or the end of the search window
