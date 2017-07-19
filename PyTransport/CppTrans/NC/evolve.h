@@ -50,17 +50,14 @@ vector<double> Dcovsig(vector<double> f,vector<double> p, double N)
 			sum1=0.0;
             for(int m=0;m<nF;m++){
             for(int l=0;l<nF;l++){
-            for(int xx=0;xx<nF;xx++){
-				//sum2= sum2 - FMi[(2*nF)*(i)+(l)]*FMi[(2*nF)*(j+nF)+(xx+nF)]*CHR[(2*nF)*(2*nF)*(xx)+(2*nF)*(l+nF)+m+nF]*f[nF+m];
-			}
 			}
 				sum1= sum1 + CHR[(2*nF)*(2*nF)*(i)+(2*nF)*(j+nF)+m+nF]*f[nF+m];
 			}
 			
-			covsigout[i+ j*2*nF]=sum1/Hi;//+1./2.*sum2/Hi;
+			covsigout[i+ j*2*nF]=sum1/Hi;
 			covsigout[i+nF+(j)*2*nF]=0.0;
 			covsigout[i+(j+nF)*2*nF]=0.0;
-			covsigout[i+nF+(j+nF)*2*nF]=sum1/Hi;//+1./2.*sum2/Hi;
+			covsigout[i+nF+(j+nF)*2*nF]=sum1/Hi;
 		}
 		}
 		return covsigout;
@@ -94,7 +91,7 @@ void evolveSig( double N, double yin[], double yp[], double paramsIn[])
             for(int m=0;m<2*nF;m++)
             {
 				//if(i>k)
-				sum1 = sum1  + 1./2.*dcov[i+ (m)*2*nF]*yin[2*nF+j+2*nF*m] + 1./2.*dcov[j+(m)*2*nF]*yin[2*nF+m+2*nF*i] + 1./2.*dcov[i+ (m)*2*nF]*yin[2*nF+m+2*nF*j] + 1./2.*dcov[j+(m)*2*nF]*yin[2*nF+i+2*nF*m];
+				sum1 = sum1  + dcov[i+ (m)*2*nF]*yin[2*nF+m+2*nF*j] + dcov[j+(m)*2*nF]*yin[2*nF+i+2*nF*m];
                 sum = sum + u2[i+m*2*nF]*yin[2*nF+m+2*nF*j] + u2[j+m*2*nF]*yin[2*nF+i+2*nF*m];
             }
             yp[2*nF+i+2*nF*j]=sum - sum1;
@@ -140,8 +137,8 @@ void evolveAlp(double N,  double yin[], double yp[], double paramsIn[])
             for(int m=0;m<2*nF;m++)
             {
 
-				sum3 = sum3 + 1./2.*dcov[i+ m*2*nF]*yin[2*nF+m+2*nF*j]+ 1./2.*dcov[i+ m*2*nF]*yin[2*nF+j+2*nF*m] + 1./2.*dcov[j+(m)*2*nF]*yin[2*nF+i+2*nF*m]+ 1./2.*dcov[j+(m)*2*nF]*yin[2*nF+m+2*nF*i];
-                sum = sum + u2a[i+m*2*nF]*yin[2*nF+m+2*nF*j] + u2a[j+m*2*nF]*yin[2*nF+m+2*nF*i] ;
+				sum3 = sum3 + dcov[i+ m*2*nF]*yin[2*nF+m+2*nF*j]+ dcov[j+(m)*2*nF]*yin[2*nF+i+2*nF*m];
+                sum = sum + u2a[i+m*2*nF]*yin[2*nF+m+2*nF*j] + u2a[j+m*2*nF]*yin[2*nF+i+2*nF*m] ;
             }
             
             yp[2*nF+i+2*nF*j]=sum -sum3;
@@ -154,8 +151,8 @@ void evolveAlp(double N,  double yin[], double yp[], double paramsIn[])
             for(int m=0;m<2*nF;m++)
             {
 
-				sum3 = sum3 + 1./2.*dcov[i+ m*2*nF]*yin[2*nF + (2*nF*2*nF) + m+2*nF*j]+ 1./2.*dcov[i+ m*2*nF]*yin[2*nF + (2*nF*2*nF) + j+2*nF*m] + 1./2.*dcov[j+(m)*2*nF]*yin[2*nF + (2*nF*2*nF) + m+2*nF*i]+ 1./2.*dcov[j+(m)*2*nF]*yin[2*nF + (2*nF*2*nF) + i+2*nF*m];
-                sum = sum + u2b[i+m*2*nF]*yin[2*nF + (2*nF*2*nF) + m+2*nF*j] + u2b[j+m*2*nF]*yin[2*nF + (2*nF*2*nF) + m+2*nF*i];
+				sum3 = sum3 + dcov[i+ m*2*nF]*yin[2*nF + (2*nF*2*nF) + m+2*nF*j] + dcov[j+(m)*2*nF]*yin[2*nF + (2*nF*2*nF) + i+2*nF*m];
+                sum = sum + u2b[i+m*2*nF]*yin[2*nF + (2*nF*2*nF) + m+2*nF*j] + u2b[j+m*2*nF]*yin[2*nF + (2*nF*2*nF) + i+2*nF*m];
             }
             yp[2*nF + (2*nF*2*nF) + i+2*nF*j]=sum - sum3;
         }}
@@ -167,8 +164,8 @@ void evolveAlp(double N,  double yin[], double yp[], double paramsIn[])
             for(int m=0;m<2*nF;m++)
             {
 
-				sum3 = sum3 + 1./2.*dcov[i+ m*2*nF]*yin[2*nF + 2*(2*nF*2*nF) +  m+2*nF*j]+ 1./2.*dcov[i+ m*2*nF]*yin[2*nF + 2*(2*nF*2*nF) +  j+2*nF*m] + 1./2.*dcov[j+(m)*2*nF]*yin[2*nF + 2*(2*nF*2*nF) + m+2*nF*i]+ 1./2.*dcov[j+(m)*2*nF]*yin[2*nF + 2*(2*nF*2*nF) + i+2*nF*m];
-                sum = sum + u2c[i+m*2*nF]*yin[2*nF + 2*(2*nF*2*nF) +  m+2*nF*j] + u2c[j+m*2*nF]*yin[2*nF + 2*(2*nF*2*nF) + m+2*nF*i];
+				sum3 = sum3 + dcov[i+ m*2*nF]*yin[2*nF + 2*(2*nF*2*nF) +  m+2*nF*j]+ dcov[j+(m)*2*nF]*yin[2*nF + 2*(2*nF*2*nF) + i+2*nF*m];
+                sum = sum + u2c[i+m*2*nF]*yin[2*nF + 2*(2*nF*2*nF) +  m+2*nF*j] + u2c[j+m*2*nF]*yin[2*nF + 2*(2*nF*2*nF) + i+2*nF*m];
             }
             yp[2*nF + 2*(2*nF*2*nF) +i+2*nF*j]=sum - sum3;
         }}
@@ -182,7 +179,7 @@ void evolveAlp(double N,  double yin[], double yp[], double paramsIn[])
             for(int m=0;m<2*nF;m++)
             {
 
-				sum3 = sum3 + 1./2.*dcov[i+ m*2*nF]*yin[2*nF + 3*(2*nF*2*nF) +  m+2*nF*j]+ 1./2.*dcov[i+ m*2*nF]*yin[2*nF + 3*(2*nF*2*nF) +  j+2*nF*m] + 1./2.*dcov[j+(m)*2*nF]*yin[2*nF + 3*(2*nF*2*nF) + i+2*nF*m]+ 1./2.*dcov[j+(m)*2*nF]*yin[2*nF + 3*(2*nF*2*nF) + m+2*nF*i];
+				sum3 = sum3 + dcov[i+ m*2*nF]*yin[2*nF + 3*(2*nF*2*nF) +  m+2*nF*j] + dcov[j+(m)*2*nF]*yin[2*nF + 3*(2*nF*2*nF) + i+2*nF*m];
                 sum = sum + u2a[i+m*2*nF]*yin[2*nF + 3*(2*nF*2*nF) +  m+2*nF*j] + u2a[j+m*2*nF]*yin[2*nF + 3*(2*nF*2*nF) + i+2*nF*m];
             }
             yp[2*nF + 3*(2*nF*2*nF) +i+2*nF*j]=sum -sum3;
@@ -195,7 +192,7 @@ void evolveAlp(double N,  double yin[], double yp[], double paramsIn[])
             for(int m=0;m<2*nF;m++)
             {
 
-				sum3 = sum3 + 1./2.*dcov[i+ m*2*nF]*yin[2*nF + 4*(2*nF*2*nF) +  m+2*nF*j]+ 1./2.*dcov[i+ m*2*nF]*yin[2*nF + 4*(2*nF*2*nF) +  j+2*nF*m] + 1./2.*dcov[j+(m)*2*nF]*yin[2*nF + 4*(2*nF*2*nF) + i+2*nF*m]+ 1./2.*dcov[j+(m)*2*nF]*yin[2*nF + 4*(2*nF*2*nF) + m+2*nF*i];
+				sum3 = sum3 + dcov[i+ m*2*nF]*yin[2*nF + 4*(2*nF*2*nF) +  m+2*nF*j] + dcov[j+(m)*2*nF]*yin[2*nF + 4*(2*nF*2*nF) + i+2*nF*m];
                 sum = sum + u2b[i+m*2*nF]*yin[2*nF + 4*(2*nF*2*nF) +  m+2*nF*j] + u2b[j+m*2*nF]*yin[2*nF + 4*(2*nF*2*nF) + i+2*nF*m];
             }
             yp[2*nF + 4*(2*nF*2*nF) +i+2*nF*j]=sum - sum3;
@@ -209,7 +206,7 @@ void evolveAlp(double N,  double yin[], double yp[], double paramsIn[])
             for(int m=0;m<2*nF;m++)
             {
 
-                sum3 = sum3 + 1./2.*dcov[i+ m*2*nF]*yin[2*nF + 5*(2*nF*2*nF) +  m+2*nF*j] + 1./2.*dcov[i+ m*2*nF]*yin[2*nF + 5*(2*nF*2*nF) +  j+2*nF*m] + 1./2.*dcov[j+(m)*2*nF]*yin[2*nF + 5*(2*nF*2*nF) + i+2*nF*m]+ 1./2.*dcov[j+(m)*2*nF]*yin[2*nF + 5*(2*nF*2*nF) + m+2*nF*i];
+                sum3 = sum3 + dcov[i+ m*2*nF]*yin[2*nF + 5*(2*nF*2*nF) +  m+2*nF*j] + dcov[j+(m)*2*nF]*yin[2*nF + 5*(2*nF*2*nF) + i+2*nF*m];
 				sum = sum + u2c[i+m*2*nF]*yin[2*nF + 5*(2*nF*2*nF) +  m+2*nF*j] + u2c[j+m*2*nF]*yin[2*nF + 5*(2*nF*2*nF) + i+2*nF*m];
             }
             yp[2*nF + 5*(2*nF*2*nF) +i+2*nF*j]=sum - sum3;
