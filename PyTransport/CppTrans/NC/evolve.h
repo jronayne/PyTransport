@@ -1,3 +1,4 @@
+
 //####################### File contains the evolution equations for the background and transport system in the correct form to be used by the integrateor ##########################
 
 #include <iostream>
@@ -14,7 +15,8 @@
 
 using namespace std;
 
-//takes in current state of background system, y -- fields and field derivatives -- calculates dy/dN
+// takes in current state of background system, y -- fields and field derivatives -- calculates dy/dN for
+// models with field space metric
 void evolveB(double N, double yin[], double yp[], double paramsIn[])
 {
     model m;
@@ -30,12 +32,14 @@ void evolveB(double N, double yin[], double yp[], double paramsIn[])
   //  delete [] in;
 }
 
-//takes in current state of background and 2pt transport system, y -- calculates dy/dN
-vector<double> Dcovsig(vector<double> f,vector<double> p, double N)
+// defines the connection (Gamma) contracted with the velocity (v) , and made into a 2nF x 2nf matric of form ( [[ v Gamma, 0], [0, v Gamma]] )
+//as needed for the equations of motion below
+
+vector<double> vG(vector<double> f,vector<double> p, double N)
 	{
 		model m;
 		int nF = m.getnF();
-		vector<double> covsigout(2*nF*2*nF);
+		vector<double> vGout(2*nF*2*nF);
 		fieldmetric fmet;
 		double Hi;
 		Hi=m.H(f,p);
@@ -54,14 +58,18 @@ vector<double> Dcovsig(vector<double> f,vector<double> p, double N)
 				sum1= sum1 + CHR[(2*nF)*(2*nF)*(i)+(2*nF)*(j+nF)+m+nF]*f[nF+m];
 			}
 			
-			covsigout[i+ j*2*nF]=sum1/Hi;
-			covsigout[i+nF+(j)*2*nF]=0.0;
-			covsigout[i+(j+nF)*2*nF]=0.0;
-			covsigout[i+nF+(j+nF)*2*nF]=sum1/Hi;
+			vGout[i+ j*2*nF]=sum1/Hi;
+			vGout[i+nF+(j)*2*nF]=0.0;
+			vGout[i+(j+nF)*2*nF]=0.0;
+			vGout[i+nF+(j+nF)*2*nF]=sum1/Hi;
 		}
 		}
-		return covsigout;
+		return vGout;
 	}	
+
+
+//takes in current state of background and 2pt transport system, y -- calculates dy/dN for
+//models with field space metric
 
 void evolveSig( double N, double yin[], double yp[], double paramsIn[])
 {
@@ -77,9 +85,10 @@ void evolveSig( double N, double yin[], double yp[], double paramsIn[])
     vector<double> u2=m.u(fields,p,k,N);
 
 
-	vector<double> dcov;
-	dcov=Dcovsig(fields,p,N);
+	vector<double> vGi;
+	vGi=vG(fields,p,N);
     
+    for (int ii=0;ii<2*nF*2*nF;ii++){u2[ii] = u2[ii] - vGi[ii];}
 	
     
 	for(int i=0;i<2*nF;i++){yp[i] = u1[i];}
@@ -87,19 +96,19 @@ void evolveSig( double N, double yin[], double yp[], double paramsIn[])
     for(int i=0;i<2*nF;i++){for(int j=0;j<2*nF;j++)
         {
             double sum=0.0;
-			double sum1=0.0;
             for(int m=0;m<2*nF;m++)
             {
 				//if(i>k)
-				sum1 = sum1  + dcov[i+ (m)*2*nF]*yin[2*nF+m+2*nF*j] + dcov[j+(m)*2*nF]*yin[2*nF+i+2*nF*m];
                 sum = sum + u2[i+m*2*nF]*yin[2*nF+m+2*nF*j] + u2[j+m*2*nF]*yin[2*nF+i+2*nF*m];
             }
-            yp[2*nF+i+2*nF*j]=sum - sum1;
+            yp[2*nF+i+2*nF*j]=sum ;
 
         }}
 
 }
 //takes in current state of background, the three 2pts functions needed to evolve the 3pt, and the 3pt, y, and calculates dy/dN
+//models with field space metric
+
 void evolveAlp(double N,  double yin[], double yp[], double paramsIn[])
 {
     model m;
@@ -117,143 +126,106 @@ void evolveAlp(double N,  double yin[], double yp[], double paramsIn[])
 	vector<double> FMi;
 	FMi = fmet.fmetric(fields,p);
 	CHR = fmet.Chroff(fields,p);
-    vector<double> dcov;
-    dcov=Dcovsig(fields,p,N);
+    vector<double> vGi;
+    vGi=vG(fields,p,N);
     u1=m.u(fields,p);
     u2a=m.u(fields,p,k1,N);
+    for (int ii=0;ii<2*nF*2*nF;ii++){u2a[ii] = u2a[ii] - vGi[ii];}
     u2b=m.u(fields,p,k2,N);
+    for (int ii=0;ii<2*nF*2*nF;ii++){u2b[ii] = u2b[ii] - vGi[ii];}
     u2c=m.u(fields,p,k3,N);
+    for (int ii=0;ii<2*nF*2*nF;ii++){u2c[ii] = u2c[ii ] - vGi[ii];}
     u3a=m.u(fields,p,k1, k2, k3, N);
     u3b=m.u(fields,p,k2, k1, k3, N);
     u3c=m.u(fields,p,k3, k1, k2, N);
 	
 	
     for(int i=0; i<2*nF; i++){yp[i] = u1[i];}
-    //Calculates the evolution of the two point function for each k mode individually
+    
     for(int i=0; i<2*nF; i++){for(int j=0;j<2*nF;j++)
+    {
+        double sum=0.0;
+        
+        for(int m=0;m<2*nF;m++)
         {
-            double sum=0.0;
-            double sum3=0.0;
-            for(int m=0;m<2*nF;m++)
-            {
-
-				sum3 = sum3 + dcov[i+ m*2*nF]*yin[2*nF+m+2*nF*j]+ dcov[j+(m)*2*nF]*yin[2*nF+i+2*nF*m];
-                sum = sum + u2a[i+m*2*nF]*yin[2*nF+m+2*nF*j] + u2a[j+m*2*nF]*yin[2*nF+i+2*nF*m] ;
-            }
-            
-            yp[2*nF+i+2*nF*j]=sum -sum3;
-        }}
+            sum = sum + u2a[i+m*2*nF]*yin[2*nF+m+2*nF*j] + u2a[j+m*2*nF]*yin[2*nF+m+2*nF*i];
+        }
+        
+        yp[2*nF+i+2*nF*j]=sum;
+    }}
     
     for(int i=0;i<2*nF;i++){for(int j=0;j<2*nF;j++)
+    {
+        double sum=0.0;
+        for(int m=0;m<2*nF;m++)
         {
-            double sum=0.0;
-			double sum3=0.0;
-            for(int m=0;m<2*nF;m++)
-            {
-
-				sum3 = sum3 + dcov[i+ m*2*nF]*yin[2*nF + (2*nF*2*nF) + m+2*nF*j] + dcov[j+(m)*2*nF]*yin[2*nF + (2*nF*2*nF) + i+2*nF*m];
-                sum = sum + u2b[i+m*2*nF]*yin[2*nF + (2*nF*2*nF) + m+2*nF*j] + u2b[j+m*2*nF]*yin[2*nF + (2*nF*2*nF) + i+2*nF*m];
-            }
-            yp[2*nF + (2*nF*2*nF) + i+2*nF*j]=sum - sum3;
-        }}
+            sum = sum + u2b[i+m*2*nF]*yin[2*nF + (2*nF*2*nF) + m+2*nF*j] + u2b[j+m*2*nF]*yin[2*nF + (2*nF*2*nF) + m+2*nF*i];
+        }
+        yp[2*nF + (2*nF*2*nF) + i+2*nF*j]=sum;
+    }}
     
     for(int i=0;i<2*nF;i++){for(int j=0;j<2*nF;j++)
+    {
+        double sum=0.0;
+        for(int m=0;m<2*nF;m++)
         {
-            double sum=0.0;
-			double sum3=0.0;
-            for(int m=0;m<2*nF;m++)
-            {
-
-				sum3 = sum3 + dcov[i+ m*2*nF]*yin[2*nF + 2*(2*nF*2*nF) +  m+2*nF*j]+ dcov[j+(m)*2*nF]*yin[2*nF + 2*(2*nF*2*nF) + i+2*nF*m];
-                sum = sum + u2c[i+m*2*nF]*yin[2*nF + 2*(2*nF*2*nF) +  m+2*nF*j] + u2c[j+m*2*nF]*yin[2*nF + 2*(2*nF*2*nF) + i+2*nF*m];
-            }
-            yp[2*nF + 2*(2*nF*2*nF) +i+2*nF*j]=sum - sum3;
-        }}
+            sum = sum + u2c[i+m*2*nF]*yin[2*nF + 2*(2*nF*2*nF) +  m+2*nF*j] + u2c[j+m*2*nF]*yin[2*nF + 2*(2*nF*2*nF) + m+2*nF*i];
+        }
+        yp[2*nF + 2*(2*nF*2*nF) +i+2*nF*j]=sum;
+    }}
     
     
     
     for(int i=0;i<2*nF;i++){for(int j=0;j<2*nF;j++)
+    {
+        double sum=0.0;
+        for(int m=0;m<2*nF;m++)
         {
-            double sum=0.0;
-			double sum3=0.0;
-            for(int m=0;m<2*nF;m++)
-            {
-
-				sum3 = sum3 + dcov[i+ m*2*nF]*yin[2*nF + 3*(2*nF*2*nF) +  m+2*nF*j] + dcov[j+(m)*2*nF]*yin[2*nF + 3*(2*nF*2*nF) + i+2*nF*m];
-                sum = sum + u2a[i+m*2*nF]*yin[2*nF + 3*(2*nF*2*nF) +  m+2*nF*j] + u2a[j+m*2*nF]*yin[2*nF + 3*(2*nF*2*nF) + i+2*nF*m];
-            }
-            yp[2*nF + 3*(2*nF*2*nF) +i+2*nF*j]=sum -sum3;
-        }}
+            sum = sum + u2a[i+m*2*nF]*yin[2*nF + 3*(2*nF*2*nF) +  m+2*nF*j] + u2a[j+m*2*nF]*yin[2*nF + 3*(2*nF*2*nF) + i+2*nF*m];
+        }
+        yp[2*nF + 3*(2*nF*2*nF) +i+2*nF*j]=sum;
+    }}
     
     for(int i=0;i<2*nF;i++){for(int j=0;j<2*nF;j++)
+    {
+        double sum=0.0;
+        for(int m=0;m<2*nF;m++)
         {
-            double sum=0.0;
-			double sum3=0.0;
-            for(int m=0;m<2*nF;m++)
-            {
-
-				sum3 = sum3 + dcov[i+ m*2*nF]*yin[2*nF + 4*(2*nF*2*nF) +  m+2*nF*j] + dcov[j+(m)*2*nF]*yin[2*nF + 4*(2*nF*2*nF) + i+2*nF*m];
-                sum = sum + u2b[i+m*2*nF]*yin[2*nF + 4*(2*nF*2*nF) +  m+2*nF*j] + u2b[j+m*2*nF]*yin[2*nF + 4*(2*nF*2*nF) + i+2*nF*m];
-            }
-            yp[2*nF + 4*(2*nF*2*nF) +i+2*nF*j]=sum - sum3;
-        }}
+            sum = sum + u2b[i+m*2*nF]*yin[2*nF + 4*(2*nF*2*nF) +  m+2*nF*j] + u2b[j+m*2*nF]*yin[2*nF + 4*(2*nF*2*nF) + i+2*nF*m];
+        }
+        yp[2*nF + 4*(2*nF*2*nF) +i+2*nF*j]=sum;
+    }}
     
     
     for(int i=0;i<2*nF;i++){for(int j=0;j<2*nF;j++)
+    {
+        double sum=0.0;
+        for(int m=0;m<2*nF;m++)
         {
-            double sum=0.0;
-			double sum3=0.0;
-            for(int m=0;m<2*nF;m++)
-            {
-
-                sum3 = sum3 + dcov[i+ m*2*nF]*yin[2*nF + 5*(2*nF*2*nF) +  m+2*nF*j] + dcov[j+(m)*2*nF]*yin[2*nF + 5*(2*nF*2*nF) + i+2*nF*m];
-				sum = sum + u2c[i+m*2*nF]*yin[2*nF + 5*(2*nF*2*nF) +  m+2*nF*j] + u2c[j+m*2*nF]*yin[2*nF + 5*(2*nF*2*nF) + i+2*nF*m];
-            }
-            yp[2*nF + 5*(2*nF*2*nF) +i+2*nF*j]=sum - sum3;
-        }}
+            sum = sum + u2c[i+m*2*nF]*yin[2*nF + 5*(2*nF*2*nF) +  m+2*nF*j] + u2c[j+m*2*nF]*yin[2*nF + 5*(2*nF*2*nF) + i+2*nF*m];
+        }
+        yp[2*nF + 5*(2*nF*2*nF) +i+2*nF*j]=sum;
+    }}
     
-	//Calculates the evolution of the three point function
-
     for(int i=0;i<2*nF;i++){for(int j=0;j<2*nF;j++){for(int k=0;k<2*nF;k++)
+    {
+        double sum=0.0;
+        double sum2=0.0;
+        for(int m=0;m<2*nF;m++)
         {
-            double sum=0.0;
-            double sum2=0.0;
-			double sum3=0.0;
-            for(int m=0;m<2*nF;m++)
-            {
-				
-				sum3 =  1./6.*dcov[j+ m*2*nF]*yin[2*nF + 6*(2*nF*2*nF)  +  m + k*2*nF + i*2*nF*2*nF]
-							+ 1./6.*dcov[i+ m*2*nF]*yin[2*nF + 6*(2*nF*2*nF)  +  m + j*2*nF + k*2*nF*2*nF]
-							+ 1./6.*dcov[i+ m*2*nF]*yin[2*nF + 6*(2*nF*2*nF)  +  m + k*2*nF + j*2*nF*2*nF]
-							+ 1./6.*dcov[j+ m*2*nF]*yin[2*nF + 6*(2*nF*2*nF)  +  m + i*2*nF + k*2*nF*2*nF]
-							+ 1./6.*dcov[k+ m*2*nF]*yin[2*nF + 6*(2*nF*2*nF)  +  m + i*2*nF + j*2*nF*2*nF]
-							+ 1./6.*dcov[k+ m*2*nF]*yin[2*nF + 6*(2*nF*2*nF)  +  m + j*2*nF + i*2*nF*2*nF]
-							+ 1./6.*dcov[j+ m*2*nF]*yin[2*nF + 6*(2*nF*2*nF)  +  i + m*2*nF + k*2*nF*2*nF]
-							+ 1./6.*dcov[j+ m*2*nF]*yin[2*nF + 6*(2*nF*2*nF)  +  k + m*2*nF + i*2*nF*2*nF]
-							+ 1./6.*dcov[k+ m*2*nF]*yin[2*nF + 6*(2*nF*2*nF)  +  j + m*2*nF + i*2*nF*2*nF]
-							+ 1./6.*dcov[k+ m*2*nF]*yin[2*nF + 6*(2*nF*2*nF)  +  i + m*2*nF + j*2*nF*2*nF]
-							+ 1./6.*dcov[i+ m*2*nF]*yin[2*nF + 6*(2*nF*2*nF)  +  j + m*2*nF + k*2*nF*2*nF]
-							+ 1./6.*dcov[i+ m*2*nF]*yin[2*nF + 6*(2*nF*2*nF)  +  k + m*2*nF + j*2*nF*2*nF]
-							+ 1./6.*dcov[k+ m*2*nF]*yin[2*nF + 6*(2*nF*2*nF)  +  i + j*2*nF + m*2*nF*2*nF]
-							+ 1./6.*dcov[k+ m*2*nF]*yin[2*nF + 6*(2*nF*2*nF)  +  j + i*2*nF + m*2*nF*2*nF]							
-							+ 1./6.*dcov[j+ m*2*nF]*yin[2*nF + 6*(2*nF*2*nF)  +  i + k*2*nF + m*2*nF*2*nF]
-							+ 1./6.*dcov[j+ m*2*nF]*yin[2*nF + 6*(2*nF*2*nF)  +  k + i*2*nF + m*2*nF*2*nF]
-							+ 1./6.*dcov[i+ m*2*nF]*yin[2*nF + 6*(2*nF*2*nF)  +  k + j*2*nF + m*2*nF*2*nF]
-							+ 1./6.*dcov[i+ m*2*nF]*yin[2*nF + 6*(2*nF*2*nF)  +  j + k*2*nF + m*2*nF*2*nF];
-							
-                sum = sum - sum3 + u2a[i+m*2*nF]*yin[2*nF + 6*(2*nF*2*nF)  +  m + j*2*nF + k*2*nF*2*nF] + u2b[j+m*2*nF]*yin[2*nF + 6*(2*nF*2*nF)
-                                                                                                                     +  i + m*2*nF + k*2*nF*2*nF] + u2c[k+m*2*nF]*yin[2*nF + 6*(2*nF*2*nF)  +  i + j*2*nF + m*2*nF*2*nF];
-                for(int n=0;n<2*nF;n++){
-                    sum2 = sum2 + u3a[i+ n*2*nF + m*2*nF*2*nF ]*yin[2*nF + 1*(2*nF*2*nF) + j + n*2*nF]*yin[2*nF +2* (2*nF*2*nF) + k + m*2*nF]
-                    + u3b[j+ n*2*nF + m*2*nF*2*nF ]*yin[2*nF + 0*(2*nF*2*nF) + n + i*2*nF]*yin[2*nF +2* (2*nF*2*nF) + m + k*2*nF]
-                    + u3c[k+ n*2*nF + m*2*nF*2*nF ]*yin[2*nF + 0*(2*nF*2*nF) + n+ i*2*nF]*yin[2*nF +1* (2*nF*2*nF) + j + m*2*nF]
-                    - 1.*u3a[i+ n*2*nF + m*2*nF*2*nF ]*yin[2*nF + 4*(2*nF*2*nF) + n + j*2*nF]*yin[2*nF +5* (2*nF*2*nF) + m + k*2*nF]
-                    - 1.*u3b[j+ n*2*nF + m*2*nF*2*nF ]*yin[2*nF + 3*(2*nF*2*nF) + i + n*2*nF]*yin[2*nF +5* (2*nF*2*nF) + m + k*2*nF]
-                    - 1.*u3c[k+ n*2*nF + m*2*nF*2*nF ]*yin[2*nF + 3*(2*nF*2*nF) + i + n*2*nF]*yin[2*nF +4* (2*nF*2*nF) + j + m*2*nF];
-                }}
-            yp[2*nF + 6*(2*nF*2*nF)  +  i+2*nF*j+k*2*nF*2*nF]=sum+sum2;    
-        }}}
-
+            sum = sum + u2a[i+m*2*nF]*yin[2*nF + 6*(2*nF*2*nF)  +  m + j*2*nF + k*2*nF*2*nF] + u2b[j+m*2*nF]*yin[2*nF + 6*(2*nF*2*nF)
+                                                                                                                 +  i + m*2*nF + k*2*nF*2*nF] + u2c[k+m*2*nF]*yin[2*nF + 6*(2*nF*2*nF)  +  i + j*2*nF + m*2*nF*2*nF];
+            for(int n=0;n<2*nF;n++){
+                sum2 = sum2 + u3a[i+ n*2*nF + m*2*nF*2*nF ]*yin[2*nF + 1*(2*nF*2*nF) + j + n*2*nF]*yin[2*nF +2* (2*nF*2*nF) + k + m*2*nF]
+                + u3b[j+ n*2*nF + m*2*nF*2*nF ]*yin[2*nF + 0*(2*nF*2*nF) + n + i*2*nF]*yin[2*nF +2* (2*nF*2*nF) + m + k*2*nF]
+                + u3c[k+ n*2*nF + m*2*nF*2*nF ]*yin[2*nF + 0*(2*nF*2*nF) + n+ i*2*nF]*yin[2*nF +1* (2*nF*2*nF) + j + m*2*nF]
+                - 1.*u3a[i+ n*2*nF + m*2*nF*2*nF ]*yin[2*nF + 4*(2*nF*2*nF) + n + j*2*nF]*yin[2*nF +5* (2*nF*2*nF) + m + k*2*nF]
+                - 1.*u3b[j+ n*2*nF + m*2*nF*2*nF ]*yin[2*nF + 3*(2*nF*2*nF) + i + n*2*nF]*yin[2*nF +5* (2*nF*2*nF) + m + k*2*nF]
+                - 1.*u3c[k+ n*2*nF + m*2*nF*2*nF ]*yin[2*nF + 3*(2*nF*2*nF) + i + n*2*nF]*yin[2*nF +4* (2*nF*2*nF) + j + m*2*nF];
+            }}
+        yp[2*nF + 6*(2*nF*2*nF)  +  i+2*nF*j+k*2*nF*2*nF]=sum+sum2;
+        
+    }}}
     
 }
 

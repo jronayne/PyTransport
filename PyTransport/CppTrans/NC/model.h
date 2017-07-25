@@ -147,13 +147,21 @@ public:
        // return  a*Hi - a *Hi/pow(1. + k/a/Hi,2.0) + (1.0-a)*2.0*k/a/a/Hi/Hi*(a*Hi*Hi+a*Hdi)/pow(1. + k/a/Hi,3.0);
         return  -Hdi/Hi/Hi*a/(1.+a*Hi/k) + a/(1.+a*Hi/k) -a*(a*Hi*Hi/k + a*Hdi/k)/(1.+a*Hi/k)/(1.+a*Hi/k)/Hi; //+ 10.0*k/a/a/Hi/Hi*(a*Hi*Hi+a*Hdi)/pow(1. + k/a/Hi,11.0);
     }
+    
+    
+    
+    
+    
 		//ooooo  oooo  oo                      ooooooooooo                                                           
 		// 888    88 o888                      88  888  88 ooooooooo8 oo oooooo    oooooooo8    ooooooo  oo oooooo   
 		// 888    88  888       ooooooooo          888    888oooooo8   888   888  888ooooooo  888     888 888    888 
 		// 888    88  888                          888    888          888   888          888 888     888 888        
 		//  888oo88  o888o                        o888o     88oooo888 o888o o888o 88oooooo88    88ooo88  o888o       
 
-	// calculates u1 
+	
+    
+    // calculates u1 for models with field space metric (Christoffel terms are included here)
+    
 	vector<double> u(vector<double> f,vector<double> p)
 	{
 		vector<double> u1out(2*nF);
@@ -190,17 +198,18 @@ public:
 
 			}
 		
-		
 		return u1out;
 	}
 
+    
 	
 		//ooooo  oooo  ooooooo                       ooooooooooo                                                           
 		// 888    88 o88     888                     88  888  88 ooooooooo8 oo oooooo    oooooooo8    ooooooo  oo oooooo   
 		// 888    88       o888       ooooooooo          888    888oooooo8   888   888  888ooooooo  888     888 888    888 
 		// 888    88    o888   o                         888    888          888   888          888 888     888 888        
 		//  888oo88  o8888oooo88                        o888o     88oooo888 o888o o888o 88oooooo88    88ooo88  o888o       
-	// calculates u2
+	// calculates u2 tensor for models will non-trivial field space metric -- note that
+    // Christoffel terms in the equations of motion are added in the evolve.h field
 
 	vector<double> u(vector<double> f,vector<double> p, double k1, double N)
 	{
@@ -219,8 +228,6 @@ public:
 		vector<double> RMi;
 		RMi = fmet.Riemn(f,p);
 		vector<double> u1 =u(f,p);
-		vector<double> CHR;
-		CHR = fmet.Chroff(f,p);
 		
 		
 		double sum1 = 0.0;
@@ -265,14 +272,20 @@ public:
 
 		return u2out;
 	}
+    
+    
+    
+    
 		//     o                          ooooooooooo                                                           
 		//    888                         88  888  88 ooooooooo8 oo oooooo    oooooooo8    ooooooo  oo oooooo   
 		//   8  88         ooooooooo          888    888oooooo8   888   888  888ooooooo  888     888 888    888 
 		//  8oooo88                           888    888          888   888          888 888     888 888        
 		//o88o  o888o                        o888o     88oooo888 o888o o888o 88oooooo88    88ooo88  o888o       
 
-    //calculates A (the field field field term of action)
-    vector<double> Acalc(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
+    // calculates A (the field field field term of action) for the non-trival field space metric case -- this is needed for the u2 tensor
+    // A is calculated here with indices AS^{I}_{JK}
+
+    vector<double> Acalcudd(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
 	{
 		double a = exp(N);
         double Vi=pot.V(f,p);
@@ -294,10 +307,7 @@ public:
 		RMi = fmet.Riemn(f,p); 
 		vector<double> RMCi;
 		RMCi = fmet.Riemncd(f,p);
-		vector<double> CHR;
-		CHR = fmet.Chroff(f,p);
-		vector<double> u1 =u(f,p);
-		
+      		
         double sum1=0.0;
 		double sum2=0.0;
 		double sum3=0.0;
@@ -369,6 +379,7 @@ public:
 			sum6=0.0;
             }}}
 
+        
         return A;
     }	
 
@@ -379,8 +390,9 @@ public:
 		//  8oooo88           888                   888    888          888   888          888 888     888 888        
 		//o88o  o888o o88oooo888                   o888o     88oooo888 o888o o888o 88oooooo88    88ooo88  o888o       
 
-    //calculates AS (the "slow" parts of the field field field term of action -- this is used only for initial conditions) with indices AS^{I}_{JK}
-    vector<double> AScalc(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
+    //calculates AS (the "slow" parts of the field field field term of action for non-trival field space case
+    //this is used only for initial conditions and is calculated with indices AS^{I}_{JK}
+    vector<double> AScalcudd(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
 	{
         double Vi=pot.V(f,p);
 		double Hi=H(f,p);
@@ -401,9 +413,6 @@ public:
 		RMi = fmet.Riemn(f,p); 
 		vector<double> RMCi;
 		RMCi = fmet.Riemncd(f,p);
-		vector<double> u1 =u(f,p);
-		vector<double> CHR;
-		CHR = fmet.Chroff(f,p);
 
         double sum1=0.0;
 		double sum2=0.0;
@@ -483,8 +492,8 @@ public:
 		// 888    888                         888    888          888   888          888 888     888 888        
 		//o888ooo888                         o888o     88oooo888 o888o o888o 88oooooo88    88ooo88  o888o       
 
-	//Calculates B term of action with indices B^{I}_{JK}
-    vector<double> Bcalc(vector<double> f,vector<double> p, double k1, double k2, double k3,double N)
+	//Calculates B term of action for non-trivial field space metric with indices B^{I}_{JK}
+    vector<double> Bcalcudd(vector<double> f,vector<double> p, double k1, double k2, double k3,double N)
 	{
 		
         double Hi=H(f,p);
@@ -500,11 +509,7 @@ public:
 		vector<double> Xid(nF);
 		vector<double> B(nF*nF*nF);
 		vector<double> fd(nF);
-		vector<double> u1 =u(f,p);
-		vector<double> CHR;
-		CHR = fmet.Chroff(f,p);
-		
-		vector<double> FMi;
+        vector<double> FMi;
 		FMi = fmet.fmetric(f,p);
 		vector<double> RMi;
 		RMi = fmet.Riemn(f,p); 
@@ -558,8 +563,8 @@ public:
 		// 888oooo88                         o888o     88oooo888 o888o o888o 88oooooo88    88ooo88  o888o       
 	
 	
-	//Calculates C term of action with indices C^{I}_{JK}
-    vector<double> Ccalc(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
+	//Calculates C term of action for non-trivial field space metric case with indices C^{I}_{JK}
+    vector<double> Ccalcudd(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
 	{	
 		double Hi=H(f,p);
         vector<double> FMi;
@@ -609,13 +614,18 @@ public:
         return C;
     }
 	
+    
+    
+    
 		//     o      oooooooooo    oooooooo8                     oooooooooo             ooooo                   oooo                        
 		//    888      888    888 o888     88                      888    888 ooooooooo8  888  oo oooooo    ooooo888  ooooooooo8 oooo   oooo 
 		//   8  88     888oooo88  888              ooooooooo       888oooo88 888oooooo8   888   888   888 888    888 888oooooo8    888o888   
 		//  8oooo88    888    888 888o     oo                      888  88o  888          888   888   888 888    888 888           o88 88o   
 		//o88o  o888o o888ooo888   888oooo88                      o888o  88o8  88oooo888 o888o o888o o888o  88ooo888o  88oooo888 o88o   o88o 
-	// Rearanges the indices of the A tensor to A^{IJK}
-	vector<double> Acalcd(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
+	
+    
+    // Rearanges the indices of the A tensor to A^{IJK}
+	vector<double> Acalcuuu(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
 	 {
 		vector<double> A;
 
@@ -624,7 +634,7 @@ public:
 		vector<double> FMi;
 		FMi = fmet.fmetric(f,p);
 		
-		A = Acalc(f,p, k1, k2, k3, N);
+		A = Acalcudd(f,p, k1, k2, k3, N);
 		double sum =0.0;
 		
 		for(int i=0;i<nF;i++){for(int j=0;j<nF;j++){for(int k=0;k<nF;k++){for(int l=0;l<nF;l++){for(int m=0;m<nF;m++){
@@ -638,7 +648,7 @@ public:
 	 }
 	 
 	 // Rearanges the indices of the AS tensor to AS^{IJK}
-	 vector<double> AScalcd(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
+	 vector<double> AScalcuuu(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
 	 {
 		vector<double> AS;
 
@@ -647,7 +657,7 @@ public:
 		vector<double> FMi;
 		FMi = fmet.fmetric(f,p);
 		
-		AS = AScalc(f,p, k1, k2, k3, N);
+		AS = AScalcudd(f,p, k1, k2, k3, N);
 		double sum =0.0;
 		
 		for(int i=0;i<nF;i++){for(int j=0;j<nF;j++){for(int k=0;k<nF;k++){for(int l=0;l<nF;l++){for(int m=0;m<nF;m++){
@@ -661,7 +671,7 @@ public:
 	 }
 	 
 	 // Rearanges the indices of the B tensor to B^{IJK}
-	 vector<double> Bcalcd(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
+	 vector<double> Bcalcuuu(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
 	 {
 		vector<double> B;
 
@@ -670,7 +680,7 @@ public:
 		vector<double> FMi;
 		FMi = fmet.fmetric(f,p);
 		
-		B = Bcalc(f,p, k1, k2, k3, N);
+		B = Bcalcudd(f,p, k1, k2, k3, N);
 		double sum =0.0;
 		
 		for(int i=0;i<nF;i++){for(int j=0;j<nF;j++){for(int k=0;k<nF;k++){for(int l=0;l<nF;l++){for(int m=0;m<nF;m++){
@@ -693,7 +703,7 @@ public:
 		vector<double> FMi;
 		FMi = fmet.fmetric(f,p);
 		
-		B = Bcalc(f,p, k1, k2, k3, N);
+		B = Bcalcudd(f,p, k1, k2, k3, N);
 		double sum =0.0;
 		
 		for(int i=0;i<nF;i++){for(int j=0;j<nF;j++){for(int k=0;k<nF;k++){for(int l=0;l<nF;l++){for(int m=0;m<nF;m++){
@@ -707,7 +717,7 @@ public:
 	 }
 	
 	// Rearanges the indices of the C tensor to C^{IJK}
-	vector<double> Ccalcd(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
+	vector<double> Ccalcuuu(vector<double> f, vector<double> p, double k1, double k2, double k3,double N)
 	 {
 		vector<double> C;
 
@@ -716,7 +726,7 @@ public:
 		vector<double> FMi;
 		FMi = fmet.fmetric(f,p);
 		
-		C = Ccalc(f,p, k1, k2, k3, N);
+		C = Ccalcudd(f,p, k1, k2, k3, N);
 		double sum =0.0;
 		
 		for(int i=0;i<nF;i++){for(int j=0;j<nF;j++){for(int k=0;k<nF;k++){for(int l=0;l<nF;l++){for(int m=0;m<nF;m++){
@@ -741,7 +751,7 @@ public:
 		vector<double> FMi;
 		FMi = fmet.fmetric(f,p);
 		
-		C = Ccalc(f,p, k1, k2, k3, N);
+		C = Ccalcudd(f,p, k1, k2, k3, N);
 		double sum =0.0;
 		
 		for(int i=0;i<nF;i++){for(int j=0;j<nF;j++){for(int k=0;k<nF;k++){for(int l=0;l<nF;l++){for(int m=0;m<nF;m++){
@@ -770,12 +780,12 @@ public:
 		Hi=H(f,p);
         double s=scale(f,p,N);
         
-        A = Acalc(f,p, k1, k2, k3 ,N);
+        A = Acalcudd(f,p, k1, k2, k3 ,N);
         B= Bcalcddu(f,p, k2, k3, k1 ,N);
-        B2=  Bcalc(f,p, k1, k2, k3 ,N);
-        B3=Bcalc(f,p, k1, k3, k2 ,N);
-        C=  Ccalc(f,p, k1, k2, k3 ,N);
-        C2=  Ccalc(f,p, k1, k3, k2 ,N);
+        B2=  Bcalcudd(f,p, k1, k2, k3 ,N);
+        B3=Bcalcudd(f,p, k1, k3, k2 ,N);
+        C=  Ccalcudd(f,p, k1, k2, k3 ,N);
+        C2=  Ccalcudd(f,p, k1, k3, k2 ,N);
         C3 = Ccalcddu(f,p, k3, k2, k1 ,N);
 
 
@@ -807,7 +817,7 @@ public:
 		// 88   8888  888                          888    888          888   888          888 888     888 888        
 		//o88o    88 o888o                        o888o     88oooo888 o888o o888o 88oooooo88    88ooo88  o888o       
 
-	//calculates N1_I
+	//calculates N1_I tesnor
 	vector<double> N1(vector<double> f,vector<double> p, double N)
 	{
 		double Hi=H(f,p);
@@ -866,7 +876,6 @@ public:
 		double s2=0.0;
 		for(int i=0;i<nF;i++){for(int j=0;j<nF;j++){s2 = s2 + FMi[(2*nF)*(i+nF)+(j+nF)]*f[nF + j];} fd[i]=s2; s2=0.0;}
 
-		// Might be able to speed up by ulilizing the completely covariant christoffell symbol
 		double ep = -Hd/Hin/Hin;
 		for(int i=0;i<nF;i++){for(int j=0; j<nF; j++){
 		Nii[i+(j)*2*nF]= 2./ep/Hin/Hin/6. * (fd[i]*fd[j] *(-3./2. + 9./2./ep + 3./4.*sum3/ep/ep));

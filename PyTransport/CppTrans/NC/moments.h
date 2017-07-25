@@ -328,17 +328,17 @@ private:
 		vector<double> FMi;
 		FMi = fmet.fmetric(f,p);
         model m;
-        C123 = m.Ccalcd(f,p, k1, k2, k3, N0);
-        C132 = m.Ccalcd(f,p, k1, k3, k2, N0);
-        C231 = m.Ccalcd(f,p, k2, k3, k1, N0);
+        C123 = m.Ccalcuuu(f,p, k1, k2, k3, N0);
+        C132 = m.Ccalcuuu(f,p, k1, k3, k2, N0);
+        C231 = m.Ccalcuuu(f,p, k2, k3, k1, N0);
 
-        AS123 = m.AScalcd(f, p, k1, k2, k3, N0);
-        AS132 = m.AScalcd(f, p, k1, k3, k2, N0);
-        AS231 = m.AScalcd(f, p, k2, k3, k1, N0);
+        AS123 = m.AScalcuuu(f, p, k1, k2, k3, N0);
+        AS132 = m.AScalcuuu(f, p, k1, k3, k2, N0);
+        AS231 = m.AScalcuuu(f, p, k2, k3, k1, N0);
 
-        B123 = m.Bcalcd(f, p, k1, k2, k3, N0);
-        B132 = m.Bcalcd(f, p, k1, k3, k2, N0);
-        B231 = m.Bcalcd(f, p, k2, k3, k1, N0);
+        B123 = m.Bcalcuuu(f, p, k1, k2, k3, N0);
+        B132 = m.Bcalcuuu(f, p, k1, k3, k2, N0);
+        B231 = m.Bcalcuuu(f, p, k2, k3, k1, N0);
         
         vector<double> fff(nF*nF*nF);
         double Hi= m.H(f,p);
@@ -372,17 +372,17 @@ private:
 		
         model m;
         
-        C123 = m.Ccalcd(f, p, k1, k2, k3, N0);
-        C132 = m.Ccalcd(f, p, k1, k3, k2, N0);
-        C231 = m.Ccalcd(f, p, k2, k3, k1, N0);
+        C123 = m.Ccalcuuu(f, p, k1, k2, k3, N0);
+        C132 = m.Ccalcuuu(f, p, k1, k3, k2, N0);
+        C231 = m.Ccalcuuu(f, p, k2, k3, k1, N0);
         
-        B123 = m.Bcalcd(f, p, k1, k2, k3, N0);
-        B132 = m.Bcalcd(f, p, k1, k3, k2, N0);
-        B231 = m.Bcalcd(f, p, k2, k3, k1, N0);
+        B123 = m.Bcalcuuu(f, p, k1, k2, k3, N0);
+        B132 = m.Bcalcuuu(f, p, k1, k3, k2, N0);
+        B231 = m.Bcalcuuu(f, p, k2, k3, k1, N0);
         
-		AS123 = m.AScalcd(f, p, k1, k2, k3, N0);
-        AS132 = m.AScalcd(f, p, k1, k3, k2, N0);
-        AS231 = m.AScalcd(f, p, k2, k3, k1, N0);
+		AS123 = m.AScalcuuu(f, p, k1, k2, k3, N0);
+        AS132 = m.AScalcuuu(f, p, k1, k3, k2, N0);
+        AS231 = m.AScalcuuu(f, p, k2, k3, k1, N0);
         
         Hi=m.H(f,p);
         
@@ -430,17 +430,17 @@ private:
         vector<double> FMi;
 		FMi = fmet.fmetric(f,p);
         
-        C123 = m.Ccalcd(f,p, k1, k2, k3, N0);
-        C132 = m.Ccalcd(f,p, k1, k3, k2, N0);
-        C231 = m.Ccalcd(f,p, k2, k3, k1, N0);
+        C123 = m.Ccalcuuu(f,p, k1, k2, k3, N0);
+        C132 = m.Ccalcuuu(f,p, k1, k3, k2, N0);
+        C231 = m.Ccalcuuu(f,p, k2, k3, k1, N0);
         
-        B123 = m.Bcalcd(f, p, k1, k2, k3, N0);
-        B132 = m.Bcalcd(f, p, k1, k3, k2, N0);
-        B231 = m.Bcalcd(f, p, k2, k3, k1, N0);
+        B123 = m.Bcalcuuu(f, p, k1, k2, k3, N0);
+        B132 = m.Bcalcuuu(f, p, k1, k3, k2, N0);
+        B231 = m.Bcalcuuu(f, p, k2, k3, k1, N0);
         
-        AS123 = m.AScalcd(f, p, k1, k2, k3, N0);
-        AS132 = m.AScalcd(f, p, k1, k3, k2, N0);
-        AS231 = m.AScalcd(f, p, k2, k3, k1, N0);
+        AS123 = m.AScalcuuu(f, p, k1, k2, k3, N0);
+        AS132 = m.AScalcuuu(f, p, k1, k3, k2, N0);
+        AS231 = m.AScalcuuu(f, p, k2, k3, k1, N0);
         
         
         H=m.H(f,p);
@@ -479,17 +479,17 @@ private:
 
         vector<double> FMi;
 		FMi = fmet.fmetric(f,p);
-        C123 = m.Ccalcd(f,p, k1, k2, k3, N0);
-        C132 = m.Ccalcd(f,p, k1, k3, k2, N0);
-        C231 = m.Ccalcd(f,p, k2, k3, k1, N0);
+        C123 = m.Ccalcuuu(f,p, k1, k2, k3, N0);
+        C132 = m.Ccalcuuu(f,p, k1, k3, k2, N0);
+        C231 = m.Ccalcuuu(f,p, k2, k3, k1, N0);
         
-        B123 = m.Bcalcd(f,p, k1, k2, k3, N0);
-        B132 = m.Bcalcd(f,p, k1, k3, k2, N0);
-        B231 = m.Bcalcd(f,p, k2, k3, k1, N0);
+        B123 = m.Bcalcuuu(f,p, k1, k2, k3, N0);
+        B132 = m.Bcalcuuu(f,p, k1, k3, k2, N0);
+        B231 = m.Bcalcuuu(f,p, k2, k3, k1, N0);
         
-		AS123 = m.AScalcd(f, p, k1, k2, k3, N0);
-        AS132 = m.AScalcd(f, p, k1, k3, k2, N0);
-        AS231 = m.AScalcd(f, p, k2, k3, k1, N0);
+		AS123 = m.AScalcuuu(f, p, k1, k2, k3, N0);
+        AS132 = m.AScalcuuu(f, p, k1, k3, k2, N0);
+        AS231 = m.AScalcuuu(f, p, k2, k3, k1, N0);
         
         H=m.H(f,p);
         a=exp(N0);
