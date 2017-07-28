@@ -127,7 +127,7 @@ def pSpectra(kA, back, params, NB, tols, MTE):
     num = np.size(kA)
     
     for ii in range(0,num):
-        print ("\n \n \n performing " + str(ii+1) + " of " + str(num)+"\n \n \n")
+        print ("pSpectra: computing configuration " + str(ii+1) + " of " + str(num))
         k=kA[ii]
         Nstart, backExitMinus = ICs(NB, k, back, params, MTE)
         start_time = timeit.default_timer()
@@ -192,7 +192,7 @@ def eqSpectra(kA, back, params, NB, tols, MTE):
     num = np.size(kA)
     
     for ii in range(0,num):
-        print ("\n \n \n performing " + str(ii+1) + " of " + str(num) + "\n \n \n")
+        print ("eqSpectra: computing configuration " + str(ii+1) + " of " + str(num))
         k=kA[ii]
         Nstart, backExitMinus = ICs(NB, k, back, params, MTE)
         t=np.linspace(Nstart,back[-1,0], 10)
@@ -279,7 +279,7 @@ def alpBetSpectra(kt,alphaIn, betaIn, back, params, NB, nsnaps, tols, MTE):
     for l in range(0,np.size(alphaIn)):
       alpha =  alphaIn[l]          
       for j in range(0,np.size(betaIn)):
-         print ("\n \n \n performing " + str(l+1)+ " " +str(j+1) + " of " + str(np.size(alphaIn))+ " " + str(np.size(betaIn)) + "\n \n \n")
+         print ("alpBetSpectra: computing configuration " + str(l+1)+ " " +str(j+1) + " of " + str(np.size(alphaIn))+ " " + str(np.size(betaIn)))
          timebefore =     timeit.default_timer()
          beta =betaIn[j]
          k1 = kt/2. - beta*kt/2.
