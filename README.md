@@ -1,5 +1,6 @@
 # PyTransport
 PyTransport release 2.0 (2017).
+This code was been written by Dr. David J. Mulryne and John W. Ronayne.
 
 This upload contains the PyTransport code, as well as examples and many of the files and figures generated during testing. 
 
@@ -10,3 +11,6 @@ New modules have been added and modifications to existing functions have been ma
 In addition error feedback has been improved and storage of model quantities has been made more efficient. 
 
 PyTransport has been developed on OS X and Linux Ubuntu using Python 2.7, and is intended for use on Unix based systems.
+
+# Licencing #
+PyTransport is distributed under the GNU General Public License version 3, or (at your option) any later version. This license is bundled with the source code as LICENSE.txt.
