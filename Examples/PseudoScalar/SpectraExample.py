@@ -66,7 +66,7 @@ k = PyS.kexitN(10.0, back, pvalue, PyT)
 
 ################################# example 2pt run ##########################################################################################
 #find conditions for 4 e-folds of massless sub-horizon evolution using a spline routine
-NBMassless = 6.0
+NBMassless = 5.0
 Nstart, backExitMinus = PyS.ICsBM(NBMassless, k, back, pvalue, PyT)  
 print ("NStart= " + str(Nstart) )
 print (k)
@@ -103,7 +103,7 @@ beta =1/3.
 k1 = k/2 - beta*k/2.
 k2 = k/4*(1+alpha+beta)
 k3 = k/4*(1-alpha+beta)
-#k1 =k; k2 =k ;k3 =k;
+k1 =k; k2 =k ;k3 =k;
 # find initial conditions for 4 e-folds of massless evolution for the largest k (which stays inside the longest)
 
 kM = np.min(np.array([k1,k2,k3]))

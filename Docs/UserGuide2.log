@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.7.27)  15 AUG 2016 14:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.7.27)  21 AUG 2017 14:54
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**UserGuide.tex
-(./UserGuide.tex
+**UserGuide2.tex
+(./UserGuide2.tex
 LaTeX2e <2016/03/31>
 Babel <3.9r> and hyphenation patterns for 83 language(s) loaded.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/revtex4/revtex4.cls
@@ -337,12 +337,12 @@ Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 \FrameRule=\dimen129
 \FrameSep=\dimen130
 )
-(./UserGuide.aux
+(./UserGuide2.aux
 
 LaTeX Warning: Label `shot3' multiply defined.
 
 )
-\openout1 = `UserGuide.aux'.
+\openout1 = `UserGuide2.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 39.
 LaTeX Font Info:    ... okay on input line 39.
@@ -404,318 +404,283 @@ LaTeX Info: Redefining \ref on input line 39.
 LaTeX Info: Redefining \pageref on input line 39.
 LaTeX Info: Redefining \nameref on input line 39.
 
-(./UserGuide.out) (./UserGuide.out)
+(./UserGuide2.out) (./UserGuide2.out)
 \@outlinefile=\write3
-\openout3 = `UserGuide.out'.
+\openout3 = `UserGuide2.out'.
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 67.
+LaTeX Font Info:    Try loading font information for U+msa on input line 68.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 67.
+LaTeX Font Info:    Try loading font information for U+msb on input line 68.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<PyTransLogo.pdf, id=110, 768.48691pt x 444.93301pt>
+<PyTransLogo.pdf, id=114, 776.72594pt x 449.56421pt>
 File: PyTransLogo.pdf Graphic file (type pdf)
  <use PyTransLogo.pdf>
-Package pdftex.def Info: PyTransLogo.pdf used on input line 79.
-(pdftex.def)             Requested size: 312.9803pt x 181.20845pt.
-
-
-Package natbib Warning: Citation `xxx' on page 1 undefined on input line 87.
-
-
-Package natbib Warning: Citation `xxx' on page 1 undefined on input line 117.
+Package pdftex.def Info: PyTransLogo.pdf used on input line 80.
+(pdftex.def)             Requested size: 312.9803pt x 181.14642pt.
 
 [1{/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./PyT
-ransLogo.pdf>]
+ransLogo.pdf>] [2]
 
-Package natbib Warning: Citation `xxx' on page 2 undefined on input line 127.
-
-
-Package natbib Warning: Citation `xxx' on page 2 undefined on input line 141.
+Package hyperref Warning: Ignoring empty anchor on input line 241.
 
 
-Package natbib Warning: Citation `xxx2' on page 2 undefined on input line 141.
-
-
-Package natbib Warning: Citation `xxx' on page 2 undefined on input line 187.
-
-[2]
-
-Package natbib Warning: Citation `xxx' on page 3 undefined on input line 218.
-
-
-Package natbib Warning: Citation `xxx' on page 3 undefined on input line 220.
-
-
-Package hyperref Warning: Ignoring empty anchor on input line 223.
-
-
-Package natbib Warning: Citation `xxx' on page 3 undefined on input line 226.
-
-
-Package natbib Warning: Citation `xxx' on page 3 undefined on input line 228.
-
-
-Package hyperref Warning: Ignoring empty anchor on input line 238.
+Package hyperref Warning: Ignoring empty anchor on input line 256.
 
 [3]
 
-Package hyperref Warning: Ignoring empty anchor on input line 300.
+Package hyperref Warning: Ignoring empty anchor on input line 280.
 
 
-Package hyperref Warning: Ignoring empty anchor on input line 344.
+Package hyperref Warning: Ignoring empty anchor on input line 325.
 
-[4] <shot1c.png, id=221, 1047.915pt x 471.7625pt>
-File: shot1c.png Graphic file (type png)
- <use shot1c.png>
-Package pdftex.def Info: shot1c.png used on input line 391.
-(pdftex.def)             Requested size: 512.1496pt x 230.56816pt.
 
-Overfull \hbox (2.1496pt too wide) in paragraph at lines 391--392
+Package hyperref Warning: Ignoring empty anchor on input line 346.
+
+[4]
+
+Package hyperref Warning: Ignoring empty anchor on input line 373.
+
+
+Package hyperref Warning: Ignoring empty anchor on input line 379.
+
+
+Package hyperref Warning: Ignoring empty anchor on input line 384.
+
+<shot1c2.png, id=244, 1193.45876pt x 458.71375pt>
+File: shot1c2.png Graphic file (type png)
+ <use shot1c2.png>
+Package pdftex.def Info: shot1c2.png used on input line 419.
+(pdftex.def)             Requested size: 512.13925pt x 199.1679pt.
+
+Overfull \hbox (2.13925pt too wide) in paragraph at lines 419--420
  [][] 
  []
 
-[5 <./shot1c.png>] <shot2.png, id=229, 1030.85126pt x 680.5425pt>
-File: shot2.png Graphic file (type png)
+[5] <shot2b.png, id=255, 991.705pt x 664.4825pt>
+File: shot2b.png Graphic file (type png)
+ <use shot2b.png>
+Package pdftex.def Info: shot2b.png used on input line 439.
+(pdftex.def)             Requested size: 512.14865pt x 318.67421pt.
 
-<use shot2.png>
-Package pdftex.def Info: shot2.png used on input line 410.
-(pdftex.def)             Requested size: 512.1496pt x 338.11049pt.
-
-Overfull \hbox (2.1496pt too wide) in paragraph at lines 410--411
+Overfull \hbox (2.14865pt too wide) in paragraph at lines 439--440
  [][] 
  []
 
-<Shot3.png, id=233, 1056.94875pt x 409.53pt>
-File: Shot3.png Graphic file (type png)
- <use Shot3.png>
-Package pdftex.def Info: Shot3.png used on input line 442.
-(pdftex.def)             Requested size: 489.38731pt x 189.61711pt.
+[6 <./shot1c2.png> <./shot2b.png>]
+<Shot3c.png, id=263, 1045.9075pt x 372.39125pt>
+File: Shot3c.png Graphic file (type png)
+ <use Shot3c.png>
+Package pdftex.def Info: Shot3c.png used on input line 474.
+(pdftex.def)             Requested size: 512.1496pt x 182.35397pt.
 
-<Shot4.png, id=234, 1024.82875pt x 423.5825pt>
-File: Shot4.png Graphic file (type png)
- <use Shot4.png>
-Package pdftex.def Info: Shot4.png used on input line 446.
-(pdftex.def)             Requested size: 489.38731pt x 202.27022pt.
- [6 <./shot2.png>] <Shot5.png, id=242, 1029.8475pt x 498.86375pt>
-File: Shot5.png Graphic file (type png)
- <use Shot5.png>
-Package pdftex.def Info: Shot5.png used on input line 449.
-(pdftex.def)             Requested size: 483.69684pt x 234.29852pt.
+Overfull \hbox (2.1496pt too wide) in paragraph at lines 474--475
+ [][] 
+ []
 
-<DQ1.png, id=243, 578.16pt x 433.62pt>
+<Shot5b.png, id=266, 1067.99pt x 1008.76875pt>
+File: Shot5b.png Graphic file (type png)
+ <use Shot5b.png>
+Package pdftex.def Info: Shot5b.png used on input line 497.
+(pdftex.def)             Requested size: 512.1496pt x 483.7725pt.
+
+Overfull \hbox (2.1496pt too wide) in paragraph at lines 497--498
+ [][] 
+ []
+
+[7 <./Shot3c.png>] [8 <./Shot5b.png>] <DQ1.png, id=281, 578.16pt x 433.62pt>
 File: DQ1.png Graphic file (type png)
- <use DQ1.png>
-Package pdftex.def Info: DQ1.png used on input line 456.
-(pdftex.def)             Requested size: 284.52756pt x 213.39536pt.
 
-<DQ2.png, id=244, 578.16pt x 433.62pt>
+<use DQ1.png>
+Package pdftex.def Info: DQ1.png used on input line 542.
+(pdftex.def)             Requested size: 199.16928pt x 149.3741pt.
+ <DQ2.png, id=282, 578.16pt x 433.62pt>
 File: DQ2.png Graphic file (type png)
  <use DQ2.png>
-Package pdftex.def Info: DQ2.png used on input line 462.
-(pdftex.def)             Requested size: 227.62204pt x 170.71231pt.
+Package pdftex.def Info: DQ2.png used on input line 548.
+(pdftex.def)             Requested size: 199.16928pt x 149.3741pt.
 
-<DQ3.png, id=245, 578.16pt x 433.62pt>
+<DQ3.png, id=283, 578.16pt x 433.62pt>
 File: DQ3.png Graphic file (type png)
  <use DQ3.png>
-Package pdftex.def Info: DQ3.png used on input line 462.
-(pdftex.def)             Requested size: 227.62204pt x 170.71231pt.
+Package pdftex.def Info: DQ3.png used on input line 548.
+(pdftex.def)             Requested size: 199.16928pt x 149.3741pt.
 
-<DQ4.png, id=246, 578.16pt x 433.62pt>
+<DQ4.png, id=284, 578.16pt x 433.62pt>
 File: DQ4.png Graphic file (type png)
  <use DQ4.png>
-Package pdftex.def Info: DQ4.png used on input line 463.
-(pdftex.def)             Requested size: 227.62204pt x 170.71231pt.
+Package pdftex.def Info: DQ4.png used on input line 549.
+(pdftex.def)             Requested size: 199.16928pt x 149.3741pt.
 
-<DQ5.png, id=247, 578.16pt x 433.62pt>
+<DQ5.png, id=285, 578.16pt x 433.62pt>
 File: DQ5.png Graphic file (type png)
  <use DQ5.png>
-Package pdftex.def Info: DQ5.png used on input line 463.
-(pdftex.def)             Requested size: 227.62204pt x 170.71231pt.
- [7 <./Shot3.png> <./Shot4.png> <./Shot5.png>] [8 <./DQ1.png> <./DQ2.png> <./DQ
-3.png> <./DQ4.png> <./DQ5.png>] <shot6b.png, id=268, 1057.9525pt x 699.61375pt>
+Package pdftex.def Info: DQ5.png used on input line 549.
+(pdftex.def)             Requested size: 199.16928pt x 149.3741pt.
+
+<shot6b.png, id=287, 1101.11375pt x 649.42625pt>
 File: shot6b.png Graphic file (type png)
  <use shot6b.png>
-Package pdftex.def Info: shot6b.png used on input line 506.
-(pdftex.def)             Requested size: 512.1496pt x 338.68242pt.
+Package pdftex.def Info: shot6b.png used on input line 566.
+(pdftex.def)             Requested size: 512.1496pt x 302.06927pt.
 
-Overfull \hbox (2.1496pt too wide) in paragraph at lines 506--507
+Overfull \hbox (2.1496pt too wide) in paragraph at lines 566--567
  [][] 
  []
 
-<shot7.png, id=269, 1097.09875pt x 1013.7875pt>
-File: shot7.png Graphic file (type png)
- <use shot7.png>
-Package pdftex.def Info: shot7.png used on input line 524.
-(pdftex.def)             Requested size: 512.1496pt x 473.26262pt.
+[9 <./DQ1.png> <./DQ2.png> <./DQ3.png> <./DQ4.png> <./DQ5.png>]
+<shot7b.png, id=298, 1139.25626pt x 952.55875pt>
+File: shot7b.png Graphic file (type png)
+ <use shot7b.png>
+Package pdftex.def Info: shot7b.png used on input line 586.
+(pdftex.def)             Requested size: 512.1496pt x 428.21143pt.
 
-Overfull \hbox (2.1496pt too wide) in paragraph at lines 524--525
+Overfull \hbox (2.1496pt too wide) in paragraph at lines 586--587
  [][] 
  []
 
-[9 <./shot6b.png>] <shot8b.png, id=276, 1033.8625pt x 988.69376pt>
+[10 <./shot6b.png>] <shot8b.png, id=305, 983.675pt x 924.45375pt>
 File: shot8b.png Graphic file (type png)
 
 <use shot8b.png>
-Package pdftex.def Info: shot8b.png used on input line 529.
-(pdftex.def)             Requested size: 512.1496pt x 489.78963pt.
+Package pdftex.def Info: shot8b.png used on input line 591.
+(pdftex.def)             Requested size: 512.1496pt x 481.33939pt.
 
-Overfull \hbox (2.1496pt too wide) in paragraph at lines 529--530
+Overfull \hbox (2.1496pt too wide) in paragraph at lines 591--592
  [][] 
  []
 
-[10 <./shot7.png>] <Pz.png, id=282, 578.16pt x 433.62pt>
+[11 <./shot7b.png>] <Pz.png, id=311, 578.16pt x 433.62pt>
 File: Pz.png Graphic file (type png)
  <use Pz.png>
-Package pdftex.def Info: Pz.png used on input line 534.
+Package pdftex.def Info: Pz.png used on input line 596.
 (pdftex.def)             Requested size: 227.62204pt x 170.71231pt.
 
-<ns.png, id=283, 578.16pt x 433.62pt>
+<ns.png, id=312, 578.16pt x 433.62pt>
 File: ns.png Graphic file (type png)
  <use ns.png>
-Package pdftex.def Info: ns.png used on input line 534.
+Package pdftex.def Info: ns.png used on input line 596.
 (pdftex.def)             Requested size: 227.62204pt x 170.71231pt.
 
-<BiEq.png, id=284, 578.16pt x 433.62pt>
+<BiEq.png, id=313, 578.16pt x 433.62pt>
 File: BiEq.png Graphic file (type png)
  <use BiEq.png>
-Package pdftex.def Info: BiEq.png used on input line 540.
+Package pdftex.def Info: BiEq.png used on input line 602.
 (pdftex.def)             Requested size: 227.62204pt x 170.71231pt.
 
-<alpBetEq3.png, id=285, 722.7pt x 433.62pt>
+<alpBetEq3.png, id=314, 722.7pt x 433.62pt>
 File: alpBetEq3.png Graphic file (type png)
  <use alpBetEq3.png>
-Package pdftex.def Info: alpBetEq3.png used on input line 546.
+Package pdftex.def Info: alpBetEq3.png used on input line 608.
 (pdftex.def)             Requested size: 256.0748pt x 153.64174pt.
 
-<alpBetMay.png, id=286, 602.25pt x 559.08875pt>
+<alpBetMay.png, id=315, 602.25pt x 559.08875pt>
 File: alpBetMay.png Graphic file (type png)
  <use alpBetMay.png>
-Package pdftex.def Info: alpBetMay.png used on input line 547.
+Package pdftex.def Info: alpBetMay.png used on input line 609.
 (pdftex.def)             Requested size: 213.39566pt x 198.10678pt.
+ [12 <./shot8b.png>] [13 <./Pz.png> <./ns.png> <./BiEq.png> <./alpBetEq3.png> <
+./alpBetMay.png (PNG copy)>] <NCsetup.png, id=336, 1186.4325pt x 457.71pt>
+File: NCsetup.png Graphic file (type png)
+
+<use NCsetup.png>
+Package pdftex.def Info: NCsetup.png used on input line 657.
+(pdftex.def)             Requested size: 512.1496pt x 197.5867pt.
+
+Overfull \hbox (2.1496pt too wide) in paragraph at lines 657--658
+ [][] 
+ []
+
+[14 <./NCsetup.png>]
+
+Package hyperref Warning: Ignoring empty anchor on input line 727.
+
+[15] [16]
+
+Package hyperref Warning: Ignoring empty anchor on input line 840.
 
 
-Package natbib Warning: Citation `xxx' on page 11 undefined on input line 580.
-
-[11 <./shot8b.png>] [12 <./Pz.png> <./ns.png> <./BiEq.png> <./alpBetEq3.png> <.
-/alpBetMay.png (PNG copy)>]
-
-LaTeX Warning: Reference `xxx' on page 13 undefined on input line 597.
+Package natbib Warning: Citation `newPaper' on page 17 undefined on input line 
+841.
 
 
-LaTeX Warning: Reference `xxx' on page 13 undefined on input line 606.
+Package natbib Warning: Citation `newPaper' on page 17 undefined on input line 
+865.
 
+[17]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 908.
 
-LaTeX Warning: Reference `xxx' on page 13 undefined on input line 617.
-
-
-LaTeX Warning: Reference `Chen:2006xjb,Chen:2008wn' on page 13 undefined on inp
-ut line 621.
-
-
-Package hyperref Warning: Ignoring empty anchor on input line 638.
-
-[13]
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 650.
-
- (/usr/local/texlive/2016/texmf-dist/tex/latex/base/omlcmr.fd
-File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 650.
- [14]
-
-Package natbib Warning: Citation `xxx' on page 15 undefined on input line 755.
-
-
-Package natbib Warning: Citation `xxx2' on page 15 undefined on input line 755.
-
-
-
-Package hyperref Warning: Ignoring empty anchor on input line 755.
-
-[15]
-
-Package natbib Warning: Citation `xxx' on page 16 undefined on input line 776.
-
-
-LaTeX Warning: Reference `xxx' on page 16 undefined on input line 779.
-
-
-Package natbib Warning: Citation `xxx' on page 16 undefined on input line 800.
-
-
-Package natbib Warning: Citation `xxx' on page 16 undefined on input line 802.
-
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 814.
-
-(/usr/local/texlive/2016/texmf-dist/tex/latex/base/omscmr.fd
+ (/usr/local/texlive/2016/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 814.
- [16]
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 908.
 
-Package hyperref Warning: Ignoring empty anchor on input line 833.
 
-[17] [18] (./UserGuide.bbl [19])
+Package hyperref Warning: Ignoring empty anchor on input line 916.
+
+[18]
+
+Package hyperref Warning: Ignoring empty anchor on input line 936.
+
+[19] [20] [21] (./UserGuide2.bbl)
 
 Package natbib Warning: There were undefined citations.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 958.
-[20]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 958.
- (./UserGuide.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 958.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 958.
-Package rerunfilecheck Info: File `UserGuide.out' has not changed.
-(rerunfilecheck)             Checksum: EC9E0B044C6BE64B156BC86F44DB7DB8;1674.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1080.
+[22]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1080.
+ (./UserGuide2.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1080.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1080.
 
-
-LaTeX Warning: There were undefined references.
+Package rerunfilecheck Info: File `UserGuide2.out' has not changed.
+(rerunfilecheck)             Checksum: F38101408F7EE5B126DDA31C9C8C235B;1764.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 8429 strings out of 493014
- 117177 string characters out of 6133351
- 231422 words of memory out of 5000000
+ 8439 strings out of 493014
+ 117256 string characters out of 6133351
+ 229673 words of memory out of 5000000
  11757 multiletter control sequences out of 15000+600000
- 13136 words of font info for 50 fonts, out of 8000000 for 9000
+ 13488 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 40i,11n,35p,992b,493s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 40i,11n,35p,870b,394s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx5.pfb></
 usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></us
-r/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/
-local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/l
-ocal/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/lo
-cal/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/loca
-l/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/
-texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/te
-xlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texl
-ive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texliv
-e/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2
-016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2016
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2016/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2016/texmf
--dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2016/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2016/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2016/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2016/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmti9.pfb>
-Output written on UserGuide.pdf (20 pages, 3216553 bytes).
+r/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/
+local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/lo
+cal/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/loc
+al/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/loca
+l/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/
+texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/te
+xlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texl
+ive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texliv
+e/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/
+2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/201
+6/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2016/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2016/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2016/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2016/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2016/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2016/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2016/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2016/texmf-dist/font
+s/type1/public/amsfonts/cm/cmti9.pfb>
+Output written on UserGuide2.pdf (22 pages, 3806260 bytes).
 PDF statistics:
- 453 PDF objects out of 1000 (max. 8388607)
- 361 compressed objects within 4 object streams
- 91 named destinations out of 1000 (max. 500000)
- 304 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 518 PDF objects out of 1000 (max. 8388607)
+ 421 compressed objects within 5 object streams
+ 103 named destinations out of 1000 (max. 500000)
+ 312 words of extra memory for PDF output out of 10000 (max. 10000000)
 
