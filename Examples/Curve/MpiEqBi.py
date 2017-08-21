@@ -8,7 +8,7 @@ import sys  # imports sys package for sue below
 
 from mpi4py import MPI
 
-location = "/Users/david/Dropbox/PyTransportDist/PyTransport/" # this should be the location of the PyTrans folder 
+location = "/Users/david/Dropbox/PyTransportDist/PyTransport/" # this should be the location of the PyTransport folder 
 sys.path.append(location) # sets up python path to give access to PyTransSetup
 
 import PyTransSetup

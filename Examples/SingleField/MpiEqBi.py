@@ -1,4 +1,4 @@
-#################### generate equilateral bispectrum using MTeasyPyStep setup ############################################################
+#################### generate equilateral bispectrum using PyTransPyStep setup ############################################################
 
 from matplotlib import pyplot as plt
 
@@ -9,7 +9,7 @@ import numpy as np
 
 from mpi4py import MPI
 
-location = "/Users/mulryne/Dropbox/PyTransportDist/PyTransport/" # this should be the location of the PyTrans folder 
+location = "/Users/mulryne/Dropbox/PyTransportDist/PyTransport/" # this should be the location of the PyTransport folder 
 sys.path.append(location) # sets up python path to give access to PyTransSetup
 
 import PyTransSetup

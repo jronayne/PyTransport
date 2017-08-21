@@ -9,7 +9,7 @@ import sys  # imports sys package for sue below
 ############################################################################################################################################
 
 #This file contains simple examples of using the PyTransDQuad 
-#It assumes the DQuadSetup file has been run to install a double quadratic version of PyTrans
+#It assumes the DQuadSetup file has been run to install a double quadratic version of PyTransport
 #It is recommended you restart the kernel before running this file to insure any updates to PyTransDQuad are imported
 
 location = "/home/jwr/Code/PyTransport/" # this should be the location of the PyTransport folder folder

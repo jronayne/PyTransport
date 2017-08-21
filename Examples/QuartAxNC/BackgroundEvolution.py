@@ -8,7 +8,7 @@ import sys  # imports sys package for sue below
 import timeit
 
 
-location = "/home/jwr/Code//PyTransport/" # this should be the location of the PyTrans folder 
+location = "/home/jwr/Code//PyTransport/" # this should be the location of the PyTransport folder 
 sys.path.append(location) # sets up python path to give access to PyTransSetup
 tols = np.array([10**-10,10**-10])
 
@@ -43,9 +43,6 @@ for bb in range(BB):
 	V = PyT.V(fields,params) # calculate potential from some initial conditions
 	dV=PyT.dV(fields,params) # calculate derivatives of potential (changes dV to derivatives)
 	initial = np.concatenate((fields,np.array([0.,0.]))) # set initial conditions using slow roll expression
-	#initial = np.concatenate((fields,np.array([-0.00016090514447175683,-1.1045768720721431e-07]))) # set initial conditions using slow roll expression
-	############################################################################################################################################
-
 
 	################################## run the background fiducial run #########################################################################
 	Nstart = 0.0

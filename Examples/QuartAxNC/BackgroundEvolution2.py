@@ -9,7 +9,7 @@ import sys  # imports sys package for sue below
 import timeit
 
 
-location = "/home/jwr/Code/June/PyTransport2Dist/PyTransport/" # this should be the location of the PyTrans folder 
+location = "/home/jwr/Code/June/PyTransport2Dist/PyTransport/" # this should be the location of the PyTransport folder 
 sys.path.append(location) # sets up python path to give access to PyTransSetup
 tols = np.array([10**-10,10**-10])
 

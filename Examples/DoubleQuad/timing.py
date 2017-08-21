@@ -12,7 +12,7 @@ import sys  # imports sys package for sue below
 #It assumes the DQuadSetup file has been run to install a double quadratic version of PyTransPy
 #It is recommended you restart the kernel before running this file to insure any updates to PyTransPyDQuad are imported
 
-location = "/Users/david/Dropbox/PyTransportDist/PyTransport/" # this should be the location of the PyTrans folder 
+location = "/Users/david/Dropbox/PyTransportDist/PyTransport/" # this should be the location of the PyTransport folder 
 sys.path.append(location) # sets up python path to give access to PyTransSetup
 
 import PyTransSetup

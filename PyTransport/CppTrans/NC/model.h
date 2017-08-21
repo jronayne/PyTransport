@@ -1,3 +1,20 @@
+//#This file is part of PyTransport.
+
+//#PyTransport is free software: you can redistribute it and/or modify
+//#it under the terms of the GNU General Public License as published by
+//#the Free Software Foundation, either version 3 of the License, or
+//#(at your option) any later version.
+
+//#PyTransport is distributed in the hope that it will be useful,
+//#but WITHOUT ANY WARRANTY; without even the implied warranty of
+//#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//#GNU General Public License for more details.
+
+//#You should have received a copy of the GNU General Public License
+//#along with PyTransport.  If not, see <http://www.gnu.org/licenses/>.
+
+// This file contains a prototype of the potential.h file of PyTransport -- it is edited by the PyTransScripts module
+
 //model class file contains the defining features of the model -- the u1, u2 flow tesors, and the A B C tesors and u3 flow tensor as well as the guage transform N tensors  
 #ifndef MODEL_H  // Prevents the class being re-defined
 #define MODEL_H 

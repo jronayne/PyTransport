@@ -15,7 +15,7 @@ import subprocess
 #It assumes the LangHeavySeptup file has been run to install a LH version of PyTrans
 #It is recommended you restart the kernel to insure any updates to PyTransLH are imported 
 
-location = "/Users/mulryne/Dropbox/PyTransportDist/PyTransport/" # this should be the location of the PyTrans folder 
+location = "/Users/mulryne/Dropbox/PyTransportDist/PyTransport/" # this should be the location of the PyTransport folder 
 sys.path.append(location) # sets up python path to give access to PyTransSetup
 
 import PyTransSetup

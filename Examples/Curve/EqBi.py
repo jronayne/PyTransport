@@ -7,7 +7,7 @@ import numpy as np # imports numpu package as np for short
 import sys  # imports sys package for sue below
 
 
-location = "/Users/david/Dropbox/PyTransportDist/PyTransport/" # this should be the location of the PyTrans folder 
+location = "/Users/david/Dropbox/PyTransportDist/PyTransport/" # this should be the location of the PyTransport folder 
 sys.path.append(location) # sets up python path to give access to PyTransSetup
 
 import PyTransSetup

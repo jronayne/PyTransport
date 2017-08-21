@@ -5,7 +5,7 @@ import math
 import sys
 ############################################################################################################################################
 
-location = "/Users/david/Dropbox/PyTransportDist/PyTransport/" # this should be the location of the PyTrans folder
+location = "/Users/david/Dropbox/PyTransportDist/PyTransport/" # this should be the location of the PyTransport folder
 sys.path.append(location)  # we add this location to the python path
 
 import PyTransSetup

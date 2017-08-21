@@ -8,7 +8,7 @@ from gravipy import *  # we import the gravipy package to write the field metric
 
 # if using an integrated environment we recommend restarting the python console after running this script to make sure updates are found 
 
-location = "/home/jwr/Code/PyTransport/" # this should be the location of the PyTrans folder
+location = "/home/jwr/Code/PyTransport/" # this should be the location of the PyTransport folder
 sys.path.append(location)  # we add this location to the python path
 
 import PyTransSetup  # the above commands allows python to find the PyTransSetup module and import it
