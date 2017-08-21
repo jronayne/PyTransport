@@ -12,7 +12,7 @@ location = "/Users/mulryne/Dropbox/PyTransportDist/PyTransport/" # this should b
 sys.path.append(location) # sets up python path to give access to PyTransSetup
 
 import PyTransSetup
-PyTransSetup.pathSet()  # this sets the other paths that PyTrans uses
+PyTransSetup.pathSet()  # this sets the other paths that PyTransport uses
 
 import PyTransLH as PyT   # import module
 import PyTransScripts as PyS

@@ -11,9 +11,9 @@ location = "/Users/david/Dropbox/PyTransportDist/PyTransport/" # this should be 
 sys.path.append(location) # sets up python path to give access to PyTransSetup
 
 import PyTransSetup
-PyTransSetup.pathSet()  # this sets the other paths that PyTrans uses
+PyTransSetup.pathSet()  # this sets the other paths that PyTransport uses
 
-import PyTransCurve as PyT  # import module
+import PyTransCurve as PyT  # import modules
 import PyTransScripts as PyS
 tols = np.array([10**-10,10**-10])
 

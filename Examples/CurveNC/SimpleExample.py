@@ -19,7 +19,7 @@ location = "/home/jwr/Code/PYT4/PyTransport/" # this should be the location of t
 sys.path.append(location) # sets up python path to give access to PyTransSetup
 tols = np.array([10**-12,10**-12])
 import PyTransSetup
-PyTransSetup.pathSet()  # this sets the other paths that PyTrans uses
+PyTransSetup.pathSet()  # this sets the other paths that PyTransport uses
 
 import PyTransCurveNC as PyT  # import module as PyT (PyTransCurveNC is quite long to type each time and it saves time to use a shorter name
                              # using a generic name PyT means the file can be more easily reused for a different example (once field values 

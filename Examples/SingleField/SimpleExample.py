@@ -11,15 +11,15 @@ import sys
 
 ############################################################################################################################################
 
-#This file contains simple examples of using the PyTrans package for the single field Step example of Chen et al.
-#It assumes the StepPotSetup file has been run to install a Step version of PyTrans
+#This file contains simple examples of using the PyTransport package for the single field Step example of Chen et al.
+#It assumes the StepPotSetup file has been run to install a Step version of PyTransport
 #It is recommended you restart the kernel before running this file to insure any updates to PyTransPyStep are imported
 
-location = "/Users/David/Dropbox/MTeasyDist/MTeasy/" # this should be the location of the PyTrans folder 
+location = "/Users/David/Dropbox/MTeasyDist/MTeasy/" # this should be the location of the PyTransport folder 
 sys.path.append(location) # sets up python path to give access to PyTransSetup
 
 import PyTransSetup
-PyTransSetup.pathSet()  # his add sets the other paths that MTeasy uses
+PyTransSetup.pathSet()  # his add sets the other paths that PyTransport uses
 
 import PyTransPyStep as MTSE  # import module
 import PyTransScripts as MTS

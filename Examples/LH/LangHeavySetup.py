@@ -17,7 +17,7 @@ import PyTransSetup  # the above commands allows python to find the PyTransSetup
 
 ############################################################################################################################################
 
-### Sets potential and compiles PyTrans, users may prefer to do this only once in a separate file (or comment after running below once) ###
+### Sets potential and compiles PyTransport, users may prefer to do this only once in a separate file (or comment after running below once) ###
 ### Restart the python kernel after running this file
 
 nF=2

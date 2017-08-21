@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt   # import package for plotting
 from pylab import *  # contains some useful stuff for plotting
 import time  # imports a package that allows us to see how long processes take
 import math  # imports math package
-import numpy as np # imports numpu package as np for short
+import numpy as np # imports numpy package as np for short
 import sys  # imports sys package for sue below
 
 
@@ -17,7 +17,7 @@ location = "/home/jwr/Code/PyTransport/" # this should be the location of the Py
 sys.path.append(location) # sets up python path to give access to PyTransSetup
 
 import PyTransSetup
-PyTransSetup.pathSet()  # this sets the other paths that PyTrans uses
+PyTransSetup.pathSet()  # this sets the other paths that PyTransport uses
 
 import PyTransPseudo as PyT  # import module as PyT (PyTransPseudo is quite long to type each time and it saves time to use a shorter name
                              # using a generic name PyT means the file can be more easily reused for a different example (once field values 

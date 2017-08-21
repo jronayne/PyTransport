@@ -14,7 +14,7 @@ import subprocess
 
 ############################################################################################################################################
 
-#This file contains simple examples of using the PyTrans package for the single field example of Chen et al.
+#This file contains simple examples of using the PyTransport package for the single field example of Chen et al.
 #It assumes the StepExampleSeptup file has been run to install a Step version of PyTransPyStep
 #It is recommended you restart the kernel to insure any updates to PyTransPyStep are imported 
 

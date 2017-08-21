@@ -16,7 +16,7 @@ location = "/home/jwr/Code/PYT4/PyTransport/" # this should be the location of t
 sys.path.append(location) # sets up python path to give access to PyTransSetup
 
 import PyTransSetup
-PyTransSetup.pathSet()  # this adds the other paths that PyTrans uses to the python path
+PyTransSetup.pathSet()  # this adds the other paths that PyTransport uses to the python path
 
 import PyTransDQuadNC as PyT  # import module as PyT (PyTransDQuadNC is quite long to type each time and it saves time to use a shorter name
                              # using a generic name PyT means the file can be more easily reused for a different example (once field values 

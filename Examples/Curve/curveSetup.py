@@ -10,7 +10,7 @@ sys.path.append(location)  # we add this location to the python path
 
 import PyTransSetup as PySet
 
-### Sets potential and compiles MTeasy, users may prefer to do this only once in a separate file (or comment after running below once) ###
+### Sets potential and compiles PyTransport, users may prefer to do this only once in a separate file (or comment after running below once) ###
 ### Restart the python kernel after running this file
 
 nF=2

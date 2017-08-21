@@ -10,7 +10,7 @@ sys.path.append(location)  # we add this location to the python path
 
 import PyTransSetup
 
-### Sets potential and compiles PyTrans, users may prefer to do this only once in a separate file (or comment after running below once) ###
+### Sets potential and compiles PyTransport, users may prefer to do this only once in a separate file (or comment after running below once) ###
 nF=1
 nP=4
 f=sym.symarray('f',nF)
