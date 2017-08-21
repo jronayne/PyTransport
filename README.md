@@ -1,6 +1,6 @@
 # PyTransport
 PyTransport release 2.0 (2017).
-This code was been written by Dr. David J. Mulryne and John W. Ronayne.
+This code has been written by Dr. David J. Mulryne and John W. Ronayne.
 
 This upload contains the PyTransport code, as well as examples and many of the files and figures generated during testing. 
 
