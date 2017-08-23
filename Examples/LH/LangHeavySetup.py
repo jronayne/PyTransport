@@ -26,7 +26,6 @@ f=sym.symarray('f',nF)
 p=sym.symarray('p',nP)
 V= 1./2. * p[0]**2 * f[0]**2 + 1/2.*p[1]**2 * sym.cos(p[2]/2.)**2*(f[1] - (f[0]-p[3])*sym.tan(p[2]/math.pi*sym.atan(p[4]*(f[0]-p[3]))))**2
 
-PyTransSetup.tol(1e-7,1e-7)
 PyTransSetup.potential(V,nF,nP) # writes this potential into c file when run
 
 PyTransSetup.compileName("LH") # this compiles the module with the new potential and places it in the location folder, and adds this folder to the path ready for use

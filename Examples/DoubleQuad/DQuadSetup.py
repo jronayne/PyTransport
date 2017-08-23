@@ -23,8 +23,6 @@ p=sym.symarray('p',nP)   # an array representing the nP parameters needed to def
 
 V = 1./2. * p[0]**2.0 *f [0]**2.0  +  1./2. * p[1]**2.0 * f[1]**2.0   # this is the potential written in sympy notation
 
-#PyTransSetup.tol(1e-8,1e-8)   # set tols for the numerical integration of the 3 point function (if not run this will remain as it the
-                               #last time set)
 #The last argument is for whether the sympy's simplify is used to on derivatives of the potential and field geometric quantites.
 #Caution is recomended as sympy's simplify is known to have bugs. Simplification can increase the speed of numerically evolutions, but at the cost of compling more slowly.
 PyTransSetup.potential(V,nF,nP,True) # writes this potential and its derivatives into C++ file potential.h when run

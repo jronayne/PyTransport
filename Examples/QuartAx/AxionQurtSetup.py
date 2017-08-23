@@ -19,7 +19,6 @@ p=sym.symarray('p',nP)
 V= 1./4. * p[0] * f[0]**4 + p[2] * (1-sym.cos(2*math.pi * f[1] / p[1]))
 
 
-PyTransSetup.tol(1e-8,1e-8)
 PyTransSetup.potential(V,nF,nP) # writes this potential into c file when run
 
 PyTransSetup.compileName("AxQrt") # this compiles the module with the new potential and places it in the location folder, and adds this folder to the path ready for use

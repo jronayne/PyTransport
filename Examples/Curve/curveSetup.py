@@ -24,7 +24,6 @@ V = 10.0**(-10.0) * (1.0 + 29.0/120. *math.pi * sym.atan2(f[1],f[0])
                      +  1./3./2. * p[2] * ((f[1]**2 + f[0]**2)**(1./2.) - p[0])**3
                      +  1./4./3./2. * p[3] * ((f[1]**2 + f[0]**2)**(1./2.) - p[0])**4)
                      
-PySet.tol(1e-10,1e-10)
 PySet.potential(V,nF,nP) # writes this potential into c file when run
 
 PySet.compileName("Curve") # this compiles the module with the new potential and places it in the location folder, and adds this folder to the path ready for use

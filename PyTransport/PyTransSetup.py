@@ -163,24 +163,6 @@ def deleteModule(name):
 #os.remove(location+"/lib/python/PyTrans"+name+"-1.0-py2.7.egg-info")
 
 
-    
-def tol(rtol, atol):
-    dir = os.path.dirname(__file__)
-    filename = os.path.join(dir, 'PyTrans/PyTrans.cpp')
-    f = open(filename,"r")  
-
-    lines = f.readlines()
-    f.close()
-   
-    f = open(filename,"w")  
-    for line in lines:
-        if not  line.endswith("//tols\n"):
-            f.write(line)
-        if line.endswith("//tols\n"):
-            f.write('    double rtol='+str(rtol)+', atol='+str(atol)+';//tols\n')
-    f.close()
-
-
 
 def potential(V,nF,nP,simple=False,G=0):
     f=sym.symarray('f',nF)
