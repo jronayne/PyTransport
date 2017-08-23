@@ -10,7 +10,7 @@
 \BOOKMARK [2][-]{section*.10}{Heavy field examples}{section*.7}% 10
 \BOOKMARK [2][-]{section*.11}{Further examples}{section*.7}% 11
 \BOOKMARK [1][-]{section*.12}{Things that can go wrong}{}% 12
-\BOOKMARK [2][-]{section*.13}{Potential computation fails}{section*.12}% 13
+\BOOKMARK [2][-]{section*.13}{Potential computation fails and problems with simplification of expressions}{section*.12}% 13
 \BOOKMARK [2][-]{section*.14}{Make sure latest module version is imported}{section*.12}% 14
 \BOOKMARK [2][-]{section*.15}{Selecting the absolute and relative tolerances}{section*.12}% 15
 \BOOKMARK [2][-]{section*.16}{Integration stalling or failing}{section*.12}% 16

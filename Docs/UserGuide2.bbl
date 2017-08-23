@@ -1,4 +1,4 @@
-\begin{thebibliography}{27}
+\begin{thebibliography}{28}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname bibnamefont\endcsname\relax
   \def\bibnamefont#1{#1}\fi
@@ -13,19 +13,22 @@
 \providecommand{\eprint}[2][]{\url{#2}}
 
 \bibitem[{\citenamefont{Dias et~al.}(2016)\citenamefont{Dias, Frazer, Mulryne,
-  and Seery}}]{xxx}
+  and Seery}}]{Dias:2016rjq}
 \bibinfo{author}{\bibfnamefont{M.}~\bibnamefont{Dias}},
   \bibinfo{author}{\bibfnamefont{J.}~\bibnamefont{Frazer}},
-  \bibinfo{author}{\bibfnamefont{D.}~\bibnamefont{Mulryne}}, \bibnamefont{and}
-  \bibinfo{author}{\bibfnamefont{D.}~\bibnamefont{Seery}}
+  \bibinfo{author}{\bibfnamefont{D.~J.} \bibnamefont{Mulryne}},
+  \bibnamefont{and} \bibinfo{author}{\bibfnamefont{D.}~\bibnamefont{Seery}},
+  \bibinfo{journal}{JCAP} \textbf{\bibinfo{volume}{1612}}, \bibinfo{pages}{033}
+  (\bibinfo{year}{2016}), \eprint{1609.00379}.
+
+\bibitem[{\citenamefont{Ronayne and Mulryne}(2016)}]{xxx2}
+\bibinfo{author}{\bibfnamefont{J.}~\bibnamefont{Ronayne}} \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{D.}~\bibnamefont{Mulryne}}
   (\bibinfo{year}{2016}).
 
-\bibitem[{\citenamefont{Mulryne}(2016)}]{Mulryne:2016mzv}
-\bibinfo{author}{\bibfnamefont{D.~J.} \bibnamefont{Mulryne}}
-  (\bibinfo{year}{2016}), \eprint{1609.00381}.
-
-\bibitem[{\citenamefont{Seery}(2016)}]{xxx2}
-\bibinfo{author}{\bibfnamefont{D.}~\bibnamefont{Seery}} (\bibinfo{year}{2016}).
+\bibitem[{\citenamefont{Seery}(2016)}]{Seery:2016lko}
+\bibinfo{author}{\bibfnamefont{D.}~\bibnamefont{Seery}} (\bibinfo{year}{2016}),
+  \eprint{1609.00380}.
 
 \bibitem[{\citenamefont{Maldacena}(2003)}]{Maldacena:2002vr}
 \bibinfo{author}{\bibfnamefont{J.~M.} \bibnamefont{Maldacena}},
@@ -149,6 +152,13 @@
 \bibinfo{author}{\bibfnamefont{D.~J.} \bibnamefont{Mulryne}},
   \bibinfo{journal}{JCAP} \textbf{\bibinfo{volume}{1309}}, \bibinfo{pages}{010}
   (\bibinfo{year}{2013}), \eprint{1302.3842}.
+
+\bibitem[{\citenamefont{Gong and Tanaka}(2011)}]{Gong:2011uw}
+\bibinfo{author}{\bibfnamefont{J.-O.} \bibnamefont{Gong}} \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{T.}~\bibnamefont{Tanaka}},
+  \bibinfo{journal}{JCAP} \textbf{\bibinfo{volume}{1103}}, \bibinfo{pages}{015}
+  (\bibinfo{year}{2011}), \bibinfo{note}{[Erratum: JCAP1202,E01(2012)]},
+  \eprint{1101.4809}.
 
 \bibitem[{\citenamefont{Dias et~al.}(2015{\natexlab{a}})\citenamefont{Dias,
   Elliston, Frazer, Mulryne, and Seery}}]{Dias:2014msa}

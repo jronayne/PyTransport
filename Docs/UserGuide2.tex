@@ -85,7 +85,7 @@ field space metric.
 \section{Introduction}
 
 \begin{framed}
-{\bf \noindent PyTransport is distributed under a GNU GPL licence. The most recent version can be obtained by visiting \href{https://transportmethod.com}{transportmethod.com}. If you use PyTransport you are kindly asked to cite Ref.~\cite{xxx}  as well as the archive version of this user guide in any resulting works. }
+{\bf \noindent PyTransport is distributed under a GNU GPL licence. The most recent version can be obtained by visiting \href{https://transportmethod.com}{transportmethod.com}. If you use PyTransport you are kindly asked to cite Ref.~\cite{Dias:2016rjq}  as well as the archive version of this user guide in any resulting works. }
 \end{framed}
 
 The main purpose of this document is to teach those interested how to use, and if so desired adapt, 
@@ -93,8 +93,9 @@ the PyTransport package. It has now been updated  to
 be a companion to the second version of the code, 
 PyTransport\,2.0, which includes functionality to deal with models of inflation with a curved 
 field space metric. We have had to make some minimal syntax changes in this second version 
-in order to support new functionality, as discussed below. The original document 
-can still be found as version~1 of Ref.~(\cite{Mulryne:2016mzv}).
+in order to support new functionality, as discussed below. Users of the original package 
+will unfortunately not be able to switch to the new one without amending their scripts. The original user guide 
+can still be found as the arXiv version~1 of this document.
 The philosophy behind the implementation is simplicity and ease of use. 
 Python was selected as the 
 language though which to interact with the code because it enables rapid scripting and provides a flexible 
@@ -108,7 +109,9 @@ clean as possible and can therefore easily be edited if required. PyTransport ha
 OS X 
 using Python 2.7. We have also performed limited testing on Linux systems, and 
 attempted to ensure compatibility with versions of Python 3. 
-It seems likely it could also be adapted to Windows systems, but this has not yet been attempted.
+It can also be adapted to Windows systems, but this functionality has not yet been incorporated into 
+the released package\footnote{We thank Sean Butchers for work related to installing PyTransport on a 
+Windows machine.}
 
 The code is intended to be a reusable resource for inflationary cosmology. It enables users to quickly create a 
 complied Python module(s) for any given model(s) of multi-field inflation. 
@@ -130,14 +133,14 @@ routine with error control. Such off the shelf
 routines are extremely well tested, and provide
 an easy way to change the required accuracy. This is helpful in order to check convergence of the numerical 
 solutions, or to respond to needs of models with very fine features. 
-Details of the transport method itself that the code is based on can be found in the recent papers \cite{xxx} 
+Details of the transport method itself that the code is based on can be found in the recent papers \cite{Dias:2016rjq} 
 and \cite{xxx2}, the second of which updates the method to allow
 for the analysis of models with a curved field space metric. We 
-highly recommend reading this guide in combination with that paper.
+highly recommend reading this guide in combination with those papers.
 
 
 
-In this guide, we first we give some brief background and motivation for the code, much more can be found in Ref.~\cite{xxx}, 
+In this guide, we first we give some brief background and motivation for the code, much more can be found in Refs.~\cite{Dias:2016rjq,xxx2}, 
 before giving an overview of its structure and how 
 it can be set up. In the appendices we give some more detail about the structure of the underlying \CC \S code,  
 give full details of all the functions the complied module provides, and all the functions provided by 
@@ -151,8 +154,9 @@ can just probably get a long way by looking at the examples and modifying to the
 
 
 Finally, we would also like to refer readers to the complementary package developed 
-in tandem with the work in Ref.~\cite{xxx} and with PyTransport: CppTransport \cite{xxx2}. This is a platform for inflationary 
-cosmology developed fully in \CC. In comparison with PyTransport it  has 
+in tandem with the work in Ref.~\cite{Dias:2016rjq} and with PyTransport: CppTransport \cite{Seery:2016lko}. This is a platform for inflationary 
+cosmology developed fully in \CC and recently also 
+updated to deal with curved field space metrics \cite{seeryNew}. In comparison with PyTransport it  has 
 more external dependancies (in the sense that the dependancies of PyTransport are mainly 
 Python modules), but provides more sophisticated parallelisation and data management capabilities. 
 In limited testing it is also found to be marginally faster.
@@ -197,7 +201,7 @@ sub-horizon scales until we wish to evaluate the statistics.
 We note for clarity that in its original form the ``moment transport'' method was restricted 
 to super-horizon scales, but it was later shown how it could be extended to include sub-horizon scales 
 in Ref.~\cite{Mulryne:2013uka}. A recent paper studies this extension further and develops it into a working 
-algorithm \cite{xxx} with many additional details provided. The present document details 
+algorithm \cite{Dias:2016rjq} with many additional details provided. The present document details 
 the code PyTransport which is discussed in that paper.
 
 At the background level an inflationary cosmology is completely determined by the evolution of the 
@@ -213,7 +217,7 @@ defined on flat hyper-surfaces. Ultimately the quantities
 probably of most interest for observations are the statistics of the curvature perturbation 
 $\zeta$ -- in particular the power spectrum and bispectrum -- which the code calculates from the 
 field space correlations. 
-Defining the array ${\mathbf X} = \{{ Q^I}, { P^J} \}$ of covariant field space perturbation and its momentum, where 
+Defining the array ${\mathbf X} = \{{ Q^I}, { P^J} \}$ of the covariant field space perturbation and its momentum\footnote{For canonical models where the field space metric is Euclidean $Q^I$ is simply the field space perturbation $\delta \phi^I$, see Refs.~(\cite{Gong:2011uw,Elliston:2012ab}) for its definition in the case of a non-Euclidean metric.}, where 
 the components are labelled $X^a$ and $a$ now runs over the total number of fields and field velocities, 
 we recall the following definitions for later clarity:
 \begin{eqnarray}
@@ -233,17 +237,17 @@ the equivalent functions for the correlations and cross correlations in field sp
 the reduced bispectrum.
 $\Sigma$ and $B$ together with the background 
 values of the fields and field velocities are the objects directly evolved by the code using the equations 
-detailed in section~5 of Ref.~\cite{xxx} with 
+detailed in section~5 of Ref.~\cite{Dias:2016rjq} with 
 initial conditions 
-detailed in section~6 of Ref.~\cite{xxx}\footnote{Internally the code internally rescales 
+detailed in section~6 of Ref.~\cite{Dias:2016rjq}\footnote{Internally the code internally rescales 
 the field velocity perturbation $P^I$ for 
 performance reasons, as well as internally rescaling the wavenumbers involved, but the rescaling is reversed before 
 outputting results -- this is discussed further in appendix 1.}. As 
 discussed in that paper, $B$ and $\Sigma$ can then 
 readily be converted to give $P_\zeta$ and $B_\zeta$ through the use of the ``$N$" tensors with components $N_a$ and $N_{ab}$, 
-described in section~7 of Ref~\cite{xxx} (see also \cite{Dias:2014msa}). 
+described in section~7 of Ref~\cite{Dias:2016rjq} and updated to the case of a curved field space metric in Ref.~\cite{xxx2} (see also \cite{Dias:2014msa}). 
 The equations of motions for the correlations 
-are given in Eqs.~(5.5) and (5.16) of  Ref.~\cite{xxx}, the initial conditions in Eqs.~(6.2) and (6.7),
+are given in Eqs.~(5.5) and (5.16) of  Ref.~\cite{Dias:2016rjq}, the initial conditions in Eqs.~(6.2) and (6.7),
 and the conversion to $\zeta$ in 
 Eq.~(7.4). 
 
@@ -283,17 +287,17 @@ in the {\it PyTransportDist/PyTransport/CppTrans} folder and we provide a few mo
 and functionality in  appendix 1. 
 The \CC \S code is deliberately as simple as possible to ensure transparency 
 and adaptability. The idea of the PyTransport package as a 
-whole is that after a potential is provided by the user 
+whole is that after a potential and a field space metric (if the metric is non-Euclidean) are provided by the user 
 the \CC \S  code is automatically edited and complied into a Python module by supporting 
 Python functions (called from the {\it PyTransportDist/PyTransport/PyTransSetup.py} file which is described in full 
 in appendix~2), 
 meaning a lot of work is done for the user.  
-The end result is a Python module consisting of a set of Python functions for a specific inflationary potential, called the 
+The end result is a Python module consisting of a set of Python functions for a specific inflationary model, called the 
 PyTrans*** module. 
 The functions of this module provide key routines for inflationary cosmology (including calculating the evolution of the two and 
-three point correlations). The asterisks, ***, indicate we can label the module with a tag telling us what potential it 
+three point correlations). The asterisks, ***, indicate we can label the module with a tag telling us what model it 
 corresponds to, and we can 
-therefore install multiple modules if we want to work with many potentials simultaneously. The 
+therefore install multiple modules if we want to work with many models simultaneously. The 
 key functions available to these modules 
 are defined in the file {\it PyTransportDist/PyTransport/PyTrans/PyTrans.cpp} (which is a \CC \S  file defining the
  Python module), these functions are detailed in appendix~3.
@@ -381,7 +385,7 @@ install one (or Xcode command line tools can be downloaded separately, as explai
 \subsection{Getting going}
 
 \noindent  Once you have Python running and a \CC \S compiler, to get started take the {\it PyTransport/} folder from the 
-{\it PyTransportDist/}\footnote{Or, If downloaded from GitHub, the code comes in a folder named PyTransport and labeled with the branch of the code, in which the {\it PyTransport/} folder can be found.} folder and place it 
+{\it PyTransportDist/}\footnote{Or, If downloaded from GitHub, the code comes in a folder named PyTransport and labeled with the branch of the code, in which the {\it PyTransport/} folder can be found. For example {\it PyTransport-master/} .} folder and place it 
 anywhere convenient in your computer's file system. It is essential that you don't change 
 the structure of the sub-directories within {\it PyTransport/} , but you can place this folder wherever you want.  
 That's more or less all you have to do.
@@ -393,9 +397,9 @@ find the setup file
 {\it PyTransSetup.py} (or this could be done permanently). Now you can get started, no other installation is required which is not handled for you by provided 
 Python scripts.
 
-Lets say you want to analyse a canonical inflationary model defined by the potential (will will give an 
-example of a model with a curved field space metric in 
-\be
+Lets say you want to analyse a canonical inflationary model (we will give an 
+example of a model with a curved field space metric in Section\,\ref{NCexample})
+defined by the potential \be
 \label{dubquadpot}
 V=\frac{1}{2} m^2_{\phi} \phi^2 + \frac{1}{2} m^2_{\chi} \chi^2\,.
 \ee
@@ -406,12 +410,17 @@ arrays one for the fields and the other for parameters which
 define the model (the parameters you might wish to change the value of). 
 These have length nF and nP respectively. 
 Then define the symbolic potential $V$ using these arrays. The potential must be written into the 
-\CC \S  code by calling the function {\it potential(V,nF,nP)}  which is in the file {\it PyTransSetup.py}.  
+\CC \S  code by calling the function {\it potential(V,nF,nP)}  which is in the file {\it PyTransSetup.py}.  If we 
+wanted to work with a non-Euclidean field space metric it would also be specified at this stage, but if one is not specified explicitly 
+the code assumes the model is canonical.
 If working with a version of Python 2,  the next step is to call the function {\it compileName(``Quad")} (where ``Quad'' can be replaced by any name the user likes (the *** from above)). 
 If using Python 3, users must use the function {\it compileName3(``Quad")}
 to achieve the same thing. 
 Multiple modules for different potentials with different names can therefore be created and 
-used simultaneously. Below is a screen shot of the procedure just described with copious comments which should 
+used simultaneously. In the previous version of the code the tolerances used by the numerical 
+integrator had to be specified at this setup stage, but these can now be set 
+at the point we want to calculate a given evolution (and hence more easily adjusted). 
+Below is a screen shot of the procedure just described with copious comments which should 
 make the procedure clear:
 
 \begin{figure}[H]
@@ -422,7 +431,7 @@ make the procedure clear:
 \noindent This example is contained in the {\it Examples/DoubleQuad/} folder which accompanies the code, with this script in the file 
 {\it DQuadSetup.py} file. In this script 
 we have used the two functions from the PyTransSetup module mentioned above. 
-Appendix 1 contains a summary of all the functions 
+Appendix 2 contains a summary of all the functions 
 available in the setup module.
 
 The complied Python module can now be used. To do so we need to point Python to the path of the new module (and 
@@ -632,18 +641,22 @@ function for many $k_t$.
 \label{NCexample}
 To demonstrate the evaluation of a non-canonical inflation model with a curved field-space metric 
 we extend the previous example to include a non-trivial metric. 
-We retain the potential from Eqn. \ref{dubquadpot} and construct the field metric
+We retain the potential from Eq.~(\ref{dubquadpot}), but now consider the model to have the field metric
 \be
 \label{GNC}
-G^{IJ}=\left(\begin{matrix}
+G_{IJ}=\left(\begin{matrix}
 R_0^2 & 0\\
 0 & R_0^2\sin\phi^2
 \end{matrix}\right)\,.
 \ee
 Previously we needed to create a Python module for a model with the double quadratic potential (that was canonical),
-now a Python module must be created for a model with this potential and the field metric. This is achieved by writing out the setup script we had before but with including a $G$ matrix which encodes Eqn. \ref{GNC} in SymPy notation. 
+now a Python module must be created for a model with this potential and the field metric. This is achieved by writing out the setup script we had before but including a $G$ matrix which encodes Eq.~(\ref{GNC}) in SymPy notation. 
 This is then included as a final argument in the {\it potential(V,nF,nP,Simple,G)} function which sets up the files needed to compile this model 
-into a python module (this final argument is optional, if not included then model must be canonical). 
+into a python module (this final argument is optional, if not included then model must be canonical). The fourth 
+argument is also optional and we didn't discuss it when dealing with the previous canonical example. It tells the routines 
+which use sympy whether or not to attempt to simplify the expressions using SymPy's simplification routines. By default it is set 
+to False for reasons discussed in Section\,\ref{pcf} (this ability to switch simplification off has also been added to the 
+new version of the code). 
 Finally, the function {\it compileName(`DQuadNC','True')}, or {\it compileName3(`DQuadNC','True')} if the user is using Python 3, is 
 used to create a python module {\it PyTransDQuadNC}, which can be used to study this model. The final argument in the {\it compileName} function is optional, and care must be taken to include it and set it to True if the model has a 
 non-trivial field space metric. 
@@ -651,7 +664,8 @@ If set to true the then the code that deals with the compilation is pointed to d
 which contain the more complex equations needed deal with models of inflation
 with a non-trivial field space. Below is a 
 screenshot of setup file for this model. This example can be found in the {\it Examples/DoubleQuadraticNC/} folder with 
-some simple scripts similar to those above for the canonical case.
+some simple scripts similar to those above for the canonical case. The complied model can be used in exactly the 
+same way as for canonical example.
 \begin{figure}[H]
 \centering
 \includegraphics[width=18.0cm]{NCsetup}
@@ -666,7 +680,7 @@ in field space is heavy, if
 the field trajectory curves. In this kind of example it is imperative that the initial conditions for the evolution of the two and three point functions 
 are set when the $k^2/a^2$ term in the equation of motion for the scalar field perturbations 
 dominates over the mass squared of the heavy 
-field. This is a requirement for our initial conditions to be accurate as discussed in Ref~\cite{xxx}. 
+field. This is a requirement for our initial conditions to be accurate as discussed in Ref~\cite{Dias:2016rjq}. 
 There is a script in {\it PyTransScripts.py} which 
 will achieve this, the {\it ICsBM} function. This finds initial conditions a user specified number of e-folds before the 
 massless condition where $k^2/a^2=M^2$ (where M is the largest eigenvalue of the mass matrix). 
@@ -683,7 +697,7 @@ where
 \ee
 which is from Ref.~\cite{Gao:2013ota} and is in the  {\it Examples/LH/} folder with some 
 simple scripts to those discussed above for the double quadratic potential for users to play with. 
-This example is also discussed at length in Ref.~\cite{xxx}.
+This example is also discussed at length in Ref.~\cite{Dias:2016rjq}.
 
 
 \subsection{Further examples}
@@ -691,7 +705,7 @@ This example is also discussed at length in Ref.~\cite{xxx}.
 
 Also in the {\it Examples/} folder is another light field example with more interesting dynamics than the double quadratic 
 example which we refer to as the axion quartic model. This example is again accompanied 
-with scripts and plots for users to explore and was also discussed in Ref.~\cite{xxx}. It is in the {\it QuadAx} folder, and has the potential
+with scripts and plots for users to explore and was also discussed in Ref.~\cite{Dias:2016rjq}. It is in the {\it QuadAx} folder, and has the potential
 \be
 V = \frac{1}{4} \lambda \phi^4 + \Lambda^4 \left ( 1 - \cos \left ( \frac{2\pi \chi}{f} \right) \right )\,.
 \ee
@@ -702,11 +716,11 @@ V = \frac{1}{4} \lambda \phi^4 + \Lambda^4 \left ( 1 - \cos \left ( \frac{2\pi \
 %\ee
 %is in the curve folder which was intended to illustrate gelaton-type behaviour, 
 
-Finally in the {\it Examples/} folder and discussed in  Ref.~\cite{xxx} is a single field example with a step in the potential:
+Finally in the {\it Examples/} folder and discussed in  Ref.~\cite{Dias:2016rjq} is a single field example with a step in the potential:
 \be
 V = \frac{1}{2} m^2 \phi^2 \left (1+c \tanh\left(\frac{\phi-\phi_0}{d} \right)\right)
 \ee
-which is in the folder {\it SingleField/} and was discussed in Refs.~\cite{Chen:2006xjb,Chen:2008wn}, as well as in Ref.~\cite{xxx} .
+which is in the folder {\it SingleField/} and was discussed in Refs.~\cite{Chen:2006xjb,Chen:2008wn}, as well as in Ref.~\cite{Dias:2016rjq} .
 
 
 \section{Things that can go wrong}
@@ -716,7 +730,7 @@ for new users to know about. Many more have been ironed out, but it is neither p
 fully immune to misuse. Below we detail a few common problems we have faced. 
 
 
-\subsection{Potential computation fails}
+\subsection{Potential computation fails and problems with simplification of expressions}
 \label{pcf}
 This is the most severe bug/problem we have found, but also the least common. 
 
@@ -742,6 +756,13 @@ the potential written in the form given above, when the powers where written as 
 2. The problem appears when taking cross derivatives. 
 Uncommon errors such as this are something users might need to watch out for. 
 
+We have also noticed that it is helpful to write powers as integers (such as 2, rather than 2.0) in general, as this can result in 
+much shorter expressions after simplification. If analysing a complex model, or if an error is encountered, the user can 
+inspect the potential.h file or the fieldmetric.h file to see what expressions Python has generated. The location of these files is 
+discussion in appendix~1.
+
+Because of these issues simplification is by default switched off, but can be useful to speed up the code.
+
 \subsection{Make sure latest module version is imported}
 
 A more common problem is that if we wish to update a complied PyTrans*** module, for 
@@ -764,11 +785,13 @@ Convergence is the key criterion in selecting tolerances. If one calculates the 
 function of $\zeta$ for a example run with a given potential, reduce the tolerances and run again without the answer 
 changing in any significant manner, then the tolerances are likely to be sufficient.  As a rule of thumb 
 $10^{-8}$ for the absolute tolerance and $10^{-8}$ for the relative tolerance is usually sufficient. 
-However, some examples do require lower values. As the values 
+However, some examples do require lower values, while for reasonably accurate results for simple models 
+one can sometimes get away with higher values. As the values 
 are lowered,  the code takes longer to run and eventually will fail (described below). Therefore, 
 there is significant benefit for picking a required accuracy which is sufficient for the task, but not one which is too 
 stringent. Those with experience of solving ODEs numerically will be familiar with this problem, which is of course 
-more general than the specific integration at hand.
+more general than the specific integration at hand. One can determine the accuracy needed for a given model 
+by examining the output for various choices for a small number of runs and checking for convergence.
 
 \subsection{Integration stalling or failing} 
 
@@ -837,8 +860,8 @@ different users will have different needs, but it is an issue to look out for.
 
 We have presented the PyTransport package for the calculations of inflationary spectra. This package 
 compliments and extends currently available tools, and is also complimentary to two related packages 
-mTransport \cite{Dias:2015rca} and CppTransport \cite{xxx,xxx2}  all described at this \href{https://transportmethod.com}{website}\footnote{https://transportmethod.com}. In its most recent version it has also now been updated to include 
-functionality to deal with models that have a curved field space metric \cite{newPaper}.
+mTransport \cite{Dias:2015rca} and CppTransport \cite{Dias:2016rjq,Seery:2016lko}  all described at this \href{https://transportmethod.com}{website}\footnote{https://transportmethod.com}. In its most recent version it has also now been updated to include 
+functionality to deal with models that have a curved field space metric \cite{xxx2}.
 
 Through use of a detailed example we have shown how PyTransport can be used in practice. We have also summarised the structure of the code, with some more details provided in the appendices.
 
@@ -847,7 +870,8 @@ Through use of a detailed example we have shown how PyTransport can be used in p
 DJM is supported by a Royal Society University research fellowship. JWR acknowledges the support of a studentship 
 jointly funded by Queen Mary University 
 of London and by the Frederick Perren Fund of the University of London. This work would not have been possible without 
-the related collaboration with David Seery, Mafalda Dias and Jonathan Frazer \cite{xxx}.
+the related collaboration with David Seery, Mafalda Dias and Jonathan Frazer \cite{Dias:2016rjq}. We also 
+thank Sean Butchers and David Seery for helpful cross checks  made between PyTransport and CppTransport.
 \end{acknowledgments}
 
 
@@ -856,22 +880,23 @@ We now give a brief description of the \CC \S  code which is the core of PyTrans
 
 \noindent The folder  {\it PyTransportDist/PyTransport/CppTrans/} contains the base \CC \S code which the complied Python module uses.
 Inside lies another folder {\it PyTransportDist/PyTransport/CppTrans/NC/} which contains the 
-five header files from the main directory but modified for non-canonical models. If a model contains a field metric the {\it PyTransSetup.compile()} function will redirect the path to the files within this directory. 
+five header files from the main directory but modified for non-canonical models. If a model contains a field metric the {\it PyTransSetup.compile()} function will redirect the path to the files within this directory (the final argument needs to be set to True
+for this to happen). 
 The reason for this separation is to optimise the speed of computations when dealing with only canonical models.
 The biggest file is {\it model.h}. This contains the model class, which 
 defines the properties of an inflationary model. It contains member functions which allow the calculation of important 
 properties of the inflationary model, from simple objects such as the value of the Hubble rate, to more complex ones such 
 as the 
-$A$, $B$, $C$ tensors which define the third order action, as discussed in Refs.~\cite{xxx,newPaper}. It also calculates the ``N" tensors, 
+$A$, $B$, $C$ tensors which define the third order action, as discussed in Refs.~\cite{Dias:2016rjq,xxx2}. It also calculates the ``N" tensors, 
 mentioned in the main text,
 that determine how field fluctuations are related to $\zeta$. 
-The equations of motion for the transport system are written in terms of ``$u$" tensors (see section~5 of Ref.~\cite{xxx}), and there is also a member function of the model class which calculates these tensors. As noted in the main text 
+The equations of motion for the transport system are written in terms of ``$u$" tensors (see section~5 of Ref.~\cite{Dias:2016rjq} and Ref.~\cite{xxx2} for the curved field space generalisation), and there is also a member function of the model class which calculates these tensors. As noted in the main text 
 we rescale the field velocity perturbation for performance 
 reasons using the {\it scale} member function of the model class. This rescaling appears in the 
 member functions which calculate $u_2$ and $u_3$ tensors and the $N$ tensors, altering them slightly 
-from the from given in Ref.~\cite{xxx}.
+from the from given in Ref.~\cite{Dias:2016rjq}.
 The output of these functions is also divided by the Hubble rate, changing the 
-time variable from cosmic time (which the equations are written in in Ref.~\cite{xxx}) 
+time variable from cosmic time (which the equations are written in in Ref.~\cite{Dias:2016rjq}) 
 to $N$, e-fold time.  The scaling we choose essentially means the initial conditions for 
 correlations of the velocity perturbations
 are of the same order of magnitude as correlations of field perturbations, helping the performance of the integrator. 
@@ -892,8 +917,8 @@ The {\it evolve.h} file contains functions which define the evolution equations 
 by the rk45 ODE stepper we use: the background only system, the two point function  
 coupled to background, and three point coupled to two point coupled to background. The system of equations of the latter two systems 
 are given 
-in Eqs.~(5.5) and (5.16) of Ref.~\cite{xxx}). These equations use the ``u" tensors which are also described in 
-section~5 of Ref.~\cite{xxx} and 
+in Eqs.~(5.5) and (5.16) of Ref.~\cite{Dias:2016rjq}). These equations use the ``u" tensors which are also described in 
+section~5 of Ref.~\cite{Dias:2016rjq} (and Ref.~\cite{xxx2} for the curved field space generalisation) and 
 which are calculated by the {\it model.h} class.  
 
 Finally there is a folder called rk45 stepper
@@ -996,7 +1021,7 @@ It also takes an array ``tols" containing the relative and absolute tolerance an
     at which we want to know the value of the three point function of inflationary perturbations. 
     This must start with the initial N we wish to evolve the system from, and finish with the 
     final N. It also takes three Fourier mode values 
-    (k1, k2, k3), the initial conditions of the background cosmology (fields and field velocities) at the initial time as a numpy array of length 2 nF, the parameters of the system as a numpy array of length 2 nP, an array "tols" containing the relative and absolute tolerance, 
+    (k1, k2, k3), the initial conditions of the background cosmology (fields and field velocities) at the initial time as a numpy array of length 2 nF, the parameters of the system as a numpy array of length 2 nP, an array ``tols" containing the relative and absolute tolerance, 
     and an integer ``full'' set to {\color{blue}\bf{False}} or {\color{blue}\bf{True}}
     (if another value it defaults to 1). 
     The function returns a two dimensional numpy array, 
