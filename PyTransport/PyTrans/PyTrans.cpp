@@ -173,6 +173,113 @@ static PyObject* MT_paramNumber(PyObject* self,  PyObject *args)
     return Py_BuildValue("i",mm.getnP());
 }
 
+
+// detect end of inflation within a suitable search window
+static PyObject* MT_findEndOfInflation(PyObject* self, PyObject* args)
+{
+    PyArrayObject* initialCs;
+    PyArrayObject* params;
+    PyArrayObject* tols;
+    double Ninit = 0.0;         // value of N corresponding to initial conditions
+    double DeltaN = 10000.0;    // number of e-folds to search through
+
+    // parse arguments; final argument is optional
+    if(!PyArg_ParseTuple(args, "O!O!O!d|d", &PyArray_Type, &initialCs, &PyArray_Type, &params, &PyArray_Type, &tols,
+                         &Ninit, &DeltaN))
+      return NULL;
+
+    // convert requested tolerances to a C array and extract absolute & relative error targets
+    double* tolsC = pyvector_to_Carray(tols);
+
+    double abserr = 1E-8;
+    double relerr = 1E-8;
+    if(size_pyvector(tols) != 2)
+      {
+        cout << "\n \n \n incorrect tolerances input, using defaults \n \n \n";
+      }
+    else
+      {
+        abserr = tolsC[0];
+        relerr = tolsC[1];
+      }
+
+    // convert initial conditions to a C array
+    double* CinitialCs = pyvector_to_Carray(initialCs);
+
+    // check whether the expected number of initial conditions were supplied
+    model mm;
+    int nF = mm.getnF();
+    if(size_pyvector(initialCs) != 2*nF)
+      {
+        cout << "\n \n \n field space array not of correct length \n \n \n";
+        Py_RETURN_NONE;
+      }
+
+    // convert parameter list to a C array
+    double* Cparams = pyvector_to_Carray(params);
+    int nP = mm.getnP();
+    if(size_pyvector(params) != nP)
+      {
+        cout << "\n \n \n parameters array not of correct length \n \n \n";
+        Py_RETURN_NONE;
+      }
+
+    // allocate working space for the stepper
+    // TODO: consider absorbing these allocations within a janitor object
+    double* y = new double[2*nF];       // current values
+    double* dy = new double[2*nF];      // derivatives
+
+    // initialize y using supplied initial conditions
+    for(int i = 0; i < 2*nF; ++i)
+      {
+        y[i] = CinitialCs[i];
+      }
+
+    // populate dy for initial step
+    double N = Ninit;
+    const double Nstop = Ninit + DeltaN;
+    evolveB(N, y, dy, Cparams);
+
+    // integrated background until we encounter the end-of-inflation, or the end of the search window
+    int flag = -1;      // '-1' puts the integrator into 'single-step' mode, so it returns after taking one stride
+    while(N < Nstop)
+      {
+        flag = r8_rkf45(evolveB, 2*nF, y, dy, &N, Nstop, &relerr, abserr, flag, Cparams);
+
+        // detect some error conditions
+        if(flag == 50)
+          {
+            cout << "\n \n \n Integrator failed at time N = " <<N <<" \n \n \n";
+            return Py_BuildValue("d", N);
+          }
+
+        // compute value of epsilon
+        vector<double> vecy(y, y+2*nF);
+        vector<double> vecParams(Cparams, Cparams+nP);
+
+        double eps = mm.Ep(vecy, vecParams);
+
+        // break out of search if we have an unacceptable result, or if we are now past the end of inflation
+        if(eps < 0 || eps > 1)
+          {
+            // TODO: consider absorbing in a janitor
+            delete[] y;
+            delete[] dy;
+            return Py_BuildValue("d", N);
+          }
+
+        flag = -2;      // '-2' means continue as normal in 'single-step' mode
+      }
+
+    // deallocate workspace
+    // TODO: consider absorbing in a janitor
+    delete[] y;
+    delete[] dy;
+
+    Py_RETURN_NONE;
+}
+
+
 // function to calculate background evolution
 static PyObject* MT_backEvolve(PyObject* self,  PyObject *args)
 {
@@ -549,7 +656,7 @@ static char PyTrans_docs[] =
 "This is PyTrans, a package for solving the moment transport equations of inflationary cosmology\n";
 
 // **************************************************************************************
-static PyMethodDef PyTransQuartAxNC_funcs[] = {{"H", (PyCFunction)MT_H,    METH_VARARGS, PyTrans_docs},{"nF", (PyCFunction)MT_fieldNumber,        METH_VARARGS, PyTrans_docs},{"nP", (PyCFunction)MT_paramNumber,        METH_VARARGS, PyTrans_docs},{"V", (PyCFunction)MT_V,            METH_VARARGS, PyTrans_docs},{"dV", (PyCFunction)MT_dV,                METH_VARARGS, PyTrans_docs},  {"ddV", (PyCFunction)MT_ddV,                METH_VARARGS, PyTrans_docs},  {"backEvolve", (PyCFunction)MT_backEvolve,        METH_VARARGS, PyTrans_docs},    {"sigEvolve", (PyCFunction)MT_sigEvolve,        METH_VARARGS, PyTrans_docs},    {"alphaEvolve", (PyCFunction)MT_alphaEvolve,        METH_VARARGS, PyTrans_docs},    {NULL}};//FuncDef
+static PyMethodDef PyTransDQuadNC_funcs[] = {{"H", (PyCFunction)MT_H,    METH_VARARGS, PyTrans_docs},{"nF", (PyCFunction)MT_fieldNumber,        METH_VARARGS, PyTrans_docs},{"nP", (PyCFunction)MT_paramNumber,        METH_VARARGS, PyTrans_docs},{"V", (PyCFunction)MT_V,            METH_VARARGS, PyTrans_docs},{"dV", (PyCFunction)MT_dV,                METH_VARARGS, PyTrans_docs},  {"ddV", (PyCFunction)MT_ddV,                METH_VARARGS, PyTrans_docs}, {"findEndOfInflation", (PyCFunction)MT_findEndOfInflation,        METH_VARARGS, PyTrans_docs}, {"backEvolve", (PyCFunction)MT_backEvolve,        METH_VARARGS, PyTrans_docs},    {"sigEvolve", (PyCFunction)MT_sigEvolve,        METH_VARARGS, PyTrans_docs},    {"alphaEvolve", (PyCFunction)MT_alphaEvolve,        METH_VARARGS, PyTrans_docs},    {NULL}};//FuncDef
 // do not alter the comment at the end of preceeding line -- it is used by preprocessor
 
 #ifdef __cplusplus
@@ -561,7 +668,7 @@ extern "C" {
 // do not alter the comment at the end of preceeding line -- it is used by preprocessor
     
 // **************************************************************************************
-void initPyTransQuartAxNC(void)    {        Py_InitModule3("PyTransQuartAxNC", PyTransQuartAxNC_funcs,                       "Extension module for inflationary statistics");        import_array();   }//initFunc
+void initPyTransDQuadNC(void)    {        Py_InitModule3("PyTransDQuadNC", PyTransDQuadNC_funcs,                       "Extension module for inflationary statistics");        import_array();   }//initFunc
 // do not alter the comment at the end of preceeding line -- it is used by preprocessor
 
 #ifdef __cplusplus
