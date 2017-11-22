@@ -15,17 +15,17 @@ affiliations:
  - name: Astronomy Unit, Queen Mary University of London, E3 4NS, UK
    index: 1
 date: 14 February 2016
-bibliography: paper.bib
+bibliography: paper2.bib
 ---
 
 # Summary
-![](PyTransLogo.pdf)
-PyTransport constitutes a straightforward code written in \CC \S  together 
-with Python scripts which automatically edit, compile and run the \CC \S code as a 
+![  ](PyTransLogo-1.png)
+PyTransport constitutes a straightforward code written in C++ together 
+with Python scripts which automatically edit, compile and run the C++ code as a 
 Python module. It has been written for Unix-like systems (OS X and Linux).
 The transport method we utilise means 
 only coupled differential equations need to be solved, and the implementation presented here 
-combines the speed of \CC \S  with the functionality and convenience of Python. 
+combines the speed of C++ with the functionality and convenience of Python. 
 
 The code is intended to be a reusable resource for inflationary cosmology. It enables users to quickly create a 
 complied Python module(s) for any given model(s) of multi-field inflation. 
