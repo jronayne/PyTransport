@@ -6,16 +6,15 @@ tags:
   - Early Universe
 authors:
  - name: David J. Mulryne
-   orcid: 0000-0000-0000-1234
    affiliation: 1
- - name: John "/ Ronayne
+ - name: John W. Ronayne
    orcid: 0000-0001-6464-6466
    affiliation: 1
 affiliations:
  - name: Astronomy Unit, Queen Mary University of London, E3 4NS, UK
    index: 1
-date: 14 February 2016
-bibliography: paper2.bib
+date: 23 November 2017
+bibliography: paper.bib
 ---
 
 # Summary
