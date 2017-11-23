@@ -48,8 +48,6 @@ routine with error control. Such off the shelf
 routines are extremely well tested, and provide
 an easy way to change the required accuracy. This is helpful in order to check convergence of the numerical 
 solutions, or to respond to needs of models with very fine features. 
-Details of the transport method itself that the code is based on can be found in the recent paper [@xxx][@xxx1}. We 
+Details of the transport method itself that the code is based on can be found in the recent paper [@Dias] [@Ronayne]. We 
 highly recommend reading this guide in combination with that paper.
-
-
 # References
