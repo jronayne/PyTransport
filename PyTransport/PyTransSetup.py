@@ -108,7 +108,7 @@ def compileName(name,NC=False):
             f.write('void initPyTrans'+name+'(void)    {        Py_InitModule3("PyTrans'+name+'", PyTrans'+name+'_funcs,                       "Extension module for inflationary statistics");        import_array();   }//initFunc\n')
         
     f.close()
-
+    os.system("export CFLAGS='-I /usr/local/lib/python2.7/site-packages/numpy/core/include'")
     subprocess.call(["python", filename1, "install", "--home=" + location],cwd=location)
     sys.path.append(location+"/lib/python/")
     sys.path.append(location+"../PyTransScripts")
@@ -147,7 +147,7 @@ def compileName3(name,NC=False):
         if line.endswith("//initFunc\n"):
             f.write('PyMODINIT_FUNC PyInit_PyTrans'+name+'(void)    {    PyObject *m = PyModule_Create(&PyTransModule); import_array(); return m;} //initFunc\n')
     f.close()
-    
+    os.system("export CFLAGS='-I /usr/local/lib/python2.7/site-packages/numpy/core/include'")
     subprocess.call(["python", filename1, "install", "--home=" + location],cwd=location)
     sys.path.append(location+"/lib/python/")
     sys.path.append(location+"../PyTransScripts")
