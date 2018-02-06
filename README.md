@@ -13,9 +13,9 @@ In addition error feedback has been improved and storage of model quantities has
 PyTransport has been developed on OS X and Linux Ubuntu using Python 2.7, and is intended for use on Unix based systems.
 
 # Contibutions, Pull requests and Issues
-Any third party wishing to contribute to the PyTransport project is welcome to do so. We will attempt to implement submitted pull requests and fix issues submitted on this repository. If assistance or support is needed you can also contact us by email at d.mulryne@qmul.ac.uk and j.ronayne@qmul.ac.uk .
+Any third party wishing to contribute to the PyTransport project is welcome to do so. We will attempt to implement submitted pull requests and fix issues submitted to this repository. If assistance or support is needed you can also contact us by [email](j.ronayne@qmul.ac.uk).
 
 # Licencing #
 PyTransport is distributed under the GNU General Public License version 3, or (at your option) any later version. This license is bundled with the source code as LICENSE.txt.
 
-Please visit the [PyTransport wedsite](https://transportmethod.com) for further information and links to other repositories ultisiling the transport method.
+Please visit the [PyTransport website](https://transportmethod.com) for further information and links to other repositories ultisiling the transport method.
