@@ -178,7 +178,7 @@ def potential(V,nF,nP,simple=False,G=0):
         FMP=0
         for i in range(nF):
             if simple==True:
-				vd[i] = sym.simplify(V.diff(f[i]))
+                vd[i] = sym.simplify(V.diff(f[i]))
             else:
                 vd[i] = V.diff(f[i])
         for i in range(nF):
@@ -328,9 +328,9 @@ def fieldmetric(G,nF,nP,simple=False):
                         else:
                             ii=i-(nF-1)
                         if j<nF:
-							jj=-j-1
+                            jj=-j-1
                         else:
-						    jj=j-(nF-1)
+                            jj=j-(nF-1)
                         if k<nF:
                             kk=-k-1
                         else:
