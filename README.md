@@ -11,6 +11,44 @@ New modules have been added and modifications to existing functions have been ma
 In addition error feedback has been improved and storage of model quantities has been made more efficient. 
 
 PyTransport has been developed on OS X and Linux Ubuntu using Python 2.7, and is intended for use on Unix based systems.
+# Quick installation Guide
+In order to compile PyTransport some prerequisites are required:
+* A working Python installation (We recommend Python 2.7 however we have attempted to ensure compatibility with versions of Python 3).
+* The following python packages, Numpy, Matplotlib, SciPy, Gravipy, SymPy, Distutils, Math and Sys.
+The simplist way to install these packages is by using pip, e.g.
+```sh
+pip install numpy
+```
+* Optional packages: Mpi4Py (also requiring [openMPI](https://wiki.helsinki.fi/display/HUGG/Open+MPI+install+on+Mac+OS+X) for distributed computing and Mayavi for 3D Bispectra plots.
+* C++ compiler.
+
+## Installing PyTransport
+Download the repository and move it to a convenient location on your computer's file system.
+Each model requires a separate installation. The `PyTransport-master/PyTransport/Examples/` folder contains subfolders of sample inflationary models, within them are the `ModelSetup.py` scripts.
+Each setup scripts can be modified for a particular model (for a full description on modifying the setup file see the user guide in the `PyTransport-master/Docs/` folder).
+
+For example, let's say you want to install a PyTransport module for the non-canonical Quartic-Axion model. 
+First, from the shell, navigate into the folder `PyTransport-master/PyTransport/Examples/QuartAxNC/` and open the file `QuartAxNCsetup.py`.
+
+You will first need to modify the following line which saves the location of your PyTransport folder on your system.
+```python
+location = "/path/to/PyTransport/" # this should be the location of the PyTransport folder 
+```
+Note, if you are using Python 3 you will also need to modify the line, 
+```python
+PyTransSetup.compileName("QuartAxNC",True)
+``` 
+to, 
+```python
+PyTransSetup.compileName3("QuartAxNC",True)
+```
+in the setup file.
+
+Back in shell, run the script,
+```sh
+python QuartAxNCsetup.py
+```
+which will install the `QuartAxNC` PyTranport library which can later be imported into a python script, e.g. `SimpleExample.py`.
 
 # Contibutions, Pull requests and Issues
 Any third party wishing to contribute to the PyTransport project is welcome to do so. We will attempt to implement submitted pull requests and fix issues submitted to this repository. If assistance or support is needed you can also contact us by email at j.ronayne@qmul.ac.uk  and d.mulryne@qmul.ac.uk.
