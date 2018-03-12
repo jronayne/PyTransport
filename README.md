@@ -30,7 +30,7 @@ Each setup scripts can be modified for a particular model (for a full descriptio
 For example, let's say you want to install a PyTransport module for the non-canonical Quartic-Axion model. 
 First, from the shell, navigate into the folder `PyTransport-master/PyTransport/Examples/QuartAxNC/` and open the file `QuartAxNCsetup.py`.
 
-You will first need to modify the following line which saves the location of your PyTransport folder on your system.
+You will first need to modify the following line which specifies the location of your PyTransport folder on your system.
 ```python
 location = "/path/to/PyTransport/" # this should be the location of the PyTransport folder 
 ```
