@@ -436,7 +436,7 @@ def fieldmetric(G,nF,nP,simple=False,silent=True):
                     kk = k - (nF - 1)
 
                 if kk < 0 or jj < 0 or ii > 0:
-                    Gamma_array[(2*nF)*(2*nF)*i+(2*nF)*j+k] = 0
+                    Gamma_array[(2*nF)*(2*nF)*i+(2*nF)*j+k] = sym.simplify(0)
                 else:
                     if simple is True:
                         Gamma_array[(2*nF)*(2*nF)*i+(2*nF)*j+k] = sym.simplify(Ga(ii, jj, kk))
