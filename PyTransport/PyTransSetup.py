@@ -101,7 +101,7 @@ def compileName(name,NC=False):
         if not  line.endswith("#setup\n"):
             f.write(line)
         if line.endswith("#setup\n"):
-            f.write('setup(name="PyTrans'+name+'", version="1.0", ext_modules=[Extension("PyTrans'+name+'", [filename, filename2 ])], include_dirs=[numpy.get_include(), extra_compile_args = ["-std=c++11"], dirs])#setup\n')
+            f.write('setup(name="PyTrans'+name+'", version="1.0", ext_modules=[Extension("PyTrans'+name+'", [filename, filename2 ])], include_dirs=[numpy.get_include(), dirs], extra_compile_args = ["-std=c++11"])#setup\n')
     f.close()
     filename = os.path.join(dir, 'PyTrans', 'PyTrans.cpp')
     f = open(filename,"r")
@@ -142,7 +142,7 @@ def compileName3(name,NC=False):
         if not  line.endswith("#setup\n"):
             f.write(line)
         if line.endswith("#setup\n"):
-            f.write('setup(name="PyTrans'+name+'", version="1.0", ext_modules=[Extension("PyTrans'+name+'", [filename, filename2 ])], include_dirs=[numpy.get_include(), dirs])#setup\n')
+            f.write('setup(name="PyTrans'+name+'", version="1.0", ext_modules=[Extension("PyTrans'+name+'", [filename, filename2 ])], include_dirs=[numpy.get_include(), dirs], extra_compile_args = ["-std=c++11"])#setup\n')
     f.close()
 
     filename = os.path.join(dir, 'PyTrans', 'PyTrans.cpp')
