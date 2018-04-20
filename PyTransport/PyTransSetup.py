@@ -14,7 +14,7 @@
 #along with PyTransport.  If not, see <http://www.gnu.org/licenses/>.
 
 
-# This file contains python scripts used to setup the complided PyTrans module
+# This file contains python scripts used to setup the compiled PyTrans module
 
 import sympy as sym
 import numpy as np
@@ -434,10 +434,11 @@ def fieldmetric(G,nF,nP,simple=False,silent=True):
                     kk = -k - 1
                 else:
                     kk = k - (nF - 1)
+
                 if kk < 0 or jj < 0 or ii > 0:
-                    expr = str(0.0)
+                    Gamma_array[(2*nF)*(2*nF)*i+(2*nF)*j+k] = 0
                 else:
-                    if simple == True:
+                    if simple is True:
                         Gamma_array[(2*nF)*(2*nF)*i+(2*nF)*j+k] = sym.simplify(Ga(ii, jj, kk))
                     else:
                         Gamma_array[(2*nF)*(2*nF)*i+(2*nF)*j+k] = Ga(ii, jj, kk)
@@ -451,7 +452,8 @@ def fieldmetric(G,nF,nP,simple=False,silent=True):
                     jj=j+1
                     kk=k+1
                     ll=l+1
-                    if simple==True:
+
+                    if simple is True:
                         R_array[(nF)*(nF)*(nF)*i+(nF)*(nF)*j+(nF)*k+l] = sym.simplify(Rm(ii,jj,kk,ll))
                     else:
                         R_array[(nF)*(nF)*(nF)*i+(nF)*(nF)*j+(nF)*k+l] = Rm(ii,jj,kk,ll)
@@ -467,7 +469,8 @@ def fieldmetric(G,nF,nP,simple=False,silent=True):
                         kk = k + 1
                         ll = l + 1
                         mm = m + 1
-                        if simple == True:
+
+                        if simple is True:
                             gradR_array[(nF)*(nF)*(nF)*(nF)*i+(nF)*(nF)*(nF)*j+(nF)*(nF)*k+(nF)*l+m] = sym.simplify(Rm.covariantD(ii, jj, kk, ll, mm))
                         else:
                             gradR_array[(nF)*(nF)*(nF)*(nF)*i+(nF)*(nF)*(nF)*j+(nF)*(nF)*k+(nF)*l+m] = Rm.covariantD(ii, jj, kk, ll, mm)
