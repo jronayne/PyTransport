@@ -12,14 +12,14 @@ import sys  # imports sys package for sue below
 
 ############################################################################################################################################
 #This file contains simple examples of using the PyTransCurveNC 
-#It assumes the PyTransCurveNC file has been run to install a non-canonical curve version of PyTrans
+#It assumes the PyTransCurveNC file has been run to install a non-canonical curve version of PyTransport
 #It is recommended you restart the kernel before running this file to insure any updates to PyTransCurveNC are imported
 
 location = "/home/jwr/Code/PYT4/PyTransport/" # this should be the location of the PyTrans folder 
 sys.path.append(location) # sets up python path to give access to PyTransSetup
 tols = np.array([10**-12,10**-12])
 import PyTransSetup
-PyTransSetup.pathSet()  # this sets the other paths that PyTrans uses
+PyTransSetup.pathSet()  # this sets the other paths that PyTransport uses
 
 import PyTransCurveNC as PyT  # import module as PyT (PyTransCurveNC is quite long to type each time and it saves time to use a shorter name
                              # using a generic name PyT means the file can be more easily reused for a different example (once field values 

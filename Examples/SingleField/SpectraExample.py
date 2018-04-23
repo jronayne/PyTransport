@@ -1,4 +1,4 @@
-####################################### MTeasyPyStep simple example of basic functions ###########################################
+####################################### PyTransPyStep simple example of basic functions ###########################################
 from matplotlib import pyplot as plt
 import time
 import imp  
@@ -14,18 +14,18 @@ import subprocess
 
 ############################################################################################################################################
 
-#This file contains simple examples of using the PyTrans package for the single field example of Chen et al.
-#It assumes the StepExampleSeptup file has been run to install a Step version of MTeasyPyStep
-#It is recommended you restart the kernel to insure any updates to MTeasyPyStep are imported 
+#This file contains simple examples of using the PyTransport package for the single field example of Chen et al.
+#It assumes the StepExampleSeptup file has been run to install a Step version of PyTransPyStep
+#It is recommended you restart the kernel to insure any updates to PyTransPyStep are imported 
 
-location = "/Users/David/Dropbox/MTeasyDist/MTeasy/" # this should be the location of the MTeasy folder 
-sys.path.append(location) # sets up python path to give access to MTeasySetup
+location = "/Users/David/Dropbox/MTeasyDist/MTeasy/" # this should be the location of the PyTransport folder 
+sys.path.append(location) # sets up python path to give access to PyTransSetup
 
-import MTeasySetup
-MTeasySetup.pathSet()  # his add sets the other paths that MTeasy uses
+import PyTransSetup
+PyTransSetup.pathSet()  # his add sets the other paths that PyTransport uses
 
-import MTeasyPyStep as MTSE;  # import module  
-import MTeasyScripts as MTS;
+import PyTransPyStep as MTSE;  # import module  
+import PyTransScripts as MTS;
 ###########################################################################################################################################
 
 

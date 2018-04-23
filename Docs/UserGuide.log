@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.7.27)  15 AUG 2016 14:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.7.27)  10 JUL 2017 16:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -418,304 +418,58 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 67.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<PyTransLogo.pdf, id=110, 768.48691pt x 444.93301pt>
+<PyTransLogo.pdf, id=110, 776.72594pt x 449.56421pt>
 File: PyTransLogo.pdf Graphic file (type pdf)
  <use PyTransLogo.pdf>
 Package pdftex.def Info: PyTransLogo.pdf used on input line 79.
-(pdftex.def)             Requested size: 312.9803pt x 181.20845pt.
-
-
-Package natbib Warning: Citation `xxx' on page 1 undefined on input line 87.
-
-
-Package natbib Warning: Citation `xxx' on page 1 undefined on input line 117.
+(pdftex.def)             Requested size: 312.9803pt x 181.14642pt.
 
 [1{/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./PyT
-ransLogo.pdf>]
+ransLogo.pdf>] [2]
 
-Package natbib Warning: Citation `xxx' on page 2 undefined on input line 127.
-
-
-Package natbib Warning: Citation `xxx' on page 2 undefined on input line 141.
+Package hyperref Warning: Ignoring empty anchor on input line 233.
 
 
-Package natbib Warning: Citation `xxx2' on page 2 undefined on input line 141.
-
-
-Package natbib Warning: Citation `xxx' on page 2 undefined on input line 187.
-
-[2]
-
-Package natbib Warning: Citation `xxx' on page 3 undefined on input line 218.
-
-
-Package natbib Warning: Citation `xxx' on page 3 undefined on input line 220.
-
-
-Package hyperref Warning: Ignoring empty anchor on input line 223.
-
-
-Package natbib Warning: Citation `xxx' on page 3 undefined on input line 226.
-
-
-Package natbib Warning: Citation `xxx' on page 3 undefined on input line 228.
-
-
-Package hyperref Warning: Ignoring empty anchor on input line 238.
+Package hyperref Warning: Ignoring empty anchor on input line 248.
 
 [3]
 
-Package hyperref Warning: Ignoring empty anchor on input line 300.
+Package hyperref Warning: Ignoring empty anchor on input line 317.
 
 
-Package hyperref Warning: Ignoring empty anchor on input line 344.
+Package hyperref Warning: Ignoring empty anchor on input line 362.
 
-[4] <shot1c.png, id=221, 1047.915pt x 471.7625pt>
-File: shot1c.png Graphic file (type png)
- <use shot1c.png>
-Package pdftex.def Info: shot1c.png used on input line 391.
-(pdftex.def)             Requested size: 512.1496pt x 230.56816pt.
+[4]
 
-Overfull \hbox (2.1496pt too wide) in paragraph at lines 391--392
- [][] 
- []
+Package hyperref Warning: Ignoring empty anchor on input line 368.
 
-[5 <./shot1c.png>] <shot2.png, id=229, 1030.85126pt x 680.5425pt>
-File: shot2.png Graphic file (type png)
 
-<use shot2.png>
-Package pdftex.def Info: shot2.png used on input line 410.
-(pdftex.def)             Requested size: 512.1496pt x 338.11049pt.
+./UserGuide.tex:406: LaTeX Error: File `shot1c' not found.
 
-Overfull \hbox (2.1496pt too wide) in paragraph at lines 410--411
- [][] 
- []
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.406 \includegraphics[width=18.0cm]{shot1c}
+                                            
+? 
+./UserGuide.tex:406: Emergency stop.
+ ...                                              
+                                                  
+l.406 \includegraphics[width=18.0cm]{shot1c}
+                                            
+I could not locate the file with any of these extensions:
+.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPEG,.JBIG2,.JB2,.eps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
-<Shot3.png, id=233, 1056.94875pt x 409.53pt>
-File: Shot3.png Graphic file (type png)
- <use Shot3.png>
-Package pdftex.def Info: Shot3.png used on input line 442.
-(pdftex.def)             Requested size: 489.38731pt x 189.61711pt.
-
-<Shot4.png, id=234, 1024.82875pt x 423.5825pt>
-File: Shot4.png Graphic file (type png)
- <use Shot4.png>
-Package pdftex.def Info: Shot4.png used on input line 446.
-(pdftex.def)             Requested size: 489.38731pt x 202.27022pt.
- [6 <./shot2.png>] <Shot5.png, id=242, 1029.8475pt x 498.86375pt>
-File: Shot5.png Graphic file (type png)
- <use Shot5.png>
-Package pdftex.def Info: Shot5.png used on input line 449.
-(pdftex.def)             Requested size: 483.69684pt x 234.29852pt.
-
-<DQ1.png, id=243, 578.16pt x 433.62pt>
-File: DQ1.png Graphic file (type png)
- <use DQ1.png>
-Package pdftex.def Info: DQ1.png used on input line 456.
-(pdftex.def)             Requested size: 284.52756pt x 213.39536pt.
-
-<DQ2.png, id=244, 578.16pt x 433.62pt>
-File: DQ2.png Graphic file (type png)
- <use DQ2.png>
-Package pdftex.def Info: DQ2.png used on input line 462.
-(pdftex.def)             Requested size: 227.62204pt x 170.71231pt.
-
-<DQ3.png, id=245, 578.16pt x 433.62pt>
-File: DQ3.png Graphic file (type png)
- <use DQ3.png>
-Package pdftex.def Info: DQ3.png used on input line 462.
-(pdftex.def)             Requested size: 227.62204pt x 170.71231pt.
-
-<DQ4.png, id=246, 578.16pt x 433.62pt>
-File: DQ4.png Graphic file (type png)
- <use DQ4.png>
-Package pdftex.def Info: DQ4.png used on input line 463.
-(pdftex.def)             Requested size: 227.62204pt x 170.71231pt.
-
-<DQ5.png, id=247, 578.16pt x 433.62pt>
-File: DQ5.png Graphic file (type png)
- <use DQ5.png>
-Package pdftex.def Info: DQ5.png used on input line 463.
-(pdftex.def)             Requested size: 227.62204pt x 170.71231pt.
- [7 <./Shot3.png> <./Shot4.png> <./Shot5.png>] [8 <./DQ1.png> <./DQ2.png> <./DQ
-3.png> <./DQ4.png> <./DQ5.png>] <shot6b.png, id=268, 1057.9525pt x 699.61375pt>
-File: shot6b.png Graphic file (type png)
- <use shot6b.png>
-Package pdftex.def Info: shot6b.png used on input line 506.
-(pdftex.def)             Requested size: 512.1496pt x 338.68242pt.
-
-Overfull \hbox (2.1496pt too wide) in paragraph at lines 506--507
- [][] 
- []
-
-<shot7.png, id=269, 1097.09875pt x 1013.7875pt>
-File: shot7.png Graphic file (type png)
- <use shot7.png>
-Package pdftex.def Info: shot7.png used on input line 524.
-(pdftex.def)             Requested size: 512.1496pt x 473.26262pt.
-
-Overfull \hbox (2.1496pt too wide) in paragraph at lines 524--525
- [][] 
- []
-
-[9 <./shot6b.png>] <shot8b.png, id=276, 1033.8625pt x 988.69376pt>
-File: shot8b.png Graphic file (type png)
-
-<use shot8b.png>
-Package pdftex.def Info: shot8b.png used on input line 529.
-(pdftex.def)             Requested size: 512.1496pt x 489.78963pt.
-
-Overfull \hbox (2.1496pt too wide) in paragraph at lines 529--530
- [][] 
- []
-
-[10 <./shot7.png>] <Pz.png, id=282, 578.16pt x 433.62pt>
-File: Pz.png Graphic file (type png)
- <use Pz.png>
-Package pdftex.def Info: Pz.png used on input line 534.
-(pdftex.def)             Requested size: 227.62204pt x 170.71231pt.
-
-<ns.png, id=283, 578.16pt x 433.62pt>
-File: ns.png Graphic file (type png)
- <use ns.png>
-Package pdftex.def Info: ns.png used on input line 534.
-(pdftex.def)             Requested size: 227.62204pt x 170.71231pt.
-
-<BiEq.png, id=284, 578.16pt x 433.62pt>
-File: BiEq.png Graphic file (type png)
- <use BiEq.png>
-Package pdftex.def Info: BiEq.png used on input line 540.
-(pdftex.def)             Requested size: 227.62204pt x 170.71231pt.
-
-<alpBetEq3.png, id=285, 722.7pt x 433.62pt>
-File: alpBetEq3.png Graphic file (type png)
- <use alpBetEq3.png>
-Package pdftex.def Info: alpBetEq3.png used on input line 546.
-(pdftex.def)             Requested size: 256.0748pt x 153.64174pt.
-
-<alpBetMay.png, id=286, 602.25pt x 559.08875pt>
-File: alpBetMay.png Graphic file (type png)
- <use alpBetMay.png>
-Package pdftex.def Info: alpBetMay.png used on input line 547.
-(pdftex.def)             Requested size: 213.39566pt x 198.10678pt.
-
-
-Package natbib Warning: Citation `xxx' on page 11 undefined on input line 580.
-
-[11 <./shot8b.png>] [12 <./Pz.png> <./ns.png> <./BiEq.png> <./alpBetEq3.png> <.
-/alpBetMay.png (PNG copy)>]
-
-LaTeX Warning: Reference `xxx' on page 13 undefined on input line 597.
-
-
-LaTeX Warning: Reference `xxx' on page 13 undefined on input line 606.
-
-
-LaTeX Warning: Reference `xxx' on page 13 undefined on input line 617.
-
-
-LaTeX Warning: Reference `Chen:2006xjb,Chen:2008wn' on page 13 undefined on inp
-ut line 621.
-
-
-Package hyperref Warning: Ignoring empty anchor on input line 638.
-
-[13]
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 650.
-
- (/usr/local/texlive/2016/texmf-dist/tex/latex/base/omlcmr.fd
-File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 650.
- [14]
-
-Package natbib Warning: Citation `xxx' on page 15 undefined on input line 755.
-
-
-Package natbib Warning: Citation `xxx2' on page 15 undefined on input line 755.
-
-
-
-Package hyperref Warning: Ignoring empty anchor on input line 755.
-
-[15]
-
-Package natbib Warning: Citation `xxx' on page 16 undefined on input line 776.
-
-
-LaTeX Warning: Reference `xxx' on page 16 undefined on input line 779.
-
-
-Package natbib Warning: Citation `xxx' on page 16 undefined on input line 800.
-
-
-Package natbib Warning: Citation `xxx' on page 16 undefined on input line 802.
-
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 814.
-
-(/usr/local/texlive/2016/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 814.
- [16]
-
-Package hyperref Warning: Ignoring empty anchor on input line 833.
-
-[17] [18] (./UserGuide.bbl [19])
-
-Package natbib Warning: There were undefined citations.
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 958.
-[20]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 958.
- (./UserGuide.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 958.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 958.
-Package rerunfilecheck Info: File `UserGuide.out' has not changed.
-(rerunfilecheck)             Checksum: EC9E0B044C6BE64B156BC86F44DB7DB8;1674.
-
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: There were multiply-defined labels.
-
- ) 
+ 
 Here is how much of TeX's memory you used:
- 8429 strings out of 493014
- 117177 string characters out of 6133351
- 231422 words of memory out of 5000000
- 11757 multiletter control sequences out of 15000+600000
+ 8201 strings out of 493014
+ 113689 string characters out of 6133351
+ 233510 words of memory out of 5000000
+ 11581 multiletter control sequences out of 15000+600000
  13136 words of font info for 50 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 40i,11n,35p,992b,493s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
-></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx5.pfb></
-usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></us
-r/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/
-local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/l
-ocal/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/lo
-cal/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/loca
-l/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/
-texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/te
-xlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texl
-ive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texliv
-e/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2
-016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2016
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2016/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2016/texmf
--dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2016/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2016/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2016/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2016/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmti9.pfb>
-Output written on UserGuide.pdf (20 pages, 3216553 bytes).
-PDF statistics:
- 453 PDF objects out of 1000 (max. 8388607)
- 361 compressed objects within 4 object streams
- 91 named destinations out of 1000 (max. 500000)
- 304 words of extra memory for PDF output out of 10000 (max. 10000000)
-
+ 40i,11n,35p,377b,332s stack positions out of 5000i,500n,10000p,200000b,80000s
+./UserGuide.tex:406:  ==> Fatal error occurred, no output PDF file produced!

@@ -1,3 +1,20 @@
+//#This file is part of PyTransport.
+
+//#PyTransport is free software: you can redistribute it and/or modify
+//#it under the terms of the GNU General Public License as published by
+//#the Free Software Foundation, either version 3 of the License, or
+//#(at your option) any later version.
+
+//#PyTransport is distributed in the hope that it will be useful,
+//#but WITHOUT ANY WARRANTY; without even the implied warranty of
+//#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//#GNU General Public License for more details.
+
+//#You should have received a copy of the GNU General Public License
+//#along with PyTransport.  If not, see <http://www.gnu.org/licenses/>.
+
+// This file contains a prototype of the potential.h file of PyTransport -- it is edited by the PyTransScripts module
+
 #ifndef back_H  // Prevents the class being re-definFd
 #define back_H 
 #include "model.h"
@@ -328,17 +345,17 @@ private:
 		vector<double> FMi;
 		FMi = fmet.fmetric(f,p);
         model m;
-        C123 = m.Ccalcd(f,p, k1, k2, k3, N0);
-        C132 = m.Ccalcd(f,p, k1, k3, k2, N0);
-        C231 = m.Ccalcd(f,p, k2, k3, k1, N0);
+        C123 = m.Ccalcuuu(f,p, k1, k2, k3, N0);
+        C132 = m.Ccalcuuu(f,p, k1, k3, k2, N0);
+        C231 = m.Ccalcuuu(f,p, k2, k3, k1, N0);
 
-        AS123 = m.AScalcd(f, p, k1, k2, k3, N0);
-        AS132 = m.AScalcd(f, p, k1, k3, k2, N0);
-        AS231 = m.AScalcd(f, p, k2, k3, k1, N0);
+        AS123 = m.AScalcuuu(f, p, k1, k2, k3, N0);
+        AS132 = m.AScalcuuu(f, p, k1, k3, k2, N0);
+        AS231 = m.AScalcuuu(f, p, k2, k3, k1, N0);
 
-        B123 = m.Bcalcd(f, p, k1, k2, k3, N0);
-        B132 = m.Bcalcd(f, p, k1, k3, k2, N0);
-        B231 = m.Bcalcd(f, p, k2, k3, k1, N0);
+        B123 = m.Bcalcuuu(f, p, k1, k2, k3, N0);
+        B132 = m.Bcalcuuu(f, p, k1, k3, k2, N0);
+        B231 = m.Bcalcuuu(f, p, k2, k3, k1, N0);
         
         vector<double> fff(nF*nF*nF);
         double Hi= m.H(f,p);
@@ -372,17 +389,17 @@ private:
 		
         model m;
         
-        C123 = m.Ccalcd(f, p, k1, k2, k3, N0);
-        C132 = m.Ccalcd(f, p, k1, k3, k2, N0);
-        C231 = m.Ccalcd(f, p, k2, k3, k1, N0);
+        C123 = m.Ccalcuuu(f, p, k1, k2, k3, N0);
+        C132 = m.Ccalcuuu(f, p, k1, k3, k2, N0);
+        C231 = m.Ccalcuuu(f, p, k2, k3, k1, N0);
         
-        B123 = m.Bcalcd(f, p, k1, k2, k3, N0);
-        B132 = m.Bcalcd(f, p, k1, k3, k2, N0);
-        B231 = m.Bcalcd(f, p, k2, k3, k1, N0);
+        B123 = m.Bcalcuuu(f, p, k1, k2, k3, N0);
+        B132 = m.Bcalcuuu(f, p, k1, k3, k2, N0);
+        B231 = m.Bcalcuuu(f, p, k2, k3, k1, N0);
         
-		AS123 = m.AScalcd(f, p, k1, k2, k3, N0);
-        AS132 = m.AScalcd(f, p, k1, k3, k2, N0);
-        AS231 = m.AScalcd(f, p, k2, k3, k1, N0);
+		AS123 = m.AScalcuuu(f, p, k1, k2, k3, N0);
+        AS132 = m.AScalcuuu(f, p, k1, k3, k2, N0);
+        AS231 = m.AScalcuuu(f, p, k2, k3, k1, N0);
         
         Hi=m.H(f,p);
         
@@ -430,17 +447,17 @@ private:
         vector<double> FMi;
 		FMi = fmet.fmetric(f,p);
         
-        C123 = m.Ccalcd(f,p, k1, k2, k3, N0);
-        C132 = m.Ccalcd(f,p, k1, k3, k2, N0);
-        C231 = m.Ccalcd(f,p, k2, k3, k1, N0);
+        C123 = m.Ccalcuuu(f,p, k1, k2, k3, N0);
+        C132 = m.Ccalcuuu(f,p, k1, k3, k2, N0);
+        C231 = m.Ccalcuuu(f,p, k2, k3, k1, N0);
         
-        B123 = m.Bcalcd(f, p, k1, k2, k3, N0);
-        B132 = m.Bcalcd(f, p, k1, k3, k2, N0);
-        B231 = m.Bcalcd(f, p, k2, k3, k1, N0);
+        B123 = m.Bcalcuuu(f, p, k1, k2, k3, N0);
+        B132 = m.Bcalcuuu(f, p, k1, k3, k2, N0);
+        B231 = m.Bcalcuuu(f, p, k2, k3, k1, N0);
         
-        AS123 = m.AScalcd(f, p, k1, k2, k3, N0);
-        AS132 = m.AScalcd(f, p, k1, k3, k2, N0);
-        AS231 = m.AScalcd(f, p, k2, k3, k1, N0);
+        AS123 = m.AScalcuuu(f, p, k1, k2, k3, N0);
+        AS132 = m.AScalcuuu(f, p, k1, k3, k2, N0);
+        AS231 = m.AScalcuuu(f, p, k2, k3, k1, N0);
         
         
         H=m.H(f,p);
@@ -479,17 +496,17 @@ private:
 
         vector<double> FMi;
 		FMi = fmet.fmetric(f,p);
-        C123 = m.Ccalcd(f,p, k1, k2, k3, N0);
-        C132 = m.Ccalcd(f,p, k1, k3, k2, N0);
-        C231 = m.Ccalcd(f,p, k2, k3, k1, N0);
+        C123 = m.Ccalcuuu(f,p, k1, k2, k3, N0);
+        C132 = m.Ccalcuuu(f,p, k1, k3, k2, N0);
+        C231 = m.Ccalcuuu(f,p, k2, k3, k1, N0);
         
-        B123 = m.Bcalcd(f,p, k1, k2, k3, N0);
-        B132 = m.Bcalcd(f,p, k1, k3, k2, N0);
-        B231 = m.Bcalcd(f,p, k2, k3, k1, N0);
+        B123 = m.Bcalcuuu(f,p, k1, k2, k3, N0);
+        B132 = m.Bcalcuuu(f,p, k1, k3, k2, N0);
+        B231 = m.Bcalcuuu(f,p, k2, k3, k1, N0);
         
-		AS123 = m.AScalcd(f, p, k1, k2, k3, N0);
-        AS132 = m.AScalcd(f, p, k1, k3, k2, N0);
-        AS231 = m.AScalcd(f, p, k2, k3, k1, N0);
+		AS123 = m.AScalcuuu(f, p, k1, k2, k3, N0);
+        AS132 = m.AScalcuuu(f, p, k1, k3, k2, N0);
+        AS231 = m.AScalcuuu(f, p, k2, k3, k1, N0);
         
         H=m.H(f,p);
         a=exp(N0);

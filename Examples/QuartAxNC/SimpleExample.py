@@ -1,4 +1,3 @@
-#Determine the end of inflation
 #################### generate power spectrum using PyTransQuartAxNC installed using the setup file which accompanies this one ####################
 from matplotlib import pyplot as plt   # import package for plotting
 from pylab import *  # contains some useful stuff for plotting
@@ -9,12 +8,12 @@ import sys  # imports sys package for sue below
 import timeit
 
 
-location = "/home/jwr/Code/PyTransport/" # this should be the location of the PyTrans folder 
+location = "/home/jwr/Code/PyTransport/" # this should be the location of the PyTransport folder 
 sys.path.append(location) # sets up python path to give access to PyTransSetup
 tols = np.array([10**-10,10**-10])
 
 import PyTransSetup
-PyTransSetup.pathSet()  # this sets the other paths that PyTrans uses
+PyTransSetup.pathSet()  # this sets the other paths that PyTransport uses
 
 import PyTransQuartAxNC as PyT  # import module as PyT (PyTransQuartAxNC is quite long to type each time and it saves time to use a shorter name
                              # using a generic name PyT means the file can be more easily reused for a different example (once field values 

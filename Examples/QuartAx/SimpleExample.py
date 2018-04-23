@@ -8,15 +8,15 @@ import numpy as np
 import sys 
 ############################################################################################################################################
 
-#This file contains simple examples of using the PyTrans package for the heavy field example of Langlois.
+#This file contains simple examples of using the PyTransport package for the heavy field example of Langlois.
 #It assumes the PyTransAxQrt file has been run to install a AxQrt version of PyTransPy
 #It is recommended you restart the kernel to insure any updates to PyTransAxQrt are imported 
 
-location = "/Users/david/Dropbox/PyTransportDist/PyTransport/" # this should be the location of the PyTrans folder
+location = "/Users/david/Dropbox/PyTransportDist/PyTransport/" # this should be the location of the PyTransport folder
 sys.path.append(location) # sets up python path to give access to PyTransSetup
 
 import PyTransSetup
-PyTransSetup.pathSet()  # his add sets the other paths that PyTrans uses
+PyTransSetup.pathSet()  # his add sets the other paths that PyTransport uses
 
 import PyTransAxQrt as PyT;  # import module
 import PyTransScripts as PyS;

@@ -1,0 +1,27 @@
+\BOOKMARK [1][-]{section*.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section*.2}{Background}{}% 2
+\BOOKMARK [1][-]{section*.3}{ Code overview}{}% 3
+\BOOKMARK [1][-]{section*.4}{Setup}{}% 4
+\BOOKMARK [2][-]{section*.5}{Prerequisites}{section*.4}% 5
+\BOOKMARK [2][-]{section*.6}{Getting going}{section*.4}% 6
+\BOOKMARK [1][-]{section*.7}{Examples}{}% 7
+\BOOKMARK [2][-]{section*.8}{Double quadratic}{section*.7}% 8
+\BOOKMARK [2][-]{section*.9}{Double quadratic with a field-space metric}{section*.7}% 9
+\BOOKMARK [2][-]{section*.10}{Heavy field examples}{section*.7}% 10
+\BOOKMARK [2][-]{section*.11}{Further examples}{section*.7}% 11
+\BOOKMARK [1][-]{section*.12}{Things that can go wrong}{}% 12
+\BOOKMARK [2][-]{section*.13}{Potential computation fails and problems with simplification of expressions}{section*.12}% 13
+\BOOKMARK [2][-]{section*.14}{Make sure latest module version is imported}{section*.12}% 14
+\BOOKMARK [2][-]{section*.15}{Selecting the absolute and relative tolerances}{section*.12}% 15
+\BOOKMARK [2][-]{section*.16}{Integration stalling or failing}{section*.12}% 16
+\BOOKMARK [2][-]{section*.17}{Integration failing}{section*.12}% 17
+\BOOKMARK [2][-]{section*.18}{Not enough efolds before horizon exit}{section*.12}% 18
+\BOOKMARK [2][-]{section*.19}{Not enough efolds after horizon exit}{section*.12}% 19
+\BOOKMARK [2][-]{section*.20}{Computer crashes and data loss}{section*.12}% 20
+\BOOKMARK [1][-]{section*.21}{Summary}{}% 21
+\BOOKMARK [1][-]{section*.22}{Acknowledgments}{}% 22
+\BOOKMARK [1][-]{section*.23}{Appendix 1: Base code description}{}% 23
+\BOOKMARK [1][-]{section*.24}{Appendix 2: Setup functions}{}% 24
+\BOOKMARK [1][-]{section*.25}{Appendix 3: Compiled module }{}% 25
+\BOOKMARK [1][-]{section*.26}{Appendix 4: Python Scripts}{}% 26
+\BOOKMARK [1][-]{section*.27}{References}{}% 27

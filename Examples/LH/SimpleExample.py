@@ -8,15 +8,15 @@ import numpy as np
 import sys 
 ############################################################################################################################################
 
-#This file contains simple examples of using the PyTrans package for the heavy field example of Langlois.
-#It assumes the LangHeavySeptup file has been run to install a LH version of PyTransPy
+#This file contains simple examples of using the PyTransport package for the heavy field example of Langlois.
+#It assumes the LangHeavySeptup file has been run to install a LH version of PyTransport
 #It is recommended you restart the kernel to insure any updates to PyTransPyLH are imported 
 
-location = "/Users/david/Desktop/PyTransportDist/PyTransport/" # this should be the location of the PyTrans folder 
+location = "/Users/david/Desktop/PyTransportDist/PyTransport/" # this should be the location of the PyTransport folder 
 sys.path.append(location) # sets up python path to give access to PyTransSetup
 
 import PyTransSetup
-PyTransSetup.pathSet()  # his add sets the other paths that PyTrans uses
+PyTransSetup.pathSet()  # his add sets the other paths that PyTransport uses
 
 import PyTransLH as PyT  # import module  
 import PyTransScripts as PyS

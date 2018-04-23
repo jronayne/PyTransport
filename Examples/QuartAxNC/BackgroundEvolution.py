@@ -1,4 +1,4 @@
-#################### generate power spectrum using PyTransQuartAxNC installed using the setup file which accompanies this one ####################
+#################### Simple example of using PyTransQuartAxNC installed using the setup file which accompanies this one ####################
 from matplotlib import pyplot as plt   # import package for plotting
 from pylab import *  # contains some useful stuff for plotting
 import time  # imports a package that allows us to see how long processes take
@@ -8,14 +8,14 @@ import sys  # imports sys package for sue below
 import timeit
 
 
-location = "/home/jwr/Code//PyTransport/" # this should be the location of the PyTrans folder 
+location = "/home/jwr/Code//PyTransport/" # this should be the location of the PyTransport folder 
 sys.path.append(location) # sets up python path to give access to PyTransSetup
 tols = np.array([10**-10,10**-10])
 
 import PyTransSetup
-PyTransSetup.pathSet()  # this sets the other paths that PyTrans uses
+PyTransSetup.pathSet()  # this sets the other paths that PyTransport uses
 
-import PyTransQuartAxNC as PyT  # import module as PyT (PyTransDQuad is quite long to type each time and it saves time to use a shorter name
+import PyTransQuartAxNC as PyT  # import module as PyT (PyTransQuartAxNC is quite long to type each time and it saves time to use a shorter name
                              # using a generic name PyT means the file can be more easily reused for a different example (once field values 
                              # etc are altered)
 import PyTransScripts as PyS  # import the scripts module as PyS for convenience
@@ -43,9 +43,6 @@ for bb in range(BB):
 	V = PyT.V(fields,params) # calculate potential from some initial conditions
 	dV=PyT.dV(fields,params) # calculate derivatives of potential (changes dV to derivatives)
 	initial = np.concatenate((fields,np.array([0.,0.]))) # set initial conditions using slow roll expression
-	#initial = np.concatenate((fields,np.array([-0.00016090514447175683,-1.1045768720721431e-07]))) # set initial conditions using slow roll expression
-	############################################################################################################################################
-
 
 	################################## run the background fiducial run #########################################################################
 	Nstart = 0.0

@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt   # import package for plotting
 from pylab import *  # contains some useful stuff for plotting
 import time  # imports a package that allows us to see how long processes take
 import math  # imports math package
-import numpy as np # imports numpu package as np for short
+import numpy as np # imports numpy package as np for short
 import sys  # imports sys package for sue below
 
 
@@ -13,11 +13,11 @@ tols = np.array([10**-10,10**-10])
 ############################################################################################################################################
 #This file contains simple examples of using the PyTransPseudo version of PyTransport
 
-location = "/home/jwr/Code/PyTransport/" # this should be the location of the PyTrans folder 
+location = "/home/jwr/Code/PyTransport/" # this should be the location of the PyTransport folder 
 sys.path.append(location) # sets up python path to give access to PyTransSetup
 
 import PyTransSetup
-PyTransSetup.pathSet()  # this sets the other paths that PyTrans uses
+PyTransSetup.pathSet()  # this sets the other paths that PyTransport uses
 
 import PyTransPseudo as PyT  # import module as PyT (PyTransPseudo is quite long to type each time and it saves time to use a shorter name
                              # using a generic name PyT means the file can be more easily reused for a different example (once field values 
@@ -66,7 +66,7 @@ k = PyS.kexitN(10.0, back, pvalue, PyT)
 
 ################################# example 2pt run ##########################################################################################
 #find conditions for 4 e-folds of massless sub-horizon evolution using a spline routine
-NBMassless = 6.0
+NBMassless = 5.0
 Nstart, backExitMinus = PyS.ICsBM(NBMassless, k, back, pvalue, PyT)  
 print ("NStart= " + str(Nstart) )
 print (k)
@@ -103,7 +103,7 @@ beta =1/3.
 k1 = k/2 - beta*k/2.
 k2 = k/4*(1+alpha+beta)
 k3 = k/4*(1-alpha+beta)
-#k1 =k; k2 =k ;k3 =k;
+k1 =k; k2 =k ;k3 =k;
 # find initial conditions for 4 e-folds of massless evolution for the largest k (which stays inside the longest)
 
 kM = np.min(np.array([k1,k2,k3]))
