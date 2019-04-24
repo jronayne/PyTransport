@@ -369,13 +369,17 @@ def alpBetSpecMpi(kt, alpha, beta, back, params, NB, nsnaps,tols, MTE):
 
 
 
-def kexitN(Nexit, back, params, MTE):
+def kexitN(Nexit, back, params, MTE, exact=False):
     nF = np.size(back[0,1:])//2  
     backExit = np.zeros(2*nF)
 
     for i in range (1,2*nF+1):
         backExit[i-1] = interpolate.splev(Nexit,interpolate.splrep(back[:,0], back[:,i], s=1e-15),der=0)
     k = np.exp(Nexit) *  MTE.H(backExit,params);
+    if exact==True:
+        indx = np.argmin(np.abs(np.array(back[:,0])-Nexit))#
+        k = np.exp(Nexit) *  MTE.H(back[indx,1:],params);
+
     return k
 
 

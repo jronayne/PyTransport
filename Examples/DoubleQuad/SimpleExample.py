@@ -12,7 +12,7 @@ import sys  # imports sys package for sue below
 #It assumes the DQuadSetup file has been run to install a double quadratic version of PyTransport
 #It is recommended you restart the kernel before running this file to insure any updates to PyTransDQuad are imported
 
-location = "/home/jwr/Code/PyTransport/" # this should be the location of the PyTransport folder folder
+location = "/nethome/ronayne/Documents/PyTransport-master/PyTransport" # this should be the location of the PyTransport folder
 sys.path.append(location) # sets up python path to give access to PyTransSetup
 
 import PyTransSetup
@@ -103,6 +103,10 @@ zz2=twoPt[:,1]
 zz2a=zz2[-1]
 n_s = (np.log(zz2a)-np.log(zz1a))/(np.log(k+.1*k)-np.log(k))+4.0
 
+tols = np.array([10**-17,10**-17])
+twoG=PyT.gamEvolve(tsig, k, backExitMinus, pvalue,tols, True)
+r = (8*twoG[-1,1+1+2*nF+ 0 + 2*nF*0])/zz1[-1]
+print('r =',r)
 
 fig2=plt.figure(2)
 for ii in range(0,2):

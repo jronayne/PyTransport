@@ -20,10 +20,10 @@
 #include "numpy/arrayobject.h"
 
 //don't adjust the labels at the end of the 4 lines below (they are used to fix directory structure)
-#include"/home/jwr/Code/June/PyTransport2Dist/PyTransport/CppTrans/NC/evolve.h"//evolve
-#include"/home/jwr/Code/June/PyTransport2Dist/PyTransport/CppTrans/NC/moments.h"//moments
-#include"/home/jwr/Code/June/PyTransport2Dist/PyTransport/CppTrans/NC/model.h"//model
-#include"/home/jwr/Code/June/PyTransport2Dist/PyTransport/CppTrans/stepper/rkf45.hpp"//stepper
+#include"/nethome/ronayne/Documents/PyTransport-master/PyTransport/CppTrans/NC/evolve.h"//evolve
+#include"/nethome/ronayne/Documents/PyTransport-master/PyTransport/CppTrans/NC/moments.h"//moments
+#include"/nethome/ronayne/Documents/PyTransport-master/PyTransport/CppTrans/NC/model.h"//model
+#include"/nethome/ronayne/Documents/PyTransport-master/PyTransport/CppTrans/stepper/rkf45.hpp"//stepper
 //************************************************************************************************* 
 
 #include <math.h>
@@ -38,7 +38,7 @@
 using namespace std;
 
 // The line below is updated evey time the moduleSetup file is run.
-// Package recompile attempted at: Tue Jun 20 15:41:14 2017
+// Package recompile attempted at: Wed Apr 24 14:30:20 2019
 
 
 // Changes python array into C array (or rather points to pyarray data)
@@ -153,6 +153,25 @@ static PyObject* MT_H(PyObject* self,  PyObject *args)
     vector<double> Vparams; Vparams = vector<double>(Cparams, Cparams +  nP);
     
     return Py_BuildValue("d", mm.H(vectIn, Vparams));
+}
+
+// function to calculate Epsilon
+static PyObject* MT_Ep(PyObject* self,  PyObject *args)
+{
+    PyArrayObject *fields_dfieldsIn, *params;
+    double *Cfields_dfields, *Cparams;
+    if (!PyArg_ParseTuple(args, "O!O!",  &PyArray_Type, &fields_dfieldsIn,&PyArray_Type,&params)) {
+        return NULL;}
+    Cfields_dfields = pyvector_to_Carray(fields_dfieldsIn);
+    model mm;
+    int nF = mm.getnF(); if (2*nF!=size_pyvector(fields_dfieldsIn)){cout<< "\n \n \n field space array not of correct length\n \n \n ";    Py_RETURN_NONE;}
+    vector<double> vectIn;
+    vectIn = vector<double>(Cfields_dfields, Cfields_dfields + 2*nF);
+    int nP = mm.getnP(); if (nP!=size_pyvector(params)){cout<< "\n \n \n parameters array not of correct length \n \n \n";  Py_RETURN_NONE;}
+    Cparams = pyvector_to_Carray(params);
+    vector<double> Vparams; Vparams = vector<double>(Cparams, Cparams +  nP);
+    
+    return Py_BuildValue("d", mm.Ep(vectIn, Vparams));
 }
 
 // function to return number of fields (useful for cross checks)
@@ -400,6 +419,115 @@ static PyObject* MT_sigEvolve(PyObject* self,  PyObject *args)
     return PyArray_Return(sigOut);
 }
 
+// function to calculate 2pt evolution
+static PyObject* MT_gamEvolve(PyObject* self,  PyObject *args)
+{
+    PyArrayObject *initialCs, *t, *gamOut, *params, *tols;
+    double *CinitialCs, *tc, k, *Cparams, *tolsC;
+    bool full;
+    if (!PyArg_ParseTuple(args, "O!dO!O!O!b", &PyArray_Type, &t, &k, &PyArray_Type, &initialCs,&PyArray_Type, &params, &PyArray_Type, &tols,&full)) {
+        return NULL;}
+    CinitialCs = pyvector_to_Carray(initialCs);
+    tc = pyvector_to_Carray(t);
+    
+//    if (full != 0 && full !=1 ){ full=1; cout << "\n \n \n Number out of range, defaulted to full outout mode \n \n \n";}
+    
+    tolsC = pyvector_to_Carray(tols);
+    double rtol, atol;
+    if (2!=size_pyvector(tols)){cout<< "\n \n \n incorrect tolorances input, using defaults  \n \n \n";
+        atol = pow(10,-8.); rtol = pow(10,-8.);}
+    else {
+        atol =tolsC[0];rtol = tolsC[1];}
+
+
+    model mm;
+    potential pott;
+    int nF=mm.getnF(); if (2*nF!=size_pyvector(initialCs)){cout<< "\n \n \n field space array not of correct length, not proceeding further \n \n \n";    Py_RETURN_NONE;}
+	int numT=1;
+    vector<double> vectIn;
+    vectIn = vector<double>(CinitialCs, CinitialCs + 2*nF);
+    
+    int nP = mm.getnP(); if (nP!=size_pyvector(params)){cout<< "\n \n \n parameters array not of correct length, not proceeding further \n \n \n";  Py_RETURN_NONE;}
+    Cparams = pyvector_to_Carray(params);
+    vector<double> Vparams; Vparams = vector<double>(Cparams, Cparams +  nP);
+    
+    // we use a scaling below that we rescale back at the end (so the final answer is as if the scaling was never there -- this helps standarise the rtol and atol needed for the same model run with differnet initial conditions
+    double kn = 1.0; 
+    double kscale = k;    
+    double Nstart=tc[0] - log(kscale);
+	
+    Gamma gam(numT, kn, Nstart, vectIn, Vparams) ; // instance of Gamma object which fixs ics
+
+    double* y; // set up array for ics
+    y = new double[2*nF + 2*numT*2*numT];
+    
+    for(int i=0; i<2*nF;i++){y[i] = CinitialCs[i];} // fix values of input array
+    for(int i=0; i< 2*numT;i++){for(int j=0;j<2*numT;j++){y[2*nF+ i+2*numT*j] = gam.getG(i,j);}}
+    
+    double* paramsIn; // array of parameters to pass to LHS of ODE routine
+    
+    paramsIn = new double[1+nP];
+    for(int i=0; i<nP;i++) paramsIn[i]=Vparams[i];
+    paramsIn[nP]=kn;
+    
+    // evolve a 2pt run **************************
+    
+    double N=Nstart;
+    double* yp ; yp = new double [2*nF + 2*numT*2*numT];
+    double TT=0;
+    
+    int flag=-1;
+    evolveGam(N, y, yp, paramsIn);
+    vector<double> fieldIn(2*nF);
+    fieldIn = vector<double>(y,y+2*nF);
+    TT=0;
+    for(int i=0; i<2*numT;i++){for(int j=0; j<2*numT; j++){
+        TT=TT+y[2*nF + i + j*2*numT];}
+    }
+    
+    int nt = t->dimensions[0];
+    
+    int size;
+    if (full ==true){size = 1+2*nF + 1+ 2*numT*2*numT;}
+    if (full ==false){size = 1 + 1;}
+    
+    npy_intp dims[2];
+    dims[1]=size; dims[0]=nt;
+    double * gamOutC;
+    gamOut = (PyArrayObject*) PyArray_SimpleNew(2,dims,NPY_DOUBLE);
+    gamOutC = (double *) PyArray_DATA(gamOut);
+    
+    
+    for(int ii=0; ii<nt; ii++ ){
+        while (N<tc[ii]-log(kscale)){
+            flag = r8_rkf45(evolveGam , 2*nF+2*numT*2*numT, y, yp, &N, tc[ii]-log(kscale), &rtol, atol, flag, paramsIn );
+			//cout << y[0] << ' _ '<< y[1] << endl;
+            if (flag== 50){cout<< "\n \n \n Integrator failed at time N = " <<N <<" \n \n \n"; return Py_BuildValue("d", N);}
+            flag = -2;
+        }
+        fieldIn = vector<double>(y,y+2*nF);
+        
+        gamOutC[ii*size] = N+log(kscale);
+        
+        gamOutC[ii*size+1] =y[2*nF ]/kscale/kscale/kscale;
+        if(full==true){
+            for(int i=0;i<2*nF;i++)
+            {
+                gamOutC[ii*(size)+i+2]=y[i];
+            }
+            for(int i=2*nF;i<2*nF+ 2*numT*2*numT;i++)
+            {
+                gamOutC[ii*(size)+i+2]=y[i]/kscale/kscale/kscale;
+            }
+        }
+        
+    }
+    
+    delete [] y; delete [] yp;
+    delete [] paramsIn;
+    return PyArray_Return(gamOut);
+}
+
 // function to calculate 3pt evolution
 static PyObject* MT_alphaEvolve(PyObject* self,  PyObject *args)
 {
@@ -549,7 +677,7 @@ static char PyTrans_docs[] =
 "This is PyTrans, a package for solving the moment transport equations of inflationary cosmology\n";
 
 // **************************************************************************************
-static PyMethodDef PyTransQuartAxNC_funcs[] = {{"H", (PyCFunction)MT_H,    METH_VARARGS, PyTrans_docs},{"nF", (PyCFunction)MT_fieldNumber,        METH_VARARGS, PyTrans_docs},{"nP", (PyCFunction)MT_paramNumber,        METH_VARARGS, PyTrans_docs},{"V", (PyCFunction)MT_V,            METH_VARARGS, PyTrans_docs},{"dV", (PyCFunction)MT_dV,                METH_VARARGS, PyTrans_docs},  {"ddV", (PyCFunction)MT_ddV,                METH_VARARGS, PyTrans_docs},  {"backEvolve", (PyCFunction)MT_backEvolve,        METH_VARARGS, PyTrans_docs},    {"sigEvolve", (PyCFunction)MT_sigEvolve,        METH_VARARGS, PyTrans_docs},    {"alphaEvolve", (PyCFunction)MT_alphaEvolve,        METH_VARARGS, PyTrans_docs},    {NULL}};//FuncDef
+static PyMethodDef PyTransDQuadNC_funcs[] = {{"H", (PyCFunction)MT_H,    METH_VARARGS, PyTrans_docs},{"Ep", (PyCFunction)MT_Ep,    METH_VARARGS, PyTrans_docs},{"nF", (PyCFunction)MT_fieldNumber,        METH_VARARGS, PyTrans_docs},{"nP", (PyCFunction)MT_paramNumber,        METH_VARARGS, PyTrans_docs},{"V", (PyCFunction)MT_V,            METH_VARARGS, PyTrans_docs},{"dV", (PyCFunction)MT_dV,                METH_VARARGS, PyTrans_docs},  {"ddV", (PyCFunction)MT_ddV,                METH_VARARGS, PyTrans_docs},  {"backEvolve", (PyCFunction)MT_backEvolve,        METH_VARARGS, PyTrans_docs},  {"sigEvolve", (PyCFunction)MT_sigEvolve,        METH_VARARGS, PyTrans_docs},  {"gamEvolve", (PyCFunction)MT_gamEvolve,        METH_VARARGS, PyTrans_docs},    {"alphaEvolve", (PyCFunction)MT_alphaEvolve,        METH_VARARGS, PyTrans_docs},    {NULL}};//FuncDef
 // do not alter the comment at the end of preceeding line -- it is used by preprocessor
 
 #ifdef __cplusplus
@@ -561,7 +689,7 @@ extern "C" {
 // do not alter the comment at the end of preceeding line -- it is used by preprocessor
     
 // **************************************************************************************
-void initPyTransQuartAxNC(void)    {        Py_InitModule3("PyTransQuartAxNC", PyTransQuartAxNC_funcs,                       "Extension module for inflationary statistics");        import_array();   }//initFunc
+void initPyTransDQuadNC(void)    {        Py_InitModule3("PyTransDQuadNC", PyTransDQuadNC_funcs,                       "Extension module for inflationary statistics");        import_array();   }//initFunc
 // do not alter the comment at the end of preceeding line -- it is used by preprocessor
 
 #ifdef __cplusplus

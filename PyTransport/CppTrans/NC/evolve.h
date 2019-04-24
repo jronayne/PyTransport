@@ -122,6 +122,42 @@ void evolveSig( double N, double yin[], double yp[], double paramsIn[])
         }}
 
 }
+
+//takes in current state of background and 2pt Gamma transport system, y -- calculates dy/dN for
+//models with field space metric
+
+void evolveGam( double N, double yin[], double yp[], double paramsIn[])
+{
+    model m;
+    double k;
+	
+    int nP = m.getnP();
+	int nF = m.getnF();
+    vector<double> p(paramsIn,paramsIn+nP);
+    k=paramsIn[nP];
+	int nT=1;
+    vector<double> fields(yin, yin+2*nF);
+    vector<double> u1=m.u(fields,p);
+    vector<double> w2=m.w(fields,p,k,N);
+
+    
+	for(int i=0;i<2*nF;i++){yp[i] = u1[i];}
+    
+    for(int i=0;i<2*nT;i++){for(int j=0;j<2*nT;j++)
+        {
+            double sum=0.0;
+            for(int m=0;m<2*nT;m++)
+            {
+				//if(i>k)
+                sum = sum + w2[i+m*2*nT]*yin[2*nF+m+2*nT*j] + w2[j+m*2*nT]*yin[2*nF+i+2*nT*m];
+            }
+            yp[2*nF+i+2*nT*j]=sum ;
+
+        }}
+
+}
+
+
 //takes in current state of background, the three 2pts functions needed to evolve the 3pt, and the 3pt, y, and calculates dy/dN
 //models with field space metric
 

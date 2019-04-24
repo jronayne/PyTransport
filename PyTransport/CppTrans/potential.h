@@ -27,7 +27,7 @@
 using namespace std;
 
 // #Rewrite
-// Potential file rewriten at Tue Jun 20 15:41:14 2017
+// Potential file rewriten at Wed Apr 24 14:30:20 2019
 
 class potential
 {
@@ -42,7 +42,7 @@ public:
 	{
 // #FP
 nF=2;
-nP=4;
+nP=3;
 
 //        p.resize(nP);
         
@@ -59,8 +59,7 @@ nP=4;
 		double sum ;
         
 // Pot
-
- sum=0.25*pow(f[0], 4)*p[0] + p[2]*(-cos(6.28318530717959*f[1]/p[1]) + 1);
+  sum=0.5*std::pow(f[0], 2.0)*std::pow(p[0], 2.0) + 0.5*std::pow(f[1], 2.0)*std::pow(p[1], 2.0);
          return sum;
 	}
 	
@@ -71,9 +70,9 @@ nP=4;
 	
 // dPot
 
- sum[0]=1.0*pow(f[0], 3)*p[0];
+ sum[0]=1.0*std::pow(f[0], 1.0)*std::pow(p[0], 2.0);
 
- sum[1]=6.28318530717959*p[2]*sin(6.28318530717959*f[1]/p[1])/p[1];
+ sum[1]=1.0*std::pow(f[1], 1.0)*std::pow(p[1], 2.0);
         
 		return sum;
 	}
@@ -84,14 +83,19 @@ nP=4;
 		vector<double> sum(nF*nF,0.0);
 		
 // ddPot
+  double x0 = 1.0*std::pow(p[0], 2.0);
+  double x1 = std::pow(std::sin(f[0]), 1.0);
+  double x2 = std::cos(f[0]);
+  double x3 = 1.0*std::pow(p[1], 2.0);
+  double x4 = -std::pow(f[1], 1.0)*x2*x3/x1;
 
- sum[0+nF*0]=3.0*pow(f[0], 2)*p[0];
+ sum[0]=x0;
 
- sum[0+nF*1]=-6.28318530717959*p[2]*1.0/sin(f[0])*sin(6.28318530717959*f[1]/p[1])*cos(f[0])/p[1];
+ sum[2]=x4;
 
- sum[1+nF*0]=-6.28318530717959*p[2]*1.0/sin(f[0])*sin(6.28318530717959*f[1]/p[1])*cos(f[0])/p[1];
+ sum[1]=x4;
 
- sum[1+nF*1]=1.0*pow(f[0], 3)*p[0]*pow(sin(f[0]), 1.0)*cos(f[0]) + 39.4784176043574*p[2]*cos(6.28318530717959*f[1]/p[1])/pow(p[1], 2);
+ sum[3]=std::pow(f[0], 1.0)*x0*x1*x2 + x3;
      
         return sum;
 	}
@@ -101,22 +105,42 @@ nP=4;
 	{
         vector<double> sum(nF*nF*nF,0.0);
 // dddPot
+  double x0 = std::pow(f[1], 1.0);
+  double x1 = std::sin(f[0]);
+  double x2 = std::pow(x1, 2.0);
+  double x3 = 1.0/x2;
+  double x4 = std::cos(f[0]);
+  double x5 = std::pow(x4, 2);
+  double x6 = 1.0*x5;
+  double x7 = x3*x6;
+  double x8 = std::pow(p[1], 2.0);
+  double x9 = 1.0*x8;
+  double x10 = x0*x8;
+  double x11 = -x0*x9*(-x7 - 1.0) + x10*x7;
+  double x12 = std::pow(x1, 1.0);
+  double x13 = 1.0*std::pow(p[0], 2.0);
+  double x14 = x12*x13*x4;
+  double x15 = std::pow(f[0], 1.0);
+  double x16 = x4/x12;
+  double x17 = x16*(x14*x15 + x9);
+  double x18 = 2.0*x10*x5;
+  double x19 = x14 - x16*x9 - 1.0*x17;
 
- sum[0+nF*0+nF*nF*0]=6.0*f[0]*p[0];
+ sum[0]=0;
 
- sum[0+nF*0+nF*nF*1]=12.5663706143592*p[2]*pow(sin(f[0]), -2.0)*sin(6.28318530717959*f[1]/p[1])*pow(cos(f[0]), 2)/p[1];
+ sum[4]=x18*x3;
 
- sum[0+nF*1+nF*nF*0]=-6.28318530717959*p[2]*(-1.0*pow(sin(f[0]), -2.0)*pow(cos(f[0]), 2) - 1.0)*sin(6.28318530717959*f[1]/p[1])/p[1] + 6.28318530717959*p[2]*pow(sin(f[0]), -2.0)*sin(6.28318530717959*f[1]/p[1])*pow(cos(f[0]), 2)/p[1];
+ sum[2]=x11;
 
- sum[0+nF*1+nF*nF*1]=3.0*pow(f[0], 2)*p[0]*pow(sin(f[0]), 1.0)*cos(f[0]) - 1.0*(1.0*pow(f[0], 3)*p[0]*pow(sin(f[0]), 1.0)*cos(f[0]) + 39.4784176043574*p[2]*cos(6.28318530717959*f[1]/p[1])/pow(p[1], 2))*1.0/sin(f[0])*cos(f[0]) - 39.4784176043574*p[2]*1.0/sin(f[0])*cos(f[0])*cos(6.28318530717959*f[1]/p[1])/pow(p[1], 2);
+ sum[6]=x19;
 
- sum[1+nF*0+nF*nF*0]=-6.28318530717959*p[2]*(-1.0*pow(sin(f[0]), -2.0)*pow(cos(f[0]), 2) - 1.0)*sin(6.28318530717959*f[1]/p[1])/p[1] + 6.28318530717959*p[2]*pow(sin(f[0]), -2.0)*sin(6.28318530717959*f[1]/p[1])*pow(cos(f[0]), 2)/p[1];
+ sum[1]=x11;
 
- sum[1+nF*0+nF*nF*1]=3.0*pow(f[0], 2)*p[0]*pow(sin(f[0]), 1.0)*cos(f[0]) - 1.0*(1.0*pow(f[0], 3)*p[0]*pow(sin(f[0]), 1.0)*cos(f[0]) + 39.4784176043574*p[2]*cos(6.28318530717959*f[1]/p[1])/pow(p[1], 2))*1.0/sin(f[0])*cos(f[0]) - 39.4784176043574*p[2]*1.0/sin(f[0])*cos(f[0])*cos(6.28318530717959*f[1]/p[1])/pow(p[1], 2);
+ sum[5]=x19;
 
- sum[1+nF*1+nF*nF*0]=-1.0*pow(f[0], 3)*p[0]*(1.0*pow(sin(f[0]), 2.0) - 1.0*pow(cos(f[0]), 2)) + 3.0*pow(f[0], 2)*p[0]*pow(sin(f[0]), 1.0)*cos(f[0]) - 2.0*(1.0*pow(f[0], 3)*p[0]*pow(sin(f[0]), 1.0)*cos(f[0]) + 39.4784176043574*p[2]*cos(6.28318530717959*f[1]/p[1])/pow(p[1], 2))*1.0/sin(f[0])*cos(f[0]);
+ sum[3]=-x13*x15*(1.0*x2 - x6) + x14 - 2.0*x17;
 
- sum[1+nF*1+nF*nF*1]=-12.5663706143592*p[2]*sin(6.28318530717959*f[1]/p[1])*pow(cos(f[0]), 2)/p[1] - 248.050213442399*p[2]*sin(6.28318530717959*f[1]/p[1])/pow(p[1], 3);
+ sum[7]=-x18;
        
         return sum;
 	}

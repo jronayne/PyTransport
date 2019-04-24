@@ -268,6 +268,76 @@ public:
 #endif 
 
 
+#ifndef Gamma_H  // Prevents the class being re-definFd
+#define Gamma_H 
+#include "model.h"
+#include <iostream>
+#include <math.h>
+using namespace std;
+
+class Gamma
+{	
+private:
+	int nF;
+	vector<double> gam;
+	double k;
+
+public:
+	//constructor for gam deep inside horizon
+	Gamma(int nFi, double k1, double N0, vector<double> f, vector<double> p)
+	{
+		int nT = 1;
+		k=k1;
+        double Hi;
+		model m;
+        gam.resize(2*nT*2*nT);
+		double a = exp(N0);
+
+
+        for(int i=0; i<2*nT*2*nT;i++){gam[i]=0.;}
+        Hi=m.H(f,p);
+        double ff = 0.5*Hi*Hi/k * 1./((a*Hi)*(a*Hi));
+        double fp = -ff*Hi;
+        double pp = ff*k*k/(a*a);
+
+
+        gam[0 + 2*nT*0]=ff;
+		gam[1 + 2*nT*1]=pp;
+		gam[0 + 2*nT*1]=fp; 
+		gam[1 + 2*nT*(0)]=fp;
+    }
+	
+	//gam asscessors
+    vector<double>  getG()
+	{
+		return gam;
+	}
+	
+    double getG(int i, int j)
+	{
+		return gam[i+j*2];
+	}
+
+	//Gamma modifier
+	void setG(int i, int j, double value)
+	{
+		gam[i+j*2]=value;
+	}
+	
+    void setG(vector<double> value)
+	{
+		gam=value;
+	}
+	
+    //print gam to screen
+	void printG()
+	{
+		for(int i=0;i<2;i++){for(int j=0;j<2;j++) {std::cout << gam[i+j*2] << '\t';}}
+		std::cout << std::endl;
+	}
+};
+#endif 
+
 #ifndef alpha_H  // Prevents the class being re-definFd
 #define alpha_H 
 #include "model.h"

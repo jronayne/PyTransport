@@ -38,5 +38,5 @@ filename2 = os.path.join(dir, '../CppTrans/stepper/rkf45.cpp')
 dirs = os.path.join(dir, '../CppTrans/')
 
 # don't edit the comment at the end of the setup line below #######################################
-setup(name="PyTransQuartAxNC", version="1.0", ext_modules=[Extension("PyTransQuartAxNC", [filename, filename2 ])], include_dirs=[numpy.get_include(), dirs])#setup
+setup(name="PyTransDQuadNC", version="1.0", ext_modules=[Extension("PyTransDQuadNC", [filename, filename2 ])], include_dirs=[numpy.get_include(), dirs])#setup
 ###################################################################################################

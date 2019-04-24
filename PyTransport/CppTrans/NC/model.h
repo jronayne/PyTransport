@@ -291,7 +291,29 @@ public:
 	}
     
     
-    
+        // w tensor
+	//
+	//
+	vector<double> w(vector<double> f,vector<double> p, double k1, double N)
+	{
+		int nT = 1;
+		double a = exp(N);
+		vector<double> w2out(2*nT*2*nT);
+		double Hi=H(f,p);
+        double s=scale(f,p,N);
+        double ds=dscale(f,p,N);
+		vector<double> dVVi;
+		dVVi = pot.dVV(f,p);
+		vector<double> dVi;
+		dVi =  pot.dV(f,p);
+		
+        w2out[0+ 0*2*nT]=0.;
+        w2out[0+1*2*nT]=+ 1./Hi;///s;
+		w2out[1+(0)*2*nT] = -1.0*(k1*k1)/(a*a)/Hi;//*s ;
+		w2out[1+(1)*2*nT]= - 3.0*Hi/Hi ;//+ ds/s/Hi;
+
+		return w2out;
+	}
     
 		//     o                          ooooooooooo                                                           
 		//    888                         88  888  88 ooooooooo8 oo oooooo    oooooooo8    ooooooo  oo oooooo   

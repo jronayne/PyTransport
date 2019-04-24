@@ -101,7 +101,7 @@ def compileName(name,NC=False):
         if not  line.endswith("//FuncDef\n") and not line.endswith("//initFunc\n") and not line.endswith("//modDef\n"):
             f.write(line)
         if line.endswith("//FuncDef\n"):
-            f.write('static PyMethodDef PyTrans'+name+'_funcs[] = {{"H", (PyCFunction)MT_H,    METH_VARARGS, PyTrans_docs},{"nF", (PyCFunction)MT_fieldNumber,        METH_VARARGS, PyTrans_docs},{"nP", (PyCFunction)MT_paramNumber,        METH_VARARGS, PyTrans_docs},{"V", (PyCFunction)MT_V,            METH_VARARGS, PyTrans_docs},{"dV", (PyCFunction)MT_dV,                METH_VARARGS, PyTrans_docs},  {"ddV", (PyCFunction)MT_ddV,                METH_VARARGS, PyTrans_docs},  {"backEvolve", (PyCFunction)MT_backEvolve,        METH_VARARGS, PyTrans_docs},    {"sigEvolve", (PyCFunction)MT_sigEvolve,        METH_VARARGS, PyTrans_docs},    {"alphaEvolve", (PyCFunction)MT_alphaEvolve,        METH_VARARGS, PyTrans_docs},    {NULL}};//FuncDef\n')
+            f.write('static PyMethodDef PyTrans'+name+'_funcs[] = {{"H", (PyCFunction)MT_H,    METH_VARARGS, PyTrans_docs},{"Ep", (PyCFunction)MT_Ep,    METH_VARARGS, PyTrans_docs},{"nF", (PyCFunction)MT_fieldNumber,        METH_VARARGS, PyTrans_docs},{"nP", (PyCFunction)MT_paramNumber,        METH_VARARGS, PyTrans_docs},{"V", (PyCFunction)MT_V,            METH_VARARGS, PyTrans_docs},{"dV", (PyCFunction)MT_dV,                METH_VARARGS, PyTrans_docs},  {"ddV", (PyCFunction)MT_ddV,                METH_VARARGS, PyTrans_docs},  {"backEvolve", (PyCFunction)MT_backEvolve,        METH_VARARGS, PyTrans_docs},  {"sigEvolve", (PyCFunction)MT_sigEvolve,        METH_VARARGS, PyTrans_docs},  {"gamEvolve", (PyCFunction)MT_gamEvolve,        METH_VARARGS, PyTrans_docs},    {"alphaEvolve", (PyCFunction)MT_alphaEvolve,        METH_VARARGS, PyTrans_docs},    {NULL}};//FuncDef\n')
         if line.endswith("//modDef\n"):
             f.write('     //modDef\n')
         if line.endswith("//initFunc\n"):
@@ -112,7 +112,7 @@ def compileName(name,NC=False):
     subprocess.call(["python", filename1, "install", "--home=" + location],cwd=location)
     sys.path.append(location+"/lib/python/")
     sys.path.append(location+"../PyTransScripts")
-    shutil.rmtree(location+"/build/")
+    shutil.rmtree(location+"/build/", ignore_errors=False)
 
 def compileName3(name,NC=False):
     directory(NC)
@@ -139,7 +139,7 @@ def compileName3(name,NC=False):
         if not  line.endswith("//FuncDef\n") and not line.endswith("//initFunc\n") and not line.endswith("//modDef\n"):
             f.write(line)
         if line.endswith("//FuncDef\n"):
-            f.write('static PyMethodDef PyTrans'+name+'_methods[] = {{"H", (PyCFunction)MT_H,    METH_VARARGS, PyTrans_docs},{"nF", (PyCFunction)MT_fieldNumber,        METH_VARARGS, PyTrans_docs},{"nP", (PyCFunction)MT_paramNumber,        METH_VARARGS, PyTrans_docs},{"V", (PyCFunction)MT_V,            METH_VARARGS, PyTrans_docs},{"dV", (PyCFunction)MT_dV,                METH_VARARGS, PyTrans_docs},  {"ddV", (PyCFunction)MT_ddV,                METH_VARARGS, PyTrans_docs},  {"backEvolve", (PyCFunction)MT_backEvolve,        METH_VARARGS, PyTrans_docs},    {"sigEvolve", (PyCFunction)MT_sigEvolve,        METH_VARARGS, PyTrans_docs},    {"alphaEvolve", (PyCFunction)MT_alphaEvolve,        METH_VARARGS, PyTrans_docs},   {NULL, NULL, 0, NULL}};//FuncDef\n')
+            f.write('static PyMethodDef PyTrans'+name+'_methods[] = {{"H", (PyCFunction)MT_H,    METH_VARARGS, PyTrans_docs},{"Ep", (PyCFunction)MT_Ep,    METH_VARARGS, PyTrans_docs},{"nF", (PyCFunction)MT_fieldNumber,        METH_VARARGS, PyTrans_docs},{"nP", (PyCFunction)MT_paramNumber,        METH_VARARGS, PyTrans_docs},{"V", (PyCFunction)MT_V,            METH_VARARGS, PyTrans_docs},{"dV", (PyCFunction)MT_dV,                METH_VARARGS, PyTrans_docs},  {"ddV", (PyCFunction)MT_ddV,                METH_VARARGS, PyTrans_docs},  {"backEvolve", (PyCFunction)MT_backEvolve,        METH_VARARGS, PyTrans_docs},  {"sigEvolve", (PyCFunction)MT_sigEvolve,        METH_VARARGS, PyTrans_docs},  {"gamEvolve", (PyCFunction)MT_gamEvolve,        METH_VARARGS, PyTrans_docs},    {"alphaEvolve", (PyCFunction)MT_alphaEvolve,        METH_VARARGS, PyTrans_docs},   {NULL, NULL, 0, NULL}};//FuncDef\n')
 
         if line.endswith("//modDef\n"):
             f.write('static struct PyModuleDef PyTransModule = {PyModuleDef_HEAD_INIT, "PyTrans'+name+'", PyTrans_docs, -1, PyTrans'+name+'_methods}; //modDef\n')
@@ -151,7 +151,7 @@ def compileName3(name,NC=False):
     subprocess.call(["python", filename1, "install", "--home=" + location],cwd=location)
     sys.path.append(location+"/lib/python/")
     sys.path.append(location+"../PyTransScripts")
-    shutil.rmtree(location+"/build/")
+    shutil.rmtree(location+"/build/", ignore_errors=False)
 
 
 
@@ -163,8 +163,30 @@ def deleteModule(name):
 #os.remove(location+"/lib/python/PyTrans"+name+"-1.0-py2.7.egg-info")
 
 
+def write_cse_decls(decls, g, nF, nP):
+    # emit declarations for common subexpressions
+    for rule in decls:
+        symb = sym.printing.cxxcode(rule[0])
+        expr = sym.printing.cxxcode(rule[1])
+        new_expr = rewrite_indices(expr, nF, nP)
+        g.write('  double ' + symb + ' = ' + new_expr + ';\n')
 
-def potential(V,nF,nP,simple=False,G=0):
+
+def rewrite_indices(expr, nF, nP):
+    new_expr = expr
+
+    for l in range(max(nP, nF)):
+        l = max(nP, nF) - 1 - l
+        new_expr = new_expr.replace("_" + str(l), "[" + str(l) + "]")
+
+    return new_expr
+
+def tol(rtol, atol):
+    dir = os.path.dirname(__file__)
+    filename = os.path.join(dir, 'PyTrans', 'PyTrans.cpp')
+    f = open(filename,"r")  
+
+def potential(V,nF,nP,simple=False,G=0,silent=True):
     f=sym.symarray('f',nF)
     p=sym.symarray('p',nP)
 
@@ -172,9 +194,21 @@ def potential(V,nF,nP,simple=False,G=0):
     vdd=sym.symarray('vdd',nF*nF)
     vddd=sym.symarray('vddd',nF*nF*nF)
 
+    if not silent:
+        timer = time.clock()
+        print('[{time}] computing symbolic potential derivatives'.format(time=time.ctime()))
 
     if G!=0:
-        g, Ga, Ri, Rm =fieldmetric(G,nF,nP,simple)
+
+        if not silent:
+            timer2 = time.clock()
+            print('  [{time}] computing curvature quantities'.format(time=time.ctime()))
+
+        g, Ga, Ri, Rm =fieldmetric(G,nF,nP,simple=simple,silent=silent)
+
+        if not silent:
+            print('  [{time}] complete in {x} sec'.format(time=time.ctime(), x=time.clock() - timer2))
+
         FMP=0
         for i in range(nF):
             if simple==True:
@@ -216,66 +250,112 @@ def potential(V,nF,nP,simple=False,G=0):
                         vddd[i+j*nF+k*nF*nF] = sym.simplify(V.diff(f[i]).diff(f[j]).diff(f[k]))
                     else:
                         vddd[i+j*nF+k*nF*nF] = V.diff(f[i]).diff(f[j]).diff(f[k])
-            
+
+    if not silent:
+        print('[{time}] complete in {x} sec'.format(time=time.ctime(), x=time.clock() - timer))
+
     import os
     dir = os.path.dirname(__file__)
-    filename1 = os.path.join(dir, 'CppTrans/potentialProto.h')
-    filename2 = os.path.join(dir, 'CppTrans/potential.h')
+    filename1 = os.path.join(dir, 'CppTrans', 'potentialProto.h')
+    filename2 = os.path.join(dir, 'CppTrans', 'potential.h')
     f = open(filename1, 'r')
     g = open(filename2, 'w')
 
+    if not silent:
+        timer = time.clock()
+        print('[{time}] writing to potential.h'.format(time=time.ctime()))
+
     for line in f:
+
         g.write(line)
+
         if line == "// #Rewrite\n":
             g.write('// Potential file rewriten at' + ' ' + time.strftime("%c") +'\n')
+
         if line == "// #FP\n":
             g.write('nF='+str(nF)+';\n'+'nP='+str(nP)+';\n')
 
         if line == "// Pot\n":
-            expr=str(sym.ccode(V))
-            if (expr!=str(0)):
-                if (expr!=str(0.0)):
-                    for l in range(max(nP,nF)):
-                        l=max(nP,nF)-1-l
-                        expr=expr.replace("_"+str(l),"["+str(l)+"]")
-                    g.write('\n sum='+str(expr)+';\n')
+
+            # extract common subexpressions from V
+            if not silent:
+                timer_cse = time.clock()
+                print('  [{time}] performing CSE for V'.format(time=time.ctime()))
+            decls, new_expr = sym.cse(V, order='none')
+            if not silent:
+                print('  [{time}] complete in {x} sec'.format(time=time.ctime(), x=time.clock() - timer_cse))
+
+            # emit declarations for CSE variables
+            write_cse_decls(decls, g, nF, nP)
+
+            # emit main expression
+            emit_expr = sym.printing.cxxcode(new_expr[0])
+            rw_expr = rewrite_indices(emit_expr, nF, nP)
+            g.write('  sum='+str(rw_expr)+';\n')
+
         if line == "// dPot\n":
+
+            if not silent:
+                timer_cse = time.clock()
+                print('  [{time}] performing CSE for dV'.format(time=time.ctime()))
+            decls, new_exprs = sym.cse(vd, order='none')
+            if not silent:
+                print('  [{time}] complete in {x} sec'.format(time=time.ctime(), x=time.clock() - timer_cse))
+
+            # emit declarations for CSE variables
+            write_cse_decls(decls, g, nF, nP)
+
             for i in range(nF):
-                expr=str(sym.ccode(vd[i]))
-                if (expr!=str(0)):
-                    if (expr!=str(0.0)):
-                        for l in range(max(nF,nP)):
-                            l=max(nP,nF)-1-l
-                            expr=expr.replace("_"+str(l),"["+str(l)+"]")
-                        g.write('\n sum['+str(i)+']='+str(expr)+';\n')
-    
+
+                emit_expr = sym.printing.cxxcode(new_exprs[i])
+                rw_expr = rewrite_indices(emit_expr, nF, nP)
+                g.write('\n sum[' + str(i) + ']=' + str(rw_expr) + ';\n')
+
         if line == "// ddPot\n":
+
+            if not silent:
+                timer_cse = time.clock()
+                print('  [{time}] performing CSE for ddV'.format(time=time.ctime()))
+            decls, new_exprs = sym.cse(vdd, order='none')
+            if not silent:
+                print('  [{time}] complete in {x} sec'.format(time=time.ctime(), x=time.clock() - timer_cse))
+
+            # emit declarations for CSE variables
+            write_cse_decls(decls, g, nF, nP)
+
             for i in range(nF):
                 for j in range(nF):
-                    expr=str(sym.ccode(vdd[i+nF*j]))
-                    if (expr!=str(0)):
-                        if (expr!=str(0.0)):
-                            for l in range(max(nF,nP)):
-                                l=max(nP,nF)-1-l
-                                expr=expr.replace("_"+str(l),"["+str(l)+"]")
-                            g.write('\n sum['+str(i)+'+nF*'+str(j)+']='+str(expr)+';\n')
+                    emit_expr = sym.printing.cxxcode(new_exprs[i + nF * j])
+                    rw_expr = rewrite_indices(emit_expr, nF, nP)
+                    g.write('\n sum[' + str(i + nF * j) + ']=' + str(rw_expr) + ';\n')
+
         if line == "// dddPot\n":
+
+            if not silent:
+                timer_cse = time.clock()
+                print('  [{time}] performing CSE for dddV'.format(time=time.ctime()))
+            decls, new_exprs = sym.cse(vddd, order='none')
+            if not silent:
+                print('  [{time}] complete in {x} sec'.format(time=time.ctime(), x=time.clock() - timer_cse))
+
+            # emit declarations for CSE variables
+            write_cse_decls(decls, g, nF, nP)
+
             for i in range(nF):
                 for j in range(nF):
                     for k in range(nF):
-                        expr=str(sym.ccode(vddd[i+nF*j+nF*nF*k]))
-                        if (expr!=str(0)):
-                            if (expr!=str(0.0)):
-                                for l in range(max(nF,nP)):
-                                    l=max(nP,nF)-1-l
-                                    expr=expr.replace("_"+str(l),"["+str(l)+"]")
-                                g.write('\n sum['+str(i)+'+nF*'+str(j)+'+nF*nF*'+str(k)+']='+str(expr)+';\n')
 
+                        emit_expr = sym.printing.cxxcode(new_exprs[i + nF * j + nF * nF * k])
+                        rw_expr = rewrite_indices(emit_expr, nF, nP)
+                        g.write('\n sum[' + str(i + nF * j + nF * nF * k) + ']=' + str(rw_expr) + ';\n')
+
+    if not silent:
+        print('[{time}] complete in {x} sec'.format(time=time.ctime(), x=time.clock() - timer))
 
     g.close()
     f.close()
 
-def fieldmetric(G,nF,nP,simple=False):
+def fieldmetric(G,nF,nP,simple=False,silent=True):
     f=sym.symarray('f',nF)
     p=sym.symarray('p',nP)
 
@@ -284,13 +364,93 @@ def fieldmetric(G,nF,nP,simple=False):
     Ga = Christoffel('Ga', g)
     Ri = Ricci('Ri', g)
     Rm = Riemann('Rm',g)
+
     import os
+
     dir = os.path.dirname(__file__)
-    filename1 = os.path.join(dir, 'CppTrans/fieldmetricProto.h')
-    filename2 = os.path.join(dir, 'CppTrans/fieldmetric.h')
+    filename1 = os.path.join(dir, 'CppTrans', 'fieldmetricProto.h')
+    filename2 = os.path.join(dir, 'CppTrans', 'fieldmetric.h')
     e = open(filename1, 'r')
     h = open(filename2, 'w')
 
+    G_array = sym.symarray('G', 2*nF * 2*nF)
+    Gamma_array = sym.symarray('Gamma', 2*nF * 2*nF * 2*nF)
+    R_array = sym.symarray('Riemann', nF*nF*nF*nF)
+    gradR_array = sym.symarray('gradRiemann', nF*nF*nF*nF*nF)
+
+    # populate Riemann matrix
+    for i in range(2 * nF):
+        for j in range(2 * nF):
+            if i < nF:
+                ii = -i - 1
+            else:
+                ii = i - (nF - 1)
+            if j < nF:
+                jj = -j - 1
+            else:
+                jj = j - (nF - 1)
+
+            if simple is True:
+                G_array[(2 * nF) * i + j] = sym.simplify(g(ii, jj))
+            else:
+                G_array[(2 * nF) * i + j] = g(ii, jj)
+
+    # populate connexion matrix
+    for i in range(2 * nF):
+        for j in range(2 * nF):
+            for k in range(2 * nF):
+                if i < nF:
+                    ii = -i - 1
+                else:
+                    ii = i - (nF - 1)
+                if j < nF:
+                    jj = -j - 1
+                else:
+                    jj = j - (nF - 1)
+                if k < nF:
+                    kk = -k - 1
+                else:
+                    kk = k - (nF - 1)
+
+                if kk < 0 or jj < 0 or ii > 0:
+                    Gamma_array[(2*nF)*(2*nF)*i+(2*nF)*j+k] = sym.simplify(0)
+                else:
+                    if simple is True:
+                        Gamma_array[(2*nF)*(2*nF)*i+(2*nF)*j+k] = sym.simplify(Ga(ii, jj, kk))
+                    else:
+                        Gamma_array[(2*nF)*(2*nF)*i+(2*nF)*j+k] = Ga(ii, jj, kk)
+
+    # populate Riemann matrix
+    for i in range(nF):
+        for j in range(nF):
+            for k in range(nF):
+                for l in range(nF):
+                    ii=i+1
+                    jj=j+1
+                    kk=k+1
+                    ll=l+1
+
+                    if simple is True:
+                        R_array[(nF)*(nF)*(nF)*i+(nF)*(nF)*j+(nF)*k+l] = sym.simplify(Rm(ii,jj,kk,ll))
+                    else:
+                        R_array[(nF)*(nF)*(nF)*i+(nF)*(nF)*j+(nF)*k+l] = Rm(ii,jj,kk,ll)
+
+    # populate covariant-derivative of Riemann matrix
+    for i in range(nF):
+        for j in range(nF):
+            for k in range(nF):
+                for l in range(nF):
+                    for m in range(nF):
+                        ii = i + 1
+                        jj = j + 1
+                        kk = k + 1
+                        ll = l + 1
+                        mm = m + 1
+
+                        if simple is True:
+                            gradR_array[(nF)*(nF)*(nF)*(nF)*i+(nF)*(nF)*(nF)*j+(nF)*(nF)*k+(nF)*l+m] = sym.simplify(Rm.covariantD(ii, jj, kk, ll, mm))
+                        else:
+                            gradR_array[(nF)*(nF)*(nF)*(nF)*i+(nF)*(nF)*(nF)*j+(nF)*(nF)*k+(nF)*l+m] = Rm.covariantD(ii, jj, kk, ll, mm)
 
     for line in e:
         h.write(line)
@@ -299,97 +459,88 @@ def fieldmetric(G,nF,nP,simple=False):
             h.write('nF='+str(nF)+';\n'+'nP='+str(nP)+';\n')
 
         if line == "// metric\n":
-            for i in  range(2*nF):
-                for j in  range(2*nF):
-                    if i<nF:
-                        ii=-i-1
-                    else:
-                        ii=i-(nF-1)
-                    if j<nF:
-                        jj=-j-1
-                    else:
-                        jj=j-(nF-1)
-                    if simple==True:
-                        expr=str(ccode(sym.simplify(g(ii,jj)*1.0)))
-                    else:
-                        expr=str(ccode(g(ii,jj)*1.0))
-                    if g(ii,jj)!=0.0 or g(ii,jj)!=0:
-                        for m in range(max(nF,nP)): 
-                            expr=expr.replace("_"+str(m),"["+str(m)+"]")
-                        h.write('\n FM['+str((2*nF)*i+j)+']='+str(expr)+';\n')
 
+            if not silent:
+                timer_cse = time.clock()
+                print('    [{time}] performing CSE for field metric'.format(time=time.ctime()))
+            decls, new_expr = sym.cse(G_array, order='none')
+            if not silent:
+                print('    [{time}] complete in {x} sec'.format(time=time.ctime(), x=time.clock() - timer_cse))
 
-        if line == "// Christoffel\n":
+            # emit declarations for CSE variables
+            write_cse_decls(decls, h, nF, nP)
+
             for i in range(2*nF):
                 for j in range(2*nF):
-                    for k in range(2*nF):
-                        if i<nF:
-                            ii=-i-1
-                        else:
-                            ii=i-(nF-1)
-                        if j<nF:
-                            jj=-j-1
-                        else:
-                            jj=j-(nF-1)
-                        if k<nF:
-                            kk=-k-1
-                        else:
-                            kk=k-(nF-1)
-                        if kk<0 or jj<0 or ii>0:
-                            expr=str(0.0)
-                        else:
-                            if simple==True:
-                                expr=str(ccode(sym.simplify(Ga(ii,jj,kk)*1.0)))
-                            else:
-                                expr=str(ccode(Ga(ii,jj,kk)*1.0))
-                        if (expr!=str(0)):
-                            if (expr!=str(0.0)):
-                                for m in range(max(nF,nP)): 
-                                    expr=expr.replace("_"+str(m),"["+str(m)+"]")
-                                h.write('\n CS['+str((2*nF)*(2*nF)*i+(2*nF)*j+k)+']='+str(expr)+';\n')
-		
+                    # emit main expression
+                    emit_expr = sym.printing.cxxcode(new_expr[(2*nF)*i+j])
+                    rw_expr = rewrite_indices(emit_expr, nF, nP)
+                    h.write('\n FM['+str((2*nF)*i+j)+']=' + str(rw_expr) + ';\n')
+
+        if line == "// Christoffel\n":
+
+            if not silent:
+                timer_cse = time.clock()
+                print('    [{time}] performing CSE for Christoffel symbols'.format(time=time.ctime()))
+            decls, new_expr = sym.cse(Gamma_array, order='none')
+            if not silent:
+                print('    [{time}] complete in {x} sec'.format(time=time.ctime(), x=time.clock() - timer_cse))
+
+            # emit declarations for CSE variables
+            write_cse_decls(decls, h, nF, nP)
+
+            for i in range(2 * nF):
+                for j in range(2 * nF):
+                    for k in range(2 * nF):
+                        # emit main expression
+                        emit_expr = sym.printing.cxxcode(new_expr[(2*nF)*(2*nF)*i+(2*nF)*j+k])
+                        rw_expr = rewrite_indices(emit_expr, nF, nP)
+                        h.write('\n CS['+str((2*nF)*(2*nF)*i+(2*nF)*j+k)+']=' + str(rw_expr) + ';\n')
     
         if line == "// Riemann\n":
-                for i in range(nF):
-                    for j in range(nF):
-                        for k in range(nF):
-                            for l in range(nF):
-                                ii=i+1
-                                jj=j+1
-                                kk=k+1
-                                ll=l+1
-                                if simple==True:
-                                    expr=str(ccode(sym.simplify(Rm(ii,jj,kk,ll)*1.0)))
-                                else:
-                                    expr=str(ccode(Rm(ii,jj,kk,ll)*1.0))
-                                if (expr!=str(0)):
-                                    if (expr!=str(0.0)):
-                                        for m in range(max(nF,nP)): 
-                                            expr=expr.replace("_"+str(m),"["+str(m)+"]")
-                                        h.write('\n RM['+str((nF)*(nF)*(nF)*i+(nF)*(nF)*j+(nF)*k+l)+']='+str(expr)+';\n')
-                          
+
+            if not silent:
+                timer_cse = time.clock()
+                print('    [{time}] performing CSE for Riemann tensor'.format(time=time.ctime()))
+            decls, new_expr = sym.cse(R_array, order='none')
+            if not silent:
+                print('    [{time}] complete in {x} sec'.format(time=time.ctime(), x=time.clock() - timer_cse))
+
+            # emit declarations for CSE variables
+            write_cse_decls(decls, h, nF, nP)
+
+            for i in range(nF):
+                for j in range(nF):
+                    for k in range(nF):
+                        for l in range(nF):
+                            # emit main expression
+                            emit_expr = sym.printing.cxxcode(new_expr[(nF)*(nF)*(nF)*i+(nF)*(nF)*j+(nF)*k+l])
+                            rw_expr = rewrite_indices(emit_expr, nF, nP)
+                            h.write('\n RM['+str((nF)*(nF)*(nF)*i+(nF)*(nF)*j+(nF)*k+l)+']=' + str(rw_expr) + ';\n')
        
         if line == "// Riemanncd\n":
-                for i in range(nF):
-                    for j in range(nF):
-                        for k in range(nF):
-                            for l in range(nF):
-                                for m in range(nF):    
-                                    ii=i+1
-                                    jj=j+1
-                                    kk=k+1
-                                    ll=l+1
-                                    mm=m+1
-                                    if simple==True:
-                                        expr=str(ccode(sym.simplify(Rm.covariantD(ii,jj,kk,ll,mm)*1.0)))
-                                    else:
-                                        expr=str(ccode(Rm.covariantD(ii,jj,kk,ll,mm)*1.0))
-                                    if (expr!=str(0)):
-                                        if (expr!=str(0.0)):
-                                            for n in range(max(nF,nP)): 
-                                                expr=expr.replace("_"+str(n),"["+str(n)+"]")
-                                            h.write('\n RMcd['+str((nF)*(nF)*(nF)*(nF)*i+(nF)*(nF)*(nF)*j+(nF)*(nF)*k+(nF)*l+m)+']='+str(expr)+';\n')
+
+            if not silent:
+                timer_cse = time.clock()
+                print('    [{time}] performing CSE for Riemann tensor'.format(time=time.ctime()))
+            decls, new_expr = sym.cse(gradR_array, order='none')
+            if not silent:
+                print('    [{time}] complete in {x} sec'.format(time=time.ctime(), x=time.clock() - timer_cse))
+
+            # emit declarations for CSE variables
+            write_cse_decls(decls, h, nF, nP)
+
+            for i in range(nF):
+                for j in range(nF):
+                    for k in range(nF):
+                        for l in range(nF):
+                            for m in range(nF):
+                                # emit main expression
+                                emit_expr = sym.printing.cxxcode(new_expr[(nF)*(nF)*(nF)*(nF)*i+(nF)*(nF)*(nF)*j+(nF)*(nF)*k+(nF)*l+m])
+                                rw_expr = rewrite_indices(emit_expr, nF, nP)
+                                h.write('\n RMcd['+str((nF)*(nF)*(nF)*(nF)*i+(nF)*(nF)*(nF)*j+(nF)*(nF)*k+(nF)*l+m)+']=' + str(rw_expr) + ';\n')
 
     h.close()
     e.close()
+
     return g, Ga, Ri, Rm
