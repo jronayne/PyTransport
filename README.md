@@ -14,7 +14,7 @@ PyTransport has been developed on OS X and Linux Ubuntu using Python 2.7, and is
 # Quick installation Guide
 In order to compile PyTransport some prerequisites are required:
 * A working Python installation (We recommend Python 2.7 however we have attempted to ensure compatibility with versions of Python 3).
-* The following python packages, Numpy, Matplotlib, SciPy, Gravipy, SymPy, Distutils, Math and Sys.
+* The following python packages, Numpy, Matplotlib, SciPy, Gravipy (v 0.1.0 *Note: compatiability issues with v0.2.0*), SymPy, Distutils, Math and Sys.
 The simplist way to install these packages is by using pip, e.g.
 ```sh
 pip install numpy
